@@ -4,42 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ore Comigo | Oficial</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --p: #6d8299; --a: #d4a373; --bg: #f4f7f6; --w: #ffffff; --t: #2d3436; --h: #e74c3c; --f: #f1c40f; --s: #27ae60; --modal-bg: rgba(0,0,0,0.5); --item-bg: rgba(109,130,153,0.08); }
         body.dark-mode { --bg: #1a1a2e; --w: #16213e; --t: #e9ecef; --p: #a2b2c8; --modal-bg: rgba(0,0,0,0.8); --item-bg: rgba(255,255,255,0.05); }
+        
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: var(--t); display: flex; height: 100vh; overflow: hidden; }
+        
+        /* BARRA LATERAL 175PX PRESERVADA */
         .sidebar { width: 175px; background: var(--w); border-right: 1px solid rgba(0,0,0,0.05); height: 100vh; position: fixed; left: 0; top: 0; display: flex; flex-direction: column; padding: 15px 10px; z-index: 1000; }
-        .sidebar h1 { font-family: 'Playfair Display'; color: var(--p); text-align: center; margin-bottom: 20px; font-size: 22px; letter-spacing: -0.5px; padding-bottom: 8px; border-bottom: 1px solid var(--item-bg); }
-        .nav-group { display: flex; flex-direction: column; gap: 15px; }
-        .nav-item { padding: 10px 12px; border-radius: 12px; cursor: pointer; color: var(--t); font-weight: 700; font-size: 12px; display: flex; align-items: center; gap: 8px; transition: 0.2s; background: var(--item-bg); }
+        .sidebar h1 { color: var(--p); text-align: center; margin-bottom: 20px; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; padding-bottom: 8px; border-bottom: 1px solid var(--item-bg); }
+        
+        .nav-group { display: flex; flex-direction: column; gap: 12px; }
+        .nav-item { padding: 10px 10px; border-radius: 12px; cursor: pointer; color: var(--t); font-weight: 700; font-size: 11px; display: flex; align-items: center; gap: 6px; transition: 0.2s; background: var(--item-bg); white-space: nowrap; }
         .nav-item.active { background: var(--p); color: white; box-shadow: 0 4px 10px rgba(109,130,153,0.15); }
-        .item-apoio { background: rgba(231, 76, 60, 0.08) !important; color: var(--h) !important; }
+        
+        /* AJUSTE ESPECÍFICO ITEM APOIO */
+        .item-apoio { background: rgba(231, 76, 60, 0.08) !important; color: var(--h) !important; font-size: 10.5px !important; }
         .item-share { background: rgba(39, 174, 96, 0.08) !important; color: var(--s) !important; }
         .item-theme { border: 1px dashed rgba(0,0,0,0.1) !important; background: transparent !important; }
+        
         main { flex: 1; margin-left: 175px; padding: 15px; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; align-items: center; }
         .screen { display: none; width: 100%; max-width: 400px; animation: fadeIn 0.3s ease-out; padding-bottom: 80px; }
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
         .card-cat { background: var(--w); padding: 15px 5px; border-radius: 18px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.3s ease; }
-        .card-cat:active { transform: translateY(-4px); }
         .card-cat div { font-size: 22px; margin-bottom: 5px; }
-        .card-cat span { display: block; font-weight: 700; font-size: 9px; color: var(--p); text-transform: uppercase; letter-spacing: 0.4px; }
-        .ora-item { background: var(--w); padding: 12px 15px; border-radius: 14px; margin-bottom: 10px; cursor: pointer; border-left: 4px solid var(--p); box-shadow: 0 2px 5px rgba(0,0,0,0.02); transition: 0.2s; width: 100%; }
-        .ora-item strong { display: block; font-size: 14px; color: var(--t); margin-bottom: 2px; }
+        .card-cat span { display: block; font-weight: 700; font-size: 10px; color: var(--p); text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .ora-item { background: var(--w); padding: 12px 15px; border-radius: 14px; margin-bottom: 10px; cursor: pointer; border-left: 4px solid var(--p); box-shadow: 0 2px 5px rgba(0,0,0,0.02); width: 100%; }
+        .ora-item strong { display: block; font-size: 14px; color: var(--t); margin-bottom: 2px; font-weight: 700; }
         .ora-item small { display: block; font-size: 11px; color: var(--a); font-weight: 600; }
-        .btn-back { background: none; border: none; color: var(--p); font-weight: 700; font-size: 15px; cursor: pointer; margin-bottom: 15px; display: flex; align-items: center; gap: 5px; width: fit-content; }
+        
+        .btn-back { background: none; border: none; color: var(--p); font-weight: 700; font-size: 15px; cursor: pointer; margin-bottom: 15px; display: flex; align-items: center; gap: 5px; }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-bg); z-index: 2000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
         .m-box { background: var(--w); padding: 25px; border-radius: 25px; width: 100%; max-width: 330px; position: relative; max-height: 85vh; overflow-y: auto; }
+        .m-box h3 { text-align: center; margin-bottom: 15px; color: var(--p); font-weight: 700; }
+        
         .btn-amen { display: block; margin: 20px auto 0; padding: 12px 40px; border: none; background: var(--p); color: white; border-radius: 20px; font-weight: 700; cursor: pointer; }
         #toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #2d3436; color: white; padding: 10px 20px; border-radius: 25px; font-size: 13px; z-index: 3000; opacity: 0; transition: 0.3s; pointer-events: none; }
         #toast.show { opacity: 1; }
-        .donate-card { background: var(--w); padding: 40px 20px; border-radius: 30px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.02); width: 100%; margin-top: 20px; }
-        .pix-box { background: var(--bg); padding: 15px 20px; border-radius: 22px; border: 2px dashed var(--p); cursor: pointer; transition: 0.2s; margin: 20px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80px; }
-        .pix-box:active { transform: scale(0.97); background: rgba(109,130,153,0.1); }
-        @media (max-width: 600px) { .sidebar { width: 150px; } main { margin-left: 150px; } }
+        
+        .donate-card { background: var(--w); padding: 40px 20px; border-radius: 30px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.04); width: 100%; margin-top: 20px; }
+        .pix-box { background: var(--bg); padding: 15px 20px; border-radius: 22px; border: 2px dashed var(--p); cursor: pointer; margin: 20px 0; display: flex; align-items: center; justify-content: center; min-height: 80px; }
+
+        @media (max-width: 600px) { .sidebar { width: 150px; } main { margin-left: 150px; } .sidebar h1 { font-size: 18px; } }
     </style>
 </head>
 <body>
@@ -55,15 +67,17 @@
             <div class="nav-item item-theme" onclick="toggleTheme()">☀️ Modo Claro</div>
         </div>
     </aside>
+
     <main id="main-content">
         <section id="home" class="screen active">
-            <div style="background: linear-gradient(135deg, #6d8299, #8da9c4); color:white; padding:35px 20px; border-radius:25px; text-align:center; transition: 0.3s; box-shadow: 0 4px 15px rgba(109,130,153,0.2);">
-                <h2 id="saudacao" style="font-family:'Playfair Display'; font-size: 22px;">Seja Bem-vindo</h2>
+            <div style="background: linear-gradient(135deg, #6d8299, #8da9c4); color:white; padding:35px 20px; border-radius:25px; text-align:center; box-shadow: 0 4px 15px rgba(109,130,153,0.2);">
+                <h2 id="saudacao" style="font-weight: 700; font-size: 22px;">Seja Bem-vindo</h2>
                 <div style="height: 2px; background: rgba(255,255,255,0.3); width: 30px; margin: 15px auto;"></div>
                 <p id="msg-dia" style="font-size:14px; font-style:italic; min-height: 40px; display: flex; align-items: center; justify-content: center;"></p>
             </div>
             <button onclick="randomO()" style="margin-top:25px; background:var(--w); border:1px solid #ddd; padding:18px; border-radius:22px; width:100%; color:var(--p); font-weight:700; cursor:pointer;">✨ Receber uma Palavra</button>
         </section>
+
         <section id="list" class="screen">
             <div id="cat-menu" class="grid">
                 <div class="card-cat" onclick="openCat('paz')"><div>🕊️</div><span>PAZ</span></div>
@@ -79,11 +93,13 @@
             </div>
             <div id="ora-container" style="display:none"></div>
         </section>
-        <section id="favs" class="screen"><h3 style="text-align:center; color:var(--p); margin-bottom:20px;">Favoritos</h3><div id="fav-list"></div></section>
+
+        <section id="favs" class="screen"><h3 style="text-align:center; color:var(--p); margin-bottom:20px; font-weight:700;">Favoritos</h3><div id="fav-list"></div></section>
+
         <section id="donate" class="screen">
             <div class="donate-card">
                 <div style="font-size: 50px; margin-bottom: 10px;">💎</div>
-                <h3 style="font-family: 'Playfair Display'; color: var(--p); font-size: 22px;">Apoie esta Missão</h3>
+                <h3 style="color: var(--p); font-size: 22px; font-weight: 700;">Apoie esta Missão</h3>
                 <p style="font-size: 14px; opacity: 0.8; margin-top: 15px; line-height: 1.6; font-style: italic;">"Este projeto é mantido por corações generosos como o seu. Ajude-nos a continuar esta obra."</p>
                 <div class="pix-box" onclick="copyPix('65173337000146')">
                     <span style="font-size: 13px; font-weight: 700; color: var(--p); letter-spacing: 1px;">TOQUE PARA COPIAR O PIX</span>
@@ -92,7 +108,9 @@
             </div>
         </section>
     </main>
-    <div id="modal" class="modal" onclick="closeM()"><div class="m-box" onclick="event.stopPropagation()"><div id="btn-fav-modal" style="position:absolute; top:15px; right:15px; font-size:24px; cursor:pointer;">☆</div><h3 id="mt" style="text-align:center; margin-bottom:15px; color:var(--p); font-family:'Playfair Display';"></h3><p id="mm" style="font-size:15px; line-height:1.5; text-align:left;"></p><small id="mr" style="display:block; text-align:center; margin-top:15px; color:var(--a); font-weight:700;"></small><button class="btn-amen" onclick="closeM()">Amém</button></div></div>
+
+    <div id="modal" class="modal" onclick="closeM()"><div class="m-box" onclick="event.stopPropagation()"><div id="btn-fav-modal" style="position:absolute; top:15px; right:15px; font-size:24px; cursor:pointer;">☆</div><h3 id="mt"></h3><p id="mm" style="font-size:15px; line-height:1.5; text-align:left;"></p><small id="mr" style="display:block; text-align:center; margin-top:15px; color:var(--a); font-weight:700;"></small><button class="btn-amen" onclick="closeM()">Amém</button></div></div>
+
     <script>
         const db = {
             paz: [
@@ -137,7 +155,7 @@
                 {id:"pe3",t:"Misericórdia",r:"Lucas 6:36",m:"Pai, peço que a Tua misericórdia me alcance hoje. Assim como recebo o Teu perdão generoso, ajuda-me a ser misericordioso com os erros alheios. Que eu seja um canal da Tua graça restauradora, levando reconciliação onde houver conflito e amor onde houver ódio. Amém."},
                 {id:"pe4",t:"Libertação",r:"João 8:36",m:"Senhor Jesus, obrigado porque o Teu perdão me traz verdadeira liberdade. Peço que me libertes das correntes da culpa e do remorso que tentam me prender ao passado. Que eu aceite o Teu perdão e caminhe para frente, focado nas novas oportunidades que tens. Amém."},
                 {id:"pe5",t:"Arrependimento",r:"1 João 1:9",m:"Deus fiel e justo, venho confessar os meus pecados. Arrependo-me de tudo o que fiz que Te entristeceu e peço que me purifiques de toda injustiça. Obrigado por me dar a chance de recomeçar com o coração renovado e fortalecido pela Tua graça infinita. Amém."},
-                {id:"pe6",t:"Novas Criaturas",r:"2 Cor. 5:17",m:"Senhor, agradeço porque in Cristo as coisas velhas já passaram e tudo se fez novo. Peço que o meu passado não tenha poder sobre o meu presente. Que o Teu perdão me transforme em uma pessoa melhor, mais parecida com Jesus e cheia de esperança no futuro. Amém."},
+                {id:"pe6",t:"Novas Criaturas",r:"2 Cor. 5:17",m:"Senhor, agradeço porque em Cristo as coisas velhas já passaram e tudo se fez novo. Peço que o meu passado não tenha poder sobre o meu presente. Que o Teu perdão me transforme em uma pessoa melhor, mais parecida com Jesus e cheia de esperança no futuro. Amém."},
                 {id:"pe7",t:"Paz com o Próximo",r:"Efésios 4:32",m:"Pai, ajuda-me a ser bondoso e compassivo. Que eu possa perdoar os outros assim como Tu me perdoaste em Cristo. Remove toda a amargura do meu coração, para que eu viva em paz e harmonia, espalhando o Teu amor por onde quer que eu passar hoje. Amém."},
                 {id:"pe8",t:"Limpeza Profunda",r:"Isaías 1:18",m:"Senhor, Tu prometeste que nossos pecados ficariam brancos como a neve. Agradeço por essa limpeza profunda em minha alma. Que eu valorize esse sacrifício e procure viver uma vida santa e agradável a Ti, honrando o Teu nome em cada pensamento meu. Amém."},
                 {id:"pe9",t:"Amor Restaurador",r:"1 Pedro 4:8",m:"Deus, que o amor prevaleça sobre os meus julgamentos. Ensina-me que o amor cobre uma multidão de pecados e cura as feridas da alma. Que eu prefira amar e perdoar do que ter razão, construindo pontes de restauração e esperança em meus relacionamentos. Amém."},
@@ -200,7 +218,7 @@
                 {id:"fc6",t:"Rocha de Amparo",r:"Salmos 18:2",m:"Senhor, Tu és o meu rochedo, a minha fortaleza e o meu libertador. O meu Deus, em quem me refugio com total confiança. Agradeço por ser essa base sólida em minha vida. Com a Tua força, sinto-me seguro para enfrentar qualquer tempestade que tente me derrubar hoje. Amém."},
                 {id:"fc7",t:"Firmeza e Fé",r:"Salmos 125:1",m:"Deus, que eu seja como o monte de Sião, que não se abala, mas permanece para sempre. Firma os meus pés na Tua verdade eterna para que as circunstâncias da vida não roubem a minha estabilidade emocional. Que a minha força venha da comunhão constante Contigo. Amém."},
                 {id:"fc8",t:"Bom Ânimo Diário",r:"João 16:33",m:"Jesus, obrigado por vencer o mundo por mim e me dar esperança. Em meio às afflições da vida, peço que me dês bom ânimo e paz. Que eu não perca a motivação para continuar fazendo o bem e seguindo o Teu exemplo. Tua vitória na cruz é a garantia da minha força. Amém."},
-                {id:"fc9",t:"Sustento do Fardo",r:"Salmos 55:22",m:"Senhor, entrego o meu fardo pesado a Ti, pois não consigo carregá-lo sozinho. Sustenta-me conforme a Tua promessa de que nunca permitirás que o justo seja abalado. Tira o peso da ansiedade e coloca a leveza da Tua força em meu coração e em minha mente. Amém."},
+                {id:"fc9",t:"Sustento do Fardo",r:"Salmos 55:22",m:"Senhor, entrego o meu fardo pesado a Ti, pois não consigo carregá-lo sozinho. Sustenta-me conforme a Tua promessa de que nunca permitirás que o justo seja abalado. Tira o peso da ansiedade e coloca a leveza della Tua força em meu coração e em minha mente. Amém."},
                 {id:"fc10",t:"Armadura da Fé",r:"Efésios 6:11",m:"Deus, revisto-me de toda a armadura de Deus hoje. Que o escudo da fé me proteja de todos os ataques. Que a espada do Espírito, que é a Tua palavra viva, me dê a força e o discernimento necessários para vencer as ciladas e caminhar em triunfo hoje. Amém."}
             ],
             filhos: [
@@ -267,7 +285,10 @@
             container.innerHTML = ""; favorites.forEach(o => { const div = document.createElement('div'); div.className = 'ora-item'; div.innerHTML = `<strong>${o.t}</strong><small>${o.r}</small>`; div.onclick = () => openModal(o); container.appendChild(div); }); 
         }
         function randomO() { const cats = Object.keys(db); const rCatId = cats[Math.floor(Math.random() * cats.length)]; const rOra = db[rCatId][Math.floor(Math.random() * db[rCatId].length)]; openModal(rOra); }
-        function shareApp() { const t = "Fortaleça sua fé com o app Ore Comigo! " + window.location.href; window.open("https://wa.me/?text=" + encodeURIComponent(t)); }
+        function shareApp() { 
+            const t = "Fortaleça sua fé com o aplicativo Ore Comigo!\n\n" + window.location.href; 
+            window.open("https://wa.me/?text=" + encodeURIComponent(t)); 
+        }
         function copyPix(chave) { navigator.clipboard.writeText(chave).then(() => { showToast("PIX Copiado!"); }); }
         function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
         window.onload = () => { const savedTheme = localStorage.getItem('ore_theme'); if(savedTheme === 'dark') { document.body.classList.add('dark-mode'); document.querySelector('.item-theme').innerHTML = '🌙 Modo Escuro'; } rotacionarFrase(); updateGreeting(); };
