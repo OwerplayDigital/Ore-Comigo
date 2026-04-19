@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ore Comigo | Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --p: #6d8299; --a: #d4a373; --bg: #f4f7f6; --w: #ffffff; --t: #2d3436; --h: #e74c3c; --f: #f1c40f; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: var(--t); display: flex; height: 100vh; overflow: hidden; }
+
+        .sidebar { width: 180px; background: var(--w); border-right: 1px solid #eee; height: 100vh; position: fixed; left: 0; top: 0; display: flex; flex-direction: column; padding: 25px 12px; z-index: 1000; }
+        .sidebar h1 { font-family: 'Playfair Display'; color: var(--p); text-align: center; margin-bottom: 25px; font-size: 18px; }
+        .nav-item { padding: 12px 10px; margin-bottom: 6px; border-radius: 10px; cursor: pointer; color: #555; font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 8px; }
+        .nav-item.active { background: var(--p); color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .hr-div { height: 1px; background: #eee; margin: 15px 0; border: none; }
+        
+        .btn-side { width: 100%; height: 40px; border-radius: 10px; font-size: 10px; font-weight: 700; cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; }
+        .b-apy { background: #fff5f5; border: 1px solid #fab1a0; color: var(--h); }
+        .b-shr { background: #e1f5e8; color: #27ae60; border: 1px solid #c3e6cb; }
+
+        main { flex: 1; margin-left: 180px; padding: 20px 15px; height: 100vh; overflow-y: auto; display: flex; justify-content: center; scroll-behavior: smooth; }
+        .screen { display: none; width: 100%; max-width: 400px; animation: fadeIn 0.3s; }
+        .screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; padding-bottom: 30px; }
+        .card-cat { background: var(--w); padding: 18px 8px; border-radius: 18px; text-align: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; transition: 0.2s; }
+        .card-cat:active { transform: scale(0.96); background: #fafafa; }
+        .card-cat div { font-size: 24px; margin-bottom: 8px; }
+        .card-cat span { display: block; font-weight: 700; font-size: 9px; color: var(--p); letter-spacing: 0.5px; text-transform: uppercase; }
+
+        .ora-item { background: white; padding: 16px; border-radius: 14px; margin-bottom: 10px; cursor: pointer; border-left: 4px solid var(--p); box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .ora-item strong { display: block; font-size: 13px; color: var(--t); margin-bottom: 3px; }
+        .ora-item small { color: var(--a); font-weight: 700; font-size: 10px; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
+        .m-box { background: var(--w); padding: 25px; border-radius: 22px; width: 100%; max-width: 340px; text-align: center; position: relative; }
+        .pix-box { cursor: pointer; padding: 25px; border: 2px solid var(--p); border-radius: 20px; background: #fff; margin-top: 25px; }
+
+        @media (max-width: 600px) { .sidebar { width: 155px; padding: 20px 8px; } main { margin-left: 155px; padding: 20px 10px; } .sidebar h1 { font-size: 16px; margin-bottom: 20px; } .nav-item { font-size: 11px; padding: 10px 8px; } .btn-side { height: 38px; font-size: 9px; } }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <h1>Ore Comigo</h1>
+        <div class="nav-links">
+            <div class="nav-item active" onclick="show('home', this)">🏠 Início</div>
+            <div class="nav-item" onclick="show('list', this)">📖 Orações</div>
+            <div class="nav-item" onclick="show('favs', this)">⭐ Favoritos</div>
+        </div>
+        <hr class="hr-div">
+        <div class="sidebar-footer">
+            <button class="btn-side b-apy" onclick="show('donate', this)">❤️ Apoie o Projeto</button>
+            <button class="btn-side b-shr" onclick="shareApp()">🔗 Compartilhar App</button>
+        </div>
+    </aside>
+
+    <main>
+        <section id="home" class="screen active">
+            <div style="background: linear-gradient(135deg, #6d8299, #8da9c4); color:white; padding:45px 25px; border-radius:25px; text-align:center; box-shadow: 0 10px 20px rgba(109,130,153,0.15);">
+                <h2 style="font-family:'Playfair Display'; font-size: 24px;">Seja Bem-vindo</h2>
+                <div style="height: 2px; background: rgba(255,255,255,0.3); width: 40px; margin: 15px auto;"></div>
+                <p id="msg-dia" style="font-size:14px; font-style:italic; line-height: 1.5; min-height: 42px; display: flex; align-items: center; justify-content: center;">"Carregando palavra de fé..."</p>
+            </div>
+            
+            <div style="margin-top: 30px; text-align: center;">
+                <button onclick="randomO()" style="background: white; border: 1px solid #eee; padding: 15px; border-radius: 20px; width: 100%; color: var(--p); font-weight: 700; font-size: 13px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); cursor: pointer;">✨ Ver Oração do Momento</button>
+            </div>
+        </section>
+
+        <section id="list" class="screen">
+            <div id="cat-menu">
+                <h3 style="color:var(--p); font-family:'Playfair Display'; text-align:center; font-size: 18px; margin-bottom: 5px;">Categorias</h3>
+                <div class="grid">
+                    <div class="card-cat" onclick="openCat('paz')"><div>🕊️</div><span>PAZ</span></div>
+                    <div class="card-cat" onclick="openCat('familia')"><div>🏠</div><span>FAMÍLIA</span></div>
+                    <div class="card-cat" onclick="openCat('gratidao')"><div>🙏</div><span>GRATIDÃO</span></div>
+                    <div class="card-cat" onclick="openCat('perdao')"><div>🔓</div><span>PERDÃO</span></div>
+                    <div class="card-cat" onclick="openCat('prosperidade')"><div>💰</div><span>PROSPERIDADE</span></div>
+                    <div class="card-cat" onclick="openCat('saude')"><div>🌿</div><span>SAÚDE</span></div>
+                    <div class="card-cat" onclick="openCat('protecao')"><div>🛡️</div><span>PROTEÇÃO</span></div>
+                    <div class="card-cat" onclick="openCat('sabedoria')"><div>💡</div><span>SABEDORIA</span></div>
+                    <div class="card-cat" onclick="openCat('forca')"><div>💪</div><span>FORÇA</span></div>
+                    <div class="card-cat" onclick="openCat('filhos')"><div>👶</div><span>FILHOS</span></div>
+                </div>
+            </div>
+            <div id="ora-container"></div>
+        </section>
+
+        <section id="favs" class="screen">
+            <h3 style="color:var(--p); font-family:'Playfair Display'; text-align:center; font-size: 18px;">Meus Favoritos</h3>
+            <div id="fav-list" style="margin-top:15px;"></div>
+        </section>
+
+        <section id="donate" class="screen">
+            <h3 style="color:var(--p); text-align:center; font-size: 18px;">Apoie o Projeto</h3>
+            <div class="pix-box" onclick="copyPix('65173337000146')">
+                <span style="font-size:15px; color:var(--p); font-weight:700;">✨ Toque para copiar o PIX</span>
+            </div>
+            <p id="feedback" style="text-align:center; margin-top:15px; color:#27ae60; font-weight:700; display:none; font-size: 14px;">Copiado! 🙏</p>
+        </section>
+    </main>
+
+    <div id="modal" class="modal" onclick="closeM()">
+        <div class="m-box" onclick="event.stopPropagation()">
+            <div id="btn-fav-modal" style="position:absolute; top:15px; right:15px; font-size:22px; cursor:pointer;">☆</div>
+            <h3 id="mt" style="color:var(--p); margin-bottom:10px; font-family:'Playfair Display'; padding: 0 25px; font-size: 18px;"></h3>
+            <p id="mm" style="font-size:14px; line-height:1.5; color:#444; text-align:center;"></p>
+            <small id="mr" style="display:block; margin-top:12px; color:var(--a); font-weight:700; font-size: 11px;"></small>
+            <button onclick="closeM()" style="margin-top:18px; padding:10px 25px; border:none; background:var(--p); color:white; border-radius:18px; font-weight:700; font-size: 13px;">Amém</button>
+        </div>
+    </div>
+
+    <script>
+        const db = {
+            paz: [{id:"p1",t:"Paz no Coração",r:"João 14:27",m:"Deixo-vos a paz, a minha paz vos dou. Não se turbe o vosso coração."}, {id:"p2",t:"Descanso em Deus",r:"Salmos 4:8",m:"Em paz me deito e logo pego no sono, pois só tu, Senhor, me fazes viver em segurança."}, {id:"p3",t:"Calma na Tempestade",r:"Marcos 4:39",m:"Senhor, acalma o mar da minha vida e traz serenidade aos meus pensamentos."}, {id:"p4",t:"Silêncio da Alma",r:"Salmos 46:10",m:"Aquietai-vos e sabei que eu sou Deus. Entrego minhas preocupações em Tuas mãos."}, {id:"p5",t:"Refúgio Seguro",r:"Salmos 91:1",m:"Aquele que habita no esconderijo do Altíssimo, à sombra do Onipotente descansará."}, {id:"p6",t:"Confiança Plena",r:"Filipenses 4:7",m:"E a paz de Deus, que excede todo o entendimento, guardará os vossos corações."}, {id:"p7",t:"Dia Sereno",r:"Salmos 118:24",m:"Este é o dia que o Senhor fez; regozijemo-nos e alegremo-nos nele em paz."}, {id:"p8",t:"Luz no Caminho",r:"Salmos 119:105",m:"Lâmpada para os meus pés é tua palavra e luz para o meu caminho."}, {id:"p9",t:"Alívio do Fardo",r:"Mateus 11:28",m:"Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei."}, {id:"p10",t:"Fortaleza",r:"Salmos 18:2",m:"O Senhor é o meu rochedo, a minha fortaleza e o meu libertador."}],
+            familia: [{id:"f1",t:"Bênção para o Lar",r:"Josué 24:15",m:"Eu e a minha casa serviremos ao Senhor. Que a tua graça habite em cada cômodo."}, {id:"f2",t:"União Familiar",r:"Salmos 133:1",m:"Oh! Quão bom e quão suave é que os irmãos vivam em união!"}, {id:"f3",t:"Proteção dos Filhos",r:"Salmos 127:3",m:"Os filhos são herança do Senhor. Guarda-os sob Tuas asas e guia seus passos."}, {id:"f4",t:"Amor no Casamento",r:"Ecl. 4:12",m:"Um cordão de três dobras não se quebra facilmente. Deus é o centro da nossa união."}, {id:"f5",t:"Paz Doméstica",r:"Prov. 15:1",m:"Que as palavras neste lar sejam de cura e amor, afastando toda discórdia."}, {id:"f6",t:"Sabedoria dos Pais",r:"Prov. 22:6", m:"Ensina a criança no caminho em que deve andar. Dá-nos sabedoria para educar."}, {id:"f7",t:"Provisão do Lar",r:"Fil. 4:19",m:"O meu Deus suprirá todas as vossas necessidades segundo as suas riquezas."}, {id:"f8",t:"Respeito e Honra",r:"Êxodo 20:12",m:"Honra a teu pai e a tua mãe, para que se prolonguem os teus dias na terra."}, {id:"f9",t:"Mesa Abençoada",r:"Salmos 128:3",m:"Tua esposa será como a videira frutífera e teus filhos como plantas de oliveira."}, {id:"f10",t:"Gratidão pela Família",r:"1 Sam. 7:12",m:"Até aqui nos ajudou o Senhor. Obrigado pela família que me concedeste."}],
+            gratidao: [{id:"g1",t:"Gratidão Diária",r:"1 Tess. 5:18",m:"Em tudo dai graças, porque esta é a vontade de Deus."}, {id:"g2",t:"Louvor pela Vida",r:"Salmos 103:2",m:"Bendize, ó minha alma, ao Senhor, e não te esqueças de nenhum de seus benefícios."}, {id:"g3",t:"Pelas Pequenas Coisas",r:"Salmos 118:1",m:"Dê graças ao Senhor, porque ele é bom; o seu amor dura para sempre."}, {id:"g4",t:"Vitórias Alcançadas",r:"1 Cor. 15:57",m:"Graças a Deus, que nos dá a vitória por meio de nosso Senhor Jesus Cristo."}, {id:"g5",t:"Coração Contente",r:"Salmos 28:7",m:"O Senhor é a minha força e o meu escudo; meu coração exulta de alegria."}, {id:"g6",t:"Provisão Fiel",r:"Lam. 3:23",m:"As tuas misericórdias renovam-se cada manhã; grande é a tua fidelidade."}, {id:"g7",t:"Pelo Fôlego de Vida",r:"Salmos 150:6",m:"Tudo o que tem fôlego louve ao Senhor. Louvai ao Senhor!"}, {id:"g8",t:"Portas Abertas",r:"Apoc. 3:8",m:"Eis que tenho posto diante de ti uma porta aberta, que ninguém pode fechar."}, {id:"g9",t:"Amizades Verdadeiras",r:"Prov. 17:17",m:"Em todo o tempo ama o amigo; e na angústia nasce o irmão."}, {id:"g10",t:"Saúde e Vigor",r:"Jer. 30:17",m:"Porque te restaurarei a saúde e curarei as tuas chagas, diz o Senhor."}],
+            perdao: [{id:"pe1",t:"Pedido de Perdão",r:"Salmos 51:10",m:"Cria em mim, ó Deus, um coração puro e renova um espírito inabalável."}, {id:"pe2",t:"Perdoar ao Próximo",r:"Col. 3:13",m:"Suportai-vos uns aos outros e perdoai-vos mutuamente, como o Senhor perdoou."}, {id:"pe3",t:"Libertação de Mágoas",r:"Efé. 4:32",m:"Sede uns para com os outros benignos, perdoando-vos uns aos outros."}, {id:"pe4",t:"Cura de Feridas",r:"Mateus 6:14",m:"Se perdoardes aos homens as suas ofensas, também vosso Pai vos perdoará."}, {id:"pe5",t:"Misericórdia",r:"Miquéias 7:18",m:"Quem, ó Deus, é semelhante a ti, que perdoas a iniquidade?"}, {id:"pe6",t:"Página em Branco",r:"Isaías 43:25",m:"Eu, eu mesmo, sou o que apago as tuas transgressões por amor de mim."}, {id:"pe7",t:"Arrependimento",r:"Atos 3:19",m:"Arrependei-vos, pois, e convertei-vos, para que sejam apagados os vossos pecados."}, {id:"pe8",t:"Amor que Cobre Erros",r:"1 Pedro 4:8",m:"O amor cobre uma multidão de pecados. Ensina-me a amar e perdoar."}, {id:"pe9",t:"Paz com o Passado",r:"Fil. 3:13",m:"Esquecendo-me das coisas que atrás ficam e avançando para as que estão diante."}, {id:"pe10",t:"Novas Oportunidades",r:"Lam. 3:22",m:"As misericórdias do Senhor são a causa de não sermos consumidos."}],
+            prosperidade: [{id:"pr1",t:"Portas de Trabalho",r:"Salmos 90:17",m:"Confirma, Senhor, a obra das nossas mãos e abre portas onde não há caminhos."}, {id:"pr2",t:"Abundância do Pai",r:"Fil. 4:19",m:"Deus suprirá cada uma das minhas necessidades conforme a Sua riqueza em glória."}, {id:"pr3",t:"Prosperidade Integral",r:"3 João 1:2",m:"Desejo que prosperes em todas as coisas e tenhas saúde."}, {id:"pr4",t:"Bênção no Empreendimento",r:"Prov. 16:3",m:"Consagra ao Senhor as tuas obras, e os teus planos serão estabelecidos."}, {id:"pr5",t:"Semeadura Fiel",r:"2 Cor. 9:8",m:"Deus é poderoso para fazer abundar em vós toda a graça."}, {id:"pr6",t:"Sucesso com Honra",r:"Josué 1:8",m:"Não se aparte da tua boca o livro desta lei, para que faças prosperar o teu caminho."}, {id:"pr7",t:"Provisão Inesgotável",r:"Salmos 23:1",m:"O Senhor é o meu pastor; nada me faltará. Confio na Sua provisão diária."}, {id:"pr8",t:"Sabedoria Financeira",r:"Tiago 1:5",m:"Se alguém tem falta de sabedoria, peça-a a Deus, que a todos dá liberalmente."}, {id:"pr9",t:"Colheita Bendita",r:"Gálatas 6:9",m:"Não nos cansemos de fazer o bem, pois a seu tempo ceifaremos."}, {id:"pr10",t:"Libertação de Dívidas",r:"Deut. 28:12",m:"O Senhor te abrirá o seu bom tesouro para abençoar a obra das tuas mãos."}],
+            saude: [{id:"s1",t:"Cura Divina",r:"Êxodo 15:26",m:"Eu sou o Senhor, aquele que te cura. Restaura minhas forças e minha saúde."}, {id:"s2",t:"Restauração do Corpo",r:"Jer. 30:17",m:"Pois te restaurarei a saúde e curarei as tuas feridas, diz o Senhor."}, {id:"s3",t:"Vigor Renovado",r:"Isaías 40:31",m:"Os que esperam no Senhor renovarão as suas forças e correrão sem se cansar."}, {id:"s4",t:"Saúde da Alma e Corpo",r:"Prov. 4:22",m:"As palavras do Senhor são vida para quem as acha e saúde para todo o seu corpo."}, {id:"s5",t:"Alívio da Dor",r:"Salmos 147:3",m:"Ele cura os que têm o coração quebrantado e trata das suas feridas."}, {id:"s6",t:"Proteção Contra Males",r:"Salmos 103:3",m:"Ele é quem perdoa todas as tuas iniquidades e sara todas as tuas enfermidades."}, {id:"s7",t:"Confiança na Recuperação",r:"Salmos 41:3",m:"O Senhor o assistirá no leito da enfermidade e o restaurará da sua doença."}, {id:"s8",t:"Paz Mental",r:"João 14:1",m:"Não se turbe o vosso coração. Creiam em Deus para cura."}, {id:"s9",t:"Fortalecimento",r:"Neemias 8:10",m:"Não fiquem tristes, pois a alegria do Senhor é a vossa força e saúde."}, {id:"s10",t:"Gratidão pela Cura",r:"Lucas 17:19",m:"Levanta-te e vai; a tua fé te salvou e te curou plenamente."}],
+            protecao: [{id:"pt1",t:"Escudo da Fé",r:"Efésios 6:16",m:"Embraçando sempre o escudo da fé, com o qual podereis apagar os dardos inflamados."}, {id:"pt2",t:"Proteção no Caminho",r:"Salmos 121:8",m:"O Senhor guardará a tua saída e a tua entrada, desde agora e para sempre."}, {id:"pt3",t:"Anjos ao Redor",r:"Salmos 34:7",m:"O anjo do Senhor acampa-se ao redor dos que o temem e os livra."}, {id:"pt4",t:"Livramento do Mal",r:"2 Tess. 3:3",m:"O Senhor é fiel; ele vos confirmará e guardará do maligno."}, {id:"pt5",t:"Debaixo das Asas",r:"Salmos 91:4",m:"Ele te cobrirá com as suas penas, e debaixo das suas asas estarás seguro."}, {id:"pt6",t:"Torre Forte",r:"Prov. 18:10",m:"Torre forte é o nome do Senhor; a ela correrá o justo e estará seguro."}, {id:"pt7",t:"Proteção Noturna",r:"Salmos 91:5",m:"Não terás medo do terror de noite, nem da seta que voa de dia."}, {id:"pt8",t:"Luz nas Trevas",r:"Salmos 27:1",m:"O Senhor é a minha luz e a minha salvação; a quem temerei?"}, {id:"pt9",t:"Segurança Total",r:"Prov. 1:33",m:"O que me der ouvidos habitará seguro e estará descansado do temor do mal."}, {id:"pt10",t:"Vitória Contra Inimigos",r:"Isaías 54:17",m:"Toda ferramenta preparada contra ti não prosperará."}],
+            sabedoria: [{id:"sb1",t:"Busca por Direção",r:"Tiago 1:5",m:"Se algum de vós tem falta de sabedoria, peça-a a Deus e ser-lhe-á dada."}, {id:"sb2",t:"Discernimento",r:"Fil. 1:9",m:"Peço que o vosso amor abunde em ciência e em todo o discernimento."}, {id:"sb3",t:"Palavras Certas",r:"Lucas 21:15",m:"Eu vos darei boca e sabedoria a que não poderão resistir."}, {id:"sb4",t:"Entendimento",r:"Prov. 2:6",m:"Porque o Senhor dá a sabedoria; da sua boca vem o conhecimento."}, {id:"sb5",t:"Coração Sábio",r:"Salmos 90:12",m:"Ensina-nos a contar os nossos dias, de tal maneira que alcancemos corações sábios."}, {id:"sb6",t:"Luz na Decisão",r:"Salmos 32:8",m:"Instruir-te-ei e ensinar-te-ei o caminho que deves seguir."}, {id:"sb7",t:"Sabedoria Prática",r:"Mateus 7:24",m:"Aquele que ouve estas minhas palavras e as pratica é comparado ao homem sábio."}, {id:"sb8",t:"Mente Renovada",r:"Romanos 12:2",m:"Transformai-vos pela renovação da vossa mente."}, {id:"sb9",t:"Guarda da Língua",r:"Salmos 141:3",m:"Põe, ó Senhor, uma guarda à minha boca; guarda a porta dos meus lábios."}, {id:"sb10",t:"Visão de Futuro",r:"Hab. 2:2",m:"Escreve a visão e torna-a bem legível sobre tábuas."}],
+            forca: [{id:"fc1",t:"Coragem",r:"Josué 1:9",m:"Não to mandei eu? Esforça-te e tem bom ânimo; não temas."}, {id:"fc2",t:"Vencendo o Medo",r:"Isaías 41:10",m:"Não temas, porque eu sou contigo; não te assombres."}, {id:"fc3",t:"Poder no Fraco",r:"2 Cor. 12:9",m:"A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza."}, {id:"fc4",t:"Ânimo Renovado",r:"Salmos 27:14",m:"Espera no Senhor, anima-te, e ele fortalecerá o teu coração."}, {id:"fc5",t:"Tudo Posso",r:"Fil. 4:13",m:"Posso todas as coisas naquele que me fortalece."}, {id:"fc6",t:"Força Diária",r:"Deut. 33:25",m:"A tua força será como os teus dias. Recebo vigor para hoje."}, {id:"fc7",t:"Inabalável",r:"Salmos 125:1",m:"Os que confiam no Senhor serão como o monte de Sião."}, {id:"fc8",t:"Resiliência",r:"Miquéias 7:8",m:"Ó inimiga minha, não te alegres de mim; porque se cair, levantar-me-ei."}, {id:"fc9",t:"Braço Forte",r:"Êxodo 15:2",m:"O Senhor é a minha força e o meu cântico."}, {id:"fc10",t:"Perseverança",r:"Hebreus 12:1",m:"Corramos com paciência a carreira que nos está proposta."}],
+            filhos: [{id:"fh1",t:"Proteção dos Pequenos",r:"Mateus 19:14",m:"Deixai os meninos e não os estorveis de vir a mim."}, {id:"fh2",t:"Caminho Reto",r:"Prov. 22:6",m:"Ensina a criança no caminho em que deve andar."}, {id:"fh3",t:"Bênção Geracional",r:"Atos 2:39",m:"Porque a promessa vos diz respeito a vós e a vossos filhos."}, {id:"fh4",t:"Guarda dos Passos",r:"Salmos 121:7",m:"O Senhor te guardará de todo o mal; guardará a alma dos teus filhos."}, {id:"fh5",t:"Sabedoria para Filhos",r:"Isaías 54:13",m:"E todos os teus filhos serão ensinados do Senhor."}, {id:"fh6",t:"Herança do Senhor",r:"Salmos 127:3",m:"Eis que os filhos são herança do Senhor."}, {id:"fh7",t:"Saúde dos Filhos",r:"Jer. 31:17",m:"E há esperança para o teu futuro, diz o Senhor."}, {id:"fh8",t:"Futuro Abençoado",r:"Salmos 112:2",m:"A sua semente será poderosa na terra."}, {id:"fh9",t:"Graça Sobre a Prole",r:"Gênesis 33:5",m:"Estes são os filhos que Deus graciosamente tem dado."}, {id:"fh10",t:"Paz na Família",r:"Salmos 128:6",m:"E vejas os filhos de teus filhos e a paz sobre Israel."}]
+        };
+
+        const mensagensInspiradoras = [
+            "Deus tem um plano maior para a sua vida hoje.", "A oração é a chave que abre todas as portas.", "Não temas, pois o Senhor é contigo em cada passo.", "Sua fé é sua maior força. Continue acreditando.", "Um coração grato é um imã para milagres.", "Deixe o amor de Deus guiar suas decisões hoje.", "Onde há oração, há esperança e renovação.", "Respire fundo e confie: Deus está cuidando de tudo.", "Sua jornada é única e abençoada pelo Criador.", "A paz que você busca está no silêncio da oração.", "Seja luz na vida de alguém hoje.", "Grandes coisas acontecem para quem tem paciência e fé.", "Deus não dorme, Ele está trabalhando a seu favor.", "A gratidão transforma o que temos em suficiente.", "Hoje é um novo dia para experimentar a graça de Deus."
+        ];
+
+        let favorites = JSON.parse(localStorage.getItem('ore_favs')) || [];
+        let currentOra = null;
+
+        function show(id, el) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            if(el) el.classList.add('active');
+            if(id === 'home') rotacionarMensagem();
+            if(id === 'list') { document.getElementById('cat-menu').style.display = 'block'; document.getElementById('ora-container').style.display = 'none'; }
+            else if(id === 'favs') renderFavs();
+        }
+
+        function rotacionarMensagem() {
+            const index = Math.floor(Math.random() * mensagensInspiradoras.length);
+            document.getElementById('msg-dia').innerText = `"${mensagensInspiradoras[index]}"`;
+        }
+
+        function openCat(cat) {
+            document.getElementById('cat-menu').style.display = 'none';
+            const container = document.getElementById('ora-container');
+            container.style.display = 'block';
+            container.innerHTML = `<button onclick="backToMenu()" style="margin-bottom:15px; border:none; background:none; color:var(--p); font-weight:700; cursor:pointer; font-size:15px;">← Voltar</button>`;
+            db[cat].forEach(o => {
+                const div = document.createElement('div');
+                div.className = 'ora-item';
+                div.innerHTML = `<strong>${o.t}</strong><small>${o.r}</small>`;
+                div.onclick = () => openModal(o);
+                container.appendChild(div);
+            });
+            document.querySelector('main').scrollTop = 0;
+        }
+
+        function backToMenu() { document.getElementById('ora-container').style.display = 'none'; document.getElementById('cat-menu').style.display = 'block'; document.querySelector('main').scrollTop = 0; }
+
+        function openModal(o) {
+            currentOra = o;
+            document.getElementById('mt').innerText = o.t;
+            document.getElementById('mm').innerText = o.m;
+            document.getElementById('mr').innerText = o.r;
+            updateModalHeart();
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function updateModalHeart() {
+            const isFav = favorites.find(f => f.id === currentOra.id);
+            document.getElementById('btn-fav-modal').innerHTML = isFav ? '⭐' : '☆';
+            document.getElementById('btn-fav-modal').style.color = isFav ? 'var(--f)' : '#ccc';
+        }
+
+        document.getElementById('btn-fav-modal').onclick = (e) => {
+            e.stopPropagation();
+            const index = favorites.findIndex(f => f.id === currentOra.id);
+            if(index > -1) favorites.splice(index, 1);
+            else favorites.push(currentOra);
+            localStorage.setItem('ore_favs', JSON.stringify(favorites));
+            updateModalHeart();
+            if(document.querySelector('.screen.active').id === 'favs') renderFavs();
+        };
+
+        function renderFavs() {
+            const container = document.getElementById('fav-list');
+            if(favorites.length === 0) { container.innerHTML = "<p style='text-align:center; color:#999; margin-top:20px; font-size:12px;'>Nenhuma oração favoritada ainda.</p>"; return; }
+            container.innerHTML = "";
+            favorites.forEach(o => {
+                const div = document.createElement('div');
+                div.className = 'ora-item';
+                div.innerHTML = `<strong>${o.t}</strong><small>${o.r}</small>`;
+                div.onclick = () => openModal(o);
+                container.appendChild(div);
+            });
+        }
+
+        function closeM() { document.getElementById('modal').style.display = 'none'; }
+        function copyPix(chave) { navigator.clipboard.writeText(chave).then(() => { const f = document.getElementById('feedback'); f.style.display = 'block'; setTimeout(() => { f.style.display = 'none'; }, 3000); }); }
+        function randomO() { const cats = Object.keys(db); const rCat = db[cats[Math.floor(Math.random() * cats.length)]]; const rOra = rCat[Math.floor(Math.random() * rCat.length)]; openModal(rOra); }
+        function shareApp() { const t = "Fortaleça sua fé com o app Ore Comigo! Recomendo: "; if (navigator.share) navigator.share({ title: 'Ore Comigo', text: t, url: window.location.href }); else window.open("https://wa.me/?text=" + encodeURIComponent(t + window.location.href)); }
+
+        window.onload = rotacionarMensagem;
+    </script>
+</body>
+</html>
