@@ -28,17 +28,18 @@
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .card-cat { background: var(--w); padding: 15px 5px; border-radius: 18px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.3s ease; }
-        .card-cat div { font-size: 22px; margin-bottom: 5px; }
-        .card-cat span { display: block; font-weight: 700; font-size: 10px; color: var(--p); text-transform: uppercase; letter-spacing: 0.5px; }
+        /* GRID DE CATEGORIAS COM TRAVA DE TAMANHO REAL */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; width: 100%; }
+        .card-cat { background: var(--w); padding: 10px; border-radius: 22px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 110px; overflow: hidden; }
+        .card-cat:active { transform: translateY(-4px); }
+        .card-cat div { font-size: 24px; margin-bottom: 5px; flex-shrink: 0; }
+        .card-cat span { display: block; font-weight: 700; font-size: 9px; color: var(--p); text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.1; word-wrap: break-word; max-width: 100%; }
         
         .ora-item { background: var(--w); padding: 12px 15px; border-radius: 14px; margin-bottom: 10px; cursor: pointer; border-left: 4px solid var(--p); box-shadow: 0 2px 5px rgba(0,0,0,0.02); width: 100%; }
         .ora-item strong { display: block; font-size: 14px; color: var(--t); margin-bottom: 2px; font-weight: 700; }
         .ora-item small { display: block; font-size: 11px; color: var(--a); font-weight: 600; }
         
         .btn-back { background: none; border: none; color: var(--p); font-weight: 700; font-size: 15px; cursor: pointer; margin-bottom: 15px; display: flex; align-items: center; gap: 5px; }
-        
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-bg); z-index: 2000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
         .m-box { background: var(--w); padding: 25px; border-radius: 25px; width: 100%; max-width: 330px; position: relative; overflow: hidden; }
         .m-box h3 { text-align: center; margin-bottom: 15px; color: var(--p); font-weight: 700; }
@@ -68,8 +69,8 @@
     </aside>
 
     <main id="main-content">
-        <section id="home" class="active screen">
-            <div style="background: linear-gradient(135deg, #6d8299, #8da9c4); color:white; padding:35px 20px; border-radius:25px; text-align:center; box-shadow: 0 4px 15px rgba(109,130,153,0.2);">
+        <section id="home" class="screen active">
+            <div style="background: linear-gradient(135deg, #6d8299, #8da9c4); color:white; padding:35px 20px; border-radius:25px; text-align:center; transition: 0.3s; box-shadow: 0 4px 15px rgba(109,130,153,0.2);">
                 <h2 id="saudacao" style="font-weight: 700; font-size: 22px;">Seja Bem-vindo</h2>
                 <div style="height: 2px; background: rgba(255,255,255,0.3); width: 30px; margin: 15px auto;"></div>
                 <p id="msg-dia" style="font-size:14px; font-style:italic; min-height: 40px; display: flex; align-items: center; justify-content: center;"></p>
@@ -163,7 +164,7 @@
                 {id:"pe4",t:"Libertação",r:"João 8:36",m:"Senhor Jesus, obrigado porque o Teu perdão me traz verdadeira liberdade. Peço que me libertes das correntes da culpa e do remorso que tentam me prender ao passado. Que eu aceite o Teu perdão e caminhe para frente, focado nas novas oportunidades que tens. Amém."},
                 {id:"pe5",t:"Arrependimento",r:"1 João 1:9",m:"Deus fiel e justo, venho confessar os meus pecados. Arrependo-me de tudo o que fiz que Te entristeceu e peço que me purifiques de toda injustiça. Obrigado por me dar a chance de recomeçar com o coração renovado e fortalecido pela Tua graça infinita. Amém."},
                 {id:"pe6",t:"Novas Criaturas",r:"2 Cor. 5:17",m:"Senhor, agradeço porque em Cristo as coisas velhas já passaram e tudo se fez novo. Peço que o meu passado não tenha poder sobre o meu presente. Que o Teu perdão me transforme em uma pessoa melhor, mais parecida com Jesus e cheia de esperança no futuro. Amém."},
-                {id:"pe7",t:"Paz com o Próximo",r:"Efésios 4:32",m:"Pai, ajuda-me a ser bondoso e compassivo. Que eu possa perdoar os outros assim como Tu me perdoaste em Cristo. Remove toda a amargura do meu coração, para que eu viva em paz e harmonia, espalhando o Teu amor por onde quer que eu passar hoje. Amém."},
+                {id:"pe7",t:"Paz com o Próximo",r:"Efésios 4:32",m:"Pai, ajuda-me a ser bondoso e com paciência. Que eu possa perdoar os outros assim como Tu me perdoaste em Cristo. Remove toda a amargura do meu coração, para que eu viva em paz e harmonia, espalhando o Teu amor por onde quer que eu passar hoje. Amém."},
                 {id:"pe8",t:"Limpeza Profunda",r:"Isaías 1:18",m:"Senhor, Tu prometeste que nossos pecados ficariam brancos como a neve. Agradeço por essa limpeza profunda em minha alma. Que eu valorize esse sacrifício e procure viver uma vida santa e agradável a Ti, honrando o Teu nome em cada pensamento meu. Amém."},
                 {id:"pe9",t:"Amor Restaurador",r:"1 Pedro 4:8",m:"Deus, que o amor prevaleça sobre os meus julgamentos. Ensina-me que o amor cobre uma multidão de pecados e cura as feridas da alma. Que eu prefira amar e perdoar do que ter razão, construindo pontes de restauração e esperança em meus relacionamentos. Amém."},
                 {id:"pe10",t:"Recomeço Divino",r:"Lamentações 3:22",m:"Obrigado, Senhor, porque Tuas misericórdias se renovam a cada manhã. Peço que este novo dia seja marcado pelo Teu perdão e por uma nova disposição em meu espírito. Que eu não repita os erros de ontem e viva plenamente a Tua vontade soberana hoje. Amém."}
@@ -234,7 +235,7 @@
                 {id:"fh3",t:"Bênção da Linhagem",r:"Deuteronômio 28:4",m:"Deus de promessas, abençoa o fruto do meu ventre e toda a minha descendência. Que meus filhos sejam benditos em tudo o que fizerem. Que a Tua prosperidade e a Tua paz os alcancem em cada detalhe de suas vidas, hoje e em todas as gerações futuras. Amém."},
                 {id:"fh4",t:"Crescimento Saudável",r:"Lucas 2:52",m:"Pai, peço que meus filhos se desenvolvam de forma equilibrada — física, mental e espiritualmente. Protege a saúde deles, dá-lhes uma mente brilhante e um coração sensível à Tua voz. Que o crescimento deles seja motivo de alegria para nossa família. Amém."},
                 {id:"fh5",t:"Futuro de Esperança",r:"Jeremias 29:11",m:"Senhor, Tu tens pensamentos de paz sobre meus filhos, para lhes dar um futuro e uma esperança real. Eu descanso nessa promessa. Que eles encontrem a vocação deles em Ti e que o futuro de cada um deles seja brilhante e guiado pela Tua mão poderosa. Amém."},
-                {id:"fh6",t:"Ensino Fiel",r:"Deuteronômio 6:7",m:"Pai, ajuda-me a ser um instrutor fiel para meus filhos em Teus caminhos. Que eu saiba falar das Tuas palavras ao deitar e ao levantar com sabedoria. Dá-me paciência e amor para educá-los no temor do Senhor, para que nunca se desviem do caminho reto. Amém."},
+                {id:"fh6",t:"Ensino Fiel",r:"Deuteronômio 6:7",m:"Pai, ajuda-me a ser um instruitor fiel para meus filhos em Teus caminhos. Que eu saiba falar das Tuas palavras ao deitar e ao levantar com sabedoria. Dá-me paciência e amor para educá-los no temor do Senhor, para que nunca se desviem do caminho reto. Amém."},
                 {id:"fh7",t:"Promessa Cumprida",r:"Atos 2:39",m:"Deus fiel, agradeço porque a Tua promessa de salvação é para nós e para nossos filhos. Peço pelo selo do Espírito Santo sobre a vida de cada um deles. Que eles tenham um encontro real e transformador Contigo e vivam a Tua santa vontade sempre. Amém."},
                 {id:"fh8",t:"Paz Abundante",r:"Isaías 54:13",m:"Senhor, que todos os meus filhos sejam ensinados pelo Senhor e que a paz deles seja abundante. Livra-os do medo, da ansiedade e de todo trauma emocional. Que eles vivam uma infância e juventude tranquilas sob o abrigo do Altíssimo e Tua sombra. Amém."},
                 {id:"fh9",t:"Luz no Mundo",r:"Mateus 5:14",m:"Pai, que meus filhos sejam como cidades edificadas sobre um monte, brilhando em meio às trevas. Que eles reflitam a Tua luz na escola e entre os amigos. Que o caráter de Cristo seja formado neles, tornando-os influências positivas e transformadoras hoje. Amém."},
