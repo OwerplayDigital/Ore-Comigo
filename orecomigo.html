@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ore Comigo | Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --p: #6d8299; --a: #d4a373; --bg: #f4f7f6; --w: #ffffff; --t: #2d3436; --h: #e74c3c; --f: #f1c40f; --s: #27ae60; --modal-bg: rgba(0,0,0,0.5); --item-bg: rgba(109,130,153,0.08); }
+        body.dark-mode { --bg: #1a1a2e; --w: #16213e; --t: #e9ecef; --p: #a2b2c8; --modal-bg: rgba(0,0,0,0.8); --item-bg: rgba(255,255,255,0.05); }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: var(--t); display: flex; height: 100vh; overflow: hidden; }
+        
+        .sidebar { width: 175px; background: var(--w); border-right: 1px solid rgba(0,0,0,0.05); height: 100vh; position: fixed; left: 0; top: 0; display: flex; flex-direction: column; padding: 15px 10px; z-index: 1000; }
+        .sidebar h1 { color: var(--p); text-align: center; margin-bottom: 20px; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; padding-bottom: 8px; border-bottom: 1px solid var(--item-bg); }
+        
+        .nav-group { display: flex; flex-direction: column; gap: 12px; }
+        .nav-item { padding: 10px 10px; border-radius: 12px; cursor: pointer; color: var(--t); font-weight: 700; font-size: 11px; display: flex; align-items: center; gap: 6px; transition: 0.2s; background: var(--item-bg); white-space: nowrap; }
+        .nav-item.active { background: var(--p); color: white; box-shadow: 0 4px 10px rgba(109,130,153,0.15); }
+        
+        .item-apoio { background: rgba(231, 76, 60, 0.08) !important; color: var(--h) !important; font-size: 10.5px !important; }
+        .item-share { background: rgba(39, 174, 96, 0.08) !important; color: var(--s) !important; }
+        .item-theme { border: 1px dashed rgba(0,0,0,0.1) !important; background: transparent !important; }
+        
+        main { flex: 1; margin-left: 175px; padding: 15px; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; align-items: center; }
+        .screen { display: none; width: 100%; max-width: 400px; animation: fadeIn 0.3s ease-out; padding-bottom: 80px; }
+        .screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .card-cat { background: var(--w); padding: 15px 5px; border-radius: 18px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.3s ease; }
+        .card-cat div { font-size: 22px; margin-bottom: 5px; }
+        .card-cat span { display: block; font-weight: 700; font-size: 10px; color: var(--p); text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .ora-item { background: var(--w); padding: 12px 15px; border-radius: 14px; margin-bottom: 10px; cursor: pointer; border-left: 4px solid var(--p); box-shadow: 0 2px 5px rgba(0,0,0,0.02); width: 100%; }
+        .ora-item strong { display: block; font-size: 14px; color: var(--t); margin-bottom: 2px; font-weight: 700; }
+        .ora-item small { display: block; font-size: 11px; color: var(--a); font-weight: 600; }
+        
+        .btn-back { background: none; border: none; color: var(--p); font-weight: 700; font-size: 15px; cursor: pointer; margin-bottom: 15px; display: flex; align-items: center; gap: 5px; }
+        
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-bg); z-index: 2000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
+        .m-box { background: var(--w); padding: 25px; border-radius: 25px; width: 100%; max-width: 330px; position: relative; overflow: hidden; }
+        .m-box h3 { text-align: center; margin-bottom: 15px; color: var(--p); font-weight: 700; }
+        
+        .btn-amen { display: block; margin: 20px auto 0; padding: 12px 40px; border: none; background: var(--p); color: white; border-radius: 20px; font-weight: 700; cursor: pointer; }
+        #toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #2d3436; color: white; padding: 10px 20px; border-radius: 25px; font-size: 13px; z-index: 3000; opacity: 0; transition: 0.3s; pointer-events: none; }
+        #toast.show { opacity: 1; }
+        
+        .donate-card { background: var(--w); padding: 40px 20px; border-radius: 30px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.04); width: 100%; margin-top: 20px; }
+        .pix-box { background: var(--bg); padding: 15px 20px; border-radius: 22px; border: 2px dashed var(--p); cursor: pointer; margin: 20px 0; display: flex; align-items: center; justify-content: center; min-height: 80px; user-select: none; }
+
+        @media (max-width: 600px) { .sidebar { width: 150px; } main { margin-left: 150px; } .sidebar h1 { font-size: 18px; } }
+    </style>
+</head>
+<body>
+    <div id="toast">Ação realizada!</div>
+    <aside class="sidebar">
+        <h1>Ore Comigo</h1>
+        <div class="nav-group">
+            <div class="nav-item active" onclick="show('home', this)">🏠 Início</div>
+            <div class="nav-item" onclick="show('list', this)">📖 Orações</div>
+            <div class="nav-item" onclick="show('favs', this)">⭐ Favoritos</div>
+            <div class="nav-item item-apoio" onclick="show('donate', this)">❤️ Apoie o Projeto</div>
+            <div class="nav-item item-share" onclick="shareApp()">🔗 Compartilhar</div>
+            <div class="nav-item item-theme" onclick="toggleTheme()">☀️ Modo Claro</div>
+        </div>
+    </aside>
+
+    <main id="main-content">
+        <section id="home" class="active screen">
+            <div style="background: linear-gradient(135deg, #6d8299, #8da9c4); color:white; padding:35px 20px; border-radius:25px; text-align:center; box-shadow: 0 4px 15px rgba(109,130,153,0.2);">
+                <h2 id="saudacao" style="font-weight: 700; font-size: 22px;">Seja Bem-vindo</h2>
+                <div style="height: 2px; background: rgba(255,255,255,0.3); width: 30px; margin: 15px auto;"></div>
+                <p id="msg-dia" style="font-size:14px; font-style:italic; min-height: 40px; display: flex; align-items: center; justify-content: center;"></p>
+            </div>
+            <button onclick="randomO()" style="margin-top:25px; background:var(--w); border:1px solid #ddd; padding:18px; border-radius:22px; width:100%; color:var(--p); font-weight:700; cursor:pointer;">✨ Receber uma Palavra</button>
+        </section>
+
+        <section id="list" class="screen">
+            <div id="cat-menu" class="grid">
+                <div class="card-cat" onclick="openCat('paz')"><div>🕊️</div><span>PAZ</span></div>
+                <div class="card-cat" onclick="openCat('familia')"><div>🏠</div><span>FAMÍLIA</span></div>
+                <div class="card-cat" onclick="openCat('gratidao')"><div>🙏</div><span>GRATIDÃO</span></div>
+                <div class="card-cat" onclick="openCat('perdao')"><div>🔓</div><span>PERDÃO</span></div>
+                <div class="card-cat" onclick="openCat('prosperidade')"><div>💰</div><span>PROSPERIDADE</span></div>
+                <div class="card-cat" onclick="openCat('saude')"><div>🌿</div><span>SAÚDE</span></div>
+                <div class="card-cat" onclick="openCat('protecao')"><div>🛡️</div><span>PROTEÇÃO</span></div>
+                <div class="card-cat" onclick="openCat('sabedoria')"><div>💡</div><span>SABEDORIA</span></div>
+                <div class="card-cat" onclick="openCat('forca')"><div>💪</div><span>FORÇA</span></div>
+                <div class="card-cat" onclick="openCat('filhos')"><div>👶</div><span>FILHOS</span></div>
+            </div>
+            <div id="ora-container" style="display:none"></div>
+        </section>
+
+        <section id="favs" class="screen"><h3 style="text-align:center; color:var(--p); margin-bottom:20px; font-weight:700;">Favoritos</h3><div id="fav-list"></div></section>
+
+        <section id="donate" class="screen">
+            <div class="donate-card">
+                <div style="font-size: 50px; margin-bottom: 10px;">💎</div>
+                <h3 style="color: var(--p); font-size: 22px; font-weight: 700;">Apoie esta Missão</h3>
+                <p style="font-size: 14px; opacity: 0.8; margin-top: 15px; line-height: 1.6; font-style: italic;">"Este projeto é mantido por corações generosos como o seu. Ajude-nos a continuar esta obra."</p>
+                <div class="pix-box" onclick="copyPix('65173337000146')">
+                    <span style="font-size: 13px; font-weight: 700; color: var(--p); letter-spacing: 1px;">TOQUE PARA COPIAR O PIX</span>
+                </div>
+                <p style="font-size: 11px; opacity: 0.5; line-height: 1.4; font-weight: 600;">"Não cansemos de fazer o bem, pois no tempo próprio colheremos, se não desanimarmos."<br><span style="font-size: 9px;">(Gálatas 6:9)</span></p>
+            </div>
+        </section>
+    </main>
+
+    <div id="modal" class="modal" onclick="closeM()">
+        <div class="m-box" onclick="event.stopPropagation()">
+            <div id="btn-fav-modal" style="position:absolute; top:15px; right:15px; font-size:24px; cursor:pointer;">☆</div>
+            <h3 id="mt"></h3>
+            <p id="mm" style="font-size:15px; line-height:1.5; text-align:left;"></p>
+            <small id="mr" style="display:block; text-align:center; margin-top:15px; color:var(--a); font-weight:700;"></small>
+            <button class="btn-amen" onclick="closeM()">Amém</button>
+        </div>
+    </div>
+
+    <script>
+        const db = {
+            paz: [
+                {id:"p1",t:"Paz no Coração",r:"João 14:27",m:"Senhor, peço que Tua paz inunde meu coração agora. Afasta toda ansiedade e medo que tentam roubar minha alegria. Que eu possa descansar na certeza de que Tu tens o controle de tudo. Me dê um sono calmo e uma mente tranquila para enfrentar o amanhã com fé. Amém."},
+                {id:"p2",t:"O Descanso na Fé",r:"Salmos 4:8",m:"Pai amado, ao final deste dia, entrego minhas preocupações aos Teus pés. Ensina-me a confiar plenamente na Tua providência. Que Tua presença silencie os ruídos do mundo e permita que minha alma encontre o descanso necessário para prosseguir. Amém."},
+                {id:"p3",t:"A Quietude da Alma",r:"Filipenses 4:7",m:"Deus, peço que Tua paz guarde meus pensamentos em Cristo Jesus. Quando a confusão tentar entrar em meu lar, que eu seja um instrumento de calma. Que eu aprenda a respirar na Tua graça, reconhecendo que nada foge ao Teu controle soberano. Amém."},
+                {id:"p4",t:"Porto Seguro",r:"Salmos 91:1",m:"Senhor, Tu és meu refúgio e fortaleza. Peço que eu possa habitar sob Tua sombra protetora hoje. Livra-me das armadilhas do medo. Que a confiança na Tua proteção seja maior do que qualquer ameaça externa, trazendo paz ao meu interior. Amém."},
+                {id:"p5",t:"O Jugo Suave",r:"Mateus 11:28",m:"Jesus, aceito o Teu convite e Te entrego meu cansaço. Troca minha carga pesada pela Tua leveza. Dá-me a serenidade necessária para enfrentar os desafios sem perder a esperança. Em Ti encontro o verdadeiro descanso que minha alma precisa hoje. Amém."},
+                {id:"p6",t:"Mente Firme",r:"Isaías 26:3",m:"Senhor, Tu prometeste paz aos que firmam o pensamento em Ti. Ajuda-me a desviar os olhos dos problemas e focar na Tua grandeza. Que minha mente seja como uma rocha firme alicerçada na Tua palavra, trazendo estabilidade às minhas emoções. Amém."},
+                {id:"p7",t:"Silêncio Renovador",r:"Salmos 46:10",m:"Pai, ajuda-me a aquietar o coração e reconhecer que Tu és Deus. Ensina-me a buscar o silêncio da Tua presença no meio da agitação. É nesse secreto que minhas forças são renovadas e minha visão se torna clara para caminhar em Tua paz. Amém."},
+                {id:"p8",t:"Luz na Jornada",r:"João 8:12",m:"Jesus, Tu és a luz que dissipa as trevas da angústia. Ilumina minha vida com Tua paz transformadora. Que eu nunca caminhe em incertezas, mas que a Tua verdade me traga o discernimento necessário para viver com propósito e fé hoje. Amém."},
+                {id:"p9",t:"Consolo Divino",r:"Salmos 23:4",m:"Senhor, mesmo no vale mais escuro, não temerei, pois Tu estás comigo. Tua presença é meu maior consolo e proteção. Que o Teu abraço venha sobre mim nos momentos de tristeza, sabendo que a vitória é garantida pela Tua fidelidade eterna. Amém."},
+                {id:"p10",t:"Paz Profunda",r:"Colossenses 3:15",m:"Que a paz de Cristo seja o árbitro em meu coração. Em todas as minhas escolhas e relacionamentos, que a harmonia prevaleça. Sou grato por pertencer a um corpo que busca a paz e a Tua graça. Amém."}
+            ],
+            familia: [
+                {id:"f1",t:"Bênção para o Lar",r:"Josué 24:15",m:"Senhor, consagro minha casa e minha família a Ti. Que o Teu amor seja o alicerce do nosso lar e que a Tua presença seja sentida em cada cômodo. Protege-nos de todo o mal e que a união prevaleça entre nós. Que em nossa casa haja sempre provisão e paz. Amém."},
+                {id:"f2",t:"União Familiar",r:"Salmos 133:1",m:"Deus de amor, peço que derrames Tua bênção de união sobre meus familiares. Remove toda barreira de orgulho ou mágoa que possa existir entre nós. Ensina-nos a perdoar e a valorizar cada momento juntos, refletindo a Tua misericórdia. Amém."},
+                {id:"f3",t:"Proteção do Lar",r:"Números 6:24",m:"Senhor, abençoa e guarda cada membro da minha família. Que o Teu rosto resplandeça sobre nós. Que em nossa casa haja sempre provisão, saúde e um ambiente de paz, onde o Teu nome seja honrado acima de tudo. Amém."},
+                {id:"f4",t:"Amor Sacrificial",r:"1 Coríntios 13:13",m:"Pai, ensina-nos a amar uns aos outros como Tu nos amas. Que a paciência, a bondade e a compreensão sejam as marcas do nosso convívio. Ajuda-nos a suportar as falhas uns dos outros com caridade e a construir um lar cheio de Tua luz. Amém."},
+                {id:"f5",t:"Sabedoria para Pais",r:"Provérbios 22:6",m:"Senhor, dá-me sabedoria para guiar meus familiares pelos caminhos da retidão. Que eu saiba instruir com amor e ser um exemplo vivo da Tua palavra para as gerações que vêm de mim, plantando sementes de fé que durarão para sempre. Amém."},
+                {id:"f6",t:"Respeito Mútuo",r:"Efésios 6:1",m:"Deus, peço que o respeito seja o pilar dos nossos relacionamentos. Que os filhos honrem os pais e os pais tratem os filhos com carinho. Que não haja espaço para palavras rudes, mas sim para o encorajamento e o crescimento mútuo em Tua graça. Amém."},
+                {id:"f7",t:"Paz nas Conversas",r:"Provérbios 15:1",m:"Senhor, guarda a nossa boca. Que tenhamos respostas brandas que desviem o furor. Afasta todo espírito de contenda do nosso meio e que a comunicação entre nós seja sempre honesta e cheia da Tua sabedoria, trazendo vida à nossa casa. Amém."},
+                {id:"f8",t:"Prosperidade no Lar",r:"Salmos 128:3",m:"Pai amado, abençoa o fruto do nosso trabalho e que a prosperidade habite em nossa casa. Que não nos falte o pão de cada dia e que possamos desfrutar das Tuas bênçãos com alegria, gratidão e um coração generoso. Amém."},
+                {id:"f9",t:"Edificação da Casa",r:"Provérbios 14:1",m:"Senhor, dá-nos sabedoria para edificar o nosso lar. Que sejamos prudentes na administração dos bens e na condução da rotina. Que a nossa casa seja um lugar de refúgio, renovação e oração para todos os que aqui habitam. Amém."},
+                {id:"f10",t:"Aliança Eterna",r:"Gênesis 17:7",m:"Deus fiel, peço que a Tua mão esteja sobre a minha descendência. Que meus filhos conheçam a Tua fidelidade e vivam sob a Tua proteção por todas as gerações. Tu és o nosso Deus hoje e sempre, e em Ti depositamos nossa esperança. Amém."}
+            ],
+            gratidao: [
+                {id:"g1",t:"Gratidão Diária",r:"1 Tess. 5:18",m:"Meu Deus, hoje eu não quero pedir nada, apenas agradecer. Obrigado pela vida, pelo fôlego e pela saúde. Obrigado por me sustentar nos momentos difíceis e por nunca me abandonar, provendo tudo o que preciso com amor e cuidado infinito. Sou grato por tudo. Amém."},
+                {id:"g2",t:"Coração Grato",r:"Salmos 100:4",m:"Senhor, entro em Teus átrios com louvor. Agradeço pela Tua bondade que dura para sempre e pela Tua fidelidade constante. Obrigado por ser o meu Pai amoroso e por cuidar de cada detalhe da minha jornada com tanta perfeição e carinho. Tu és maravilhoso. Amém."},
+                {id:"g3",t:"Pelo Pão",r:"Mateus 6:11",m:"Pai Celeste, obrigado pelo alimento à minha mesa. Agradeço pelo trabalho que provê o sustento e pela Tua provisão que nunca falha. Que eu saiba sempre valorizar o que tenho e ser generoso com os que possuem menos, reconhecendo que tudo vem de Ti. Amém."},
+                {id:"g4",t:"Dom da Vida",r:"Salmos 118:24",m:"Este é o dia que o Senhor fez; nele me alegrarei. Obrigado pela oportunidade de viver mais este dia, de ver o sol nascer e de ter novas chances de ser uma pessoa melhor. A vida é um presente Teu que recebo com o coração cheio de alegria e louvor. Amém."},
+                {id:"g5",t:"Bênçãos Infinitas",r:"Salmos 103:2",m:"Minha alma, bendiga ao Senhor e não se esqueça de seus benefícios. Agradeço pela cura, pelo livramento e pelas portas abertas. Tu és um Deus generoso e eu reconheço que cada conquista e fôlego são frutos da Tua graça imerecida em meu favor. Amém."},
+                {id:"g6",t:"Pela Salvação",r:"João 3:16",m:"Obrigado, Jesus, pelo Teu sacrifício. Agradeço por me amar de tal maneira que deste a Tua vida por mim. Minha maior gratidão é pela certeza da vida eterna e pelo perdão dos meus pecados. Sou livre e transformado pelo Teu sangue precioso derramado na cruz. Amém."},
+                {id:"g7",t:"Pela Força",r:"Salmos 28:7",m:"Senhor, obrigado por ser a minha força e o meu escudo. Agradeço porque, quando me senti fraco, Tu me levantaste. Quando o medo tentou me paralisar, o Teu amor me trouxe coragem. Obrigado pelo sustento diário e por lutar minhas batalhas invisíveis. Amém."},
+                {id:"g8",t:"Pelo Socorro",r:"Salmos 121:1",m:"Elevo meus olhos para os montes e agradeço porque o meu socorro vem do Senhor. Obrigado por me guardar de todo o mal e por não permitir que meus pés tropecem. Tua vigilância é minha segurança e Tua proteção é meu maior motivo de gratidão hoje. Amém."},
+                {id:"g9",t:"Pela Paz",r:"2 Tess. 3:16",m:"Obrigado, Senhor da paz, por me dar paz em todo o tempo. Agradeço por essa paz que acalma o meu coração mesmo quando o mundo ao redor está em caos. Ter a Tua presença constante ao meu lado é o meu maior motivo de gratidão e alegria profunda. Amém."},
+                {id:"g10",t:"Pelo Amor",r:"1 João 4:19",m:"Agradeço, Pai, porque me amaste primeiro. Obrigado porque o Teu amor é incondicional e restaura minha alma. Que a minha gratidão se transforme em ações de amor para com o próximo, refletindo a Tua luz e Tua bondade em tudo o que eu fizer hoje. Amém."}
+            ],
+            perdao: [
+                {id:"pe1",t:"Coração Puro",r:"Salmos 51:10",m:"Senhor, reconheço minhas falhas e peço Teu perdão. Lava o meu coração de todo pecado e renova em mim um espírito reto. Ajuda-me também a perdoar aqueles que me feriram, tirando de mim qualquer peso de mágoa ou amargura que impeça minha caminhada. Amém."},
+                {id:"pe2",t:"Perdoar Sempre",r:"Mateus 18:22",m:"Senhor, ensina-me a perdoar setenta vezes sete. Que o meu coração seja livre de rancores e que eu tenha a humildade de pedir perdão quando eu errar. Que o Teu exemplo de amor na cruz me inspire a liberar perdão e a viver em paz com todos ao meu redor. Amém."},
+                {id:"pe3",t:"Misericórdia",r:"Lucas 6:36",m:"Pai, peço que a Tua misericórdia me alcance hoje. Assim como recebo o Teu perdão generoso, ajuda-me a ser misericordioso com os erros alheios. Que eu seja um canal da Tua graça restauradora, levando reconciliação onde houver conflito e amor onde houver ódio. Amém."},
+                {id:"pe4",t:"Libertação",r:"João 8:36",m:"Senhor Jesus, obrigado porque o Teu perdão me traz verdadeira liberdade. Peço que me libertes das correntes da culpa e do remorso que tentam me prender ao passado. Que eu aceite o Teu perdão e caminhe para frente, focado nas novas oportunidades que tens. Amém."},
+                {id:"pe5",t:"Arrependimento",r:"1 João 1:9",m:"Deus fiel e justo, venho confessar os meus pecados. Arrependo-me de tudo o que fiz que Te entristeceu e peço que me purifiques de toda injustiça. Obrigado por me dar a chance de recomeçar com o coração renovado e fortalecido pela Tua graça infinita. Amém."},
+                {id:"pe6",t:"Novas Criaturas",r:"2 Cor. 5:17",m:"Senhor, agradeço porque em Cristo as coisas velhas já passaram e tudo se fez novo. Peço que o meu passado não tenha poder sobre o meu presente. Que o Teu perdão me transforme em uma pessoa melhor, mais parecida com Jesus e cheia de esperança no futuro. Amém."},
+                {id:"pe7",t:"Paz com o Próximo",r:"Efésios 4:32",m:"Pai, ajuda-me a ser bondoso e compassivo. Que eu possa perdoar os outros assim como Tu me perdoaste em Cristo. Remove toda a amargura do meu coração, para que eu viva em paz e harmonia, espalhando o Teu amor por onde quer que eu passar hoje. Amém."},
+                {id:"pe8",t:"Limpeza Profunda",r:"Isaías 1:18",m:"Senhor, Tu prometeste que nossos pecados ficariam brancos como a neve. Agradeço por essa limpeza profunda em minha alma. Que eu valorize esse sacrifício e procure viver uma vida santa e agradável a Ti, honrando o Teu nome em cada pensamento meu. Amém."},
+                {id:"pe9",t:"Amor Restaurador",r:"1 Pedro 4:8",m:"Deus, que o amor prevaleça sobre os meus julgamentos. Ensina-me que o amor cobre uma multidão de pecados e cura as feridas da alma. Que eu prefira amar e perdoar do que ter razão, construindo pontes de restauração e esperança em meus relacionamentos. Amém."},
+                {id:"pe10",t:"Recomeço Divino",r:"Lamentações 3:22",m:"Obrigado, Senhor, porque Tuas misericórdias se renovam a cada manhã. Peço que este novo dia seja marcado pelo Teu perdão e por uma nova disposição em meu espírito. Que eu não repita os erros de ontem e viva plenamente a Tua vontade soberana hoje. Amém."}
+            ],
+            prosperidade: [
+                {id:"pr1",t:"Portas de Trabalho",r:"Salmos 90:17",m:"Pai das Luzes, peço Tua direção sobre a minha vida profissional. Abre portas de oportunidades onde não vejo saída e abençoa o trabalho das minhas mãos. Que o fruto do meu esforço supra minhas necessidades e seja um canal de bênção para outras pessoas também. Amém."},
+                {id:"pr2",t:"Abundância",r:"Filipenses 4:19",m:"Senhor, confio na Tua promessa de que suprirás todas as minhas necessidades segundo as Tuas riquezas. Afasta de mim o medo da escassez e dá-me a fé para acreditar que Tu és o meu provedor fiel em todos os momentos, cuidando de cada detalhe da minha vida. Amém."},
+                {id:"pr3",t:"Sucesso nos Planos",r:"Josué 1:8",m:"Pai, ajuda-me a meditar na Tua palavra dia e noite. Que eu seja obediente aos Teus princípios para que o meu caminho seja próspero e eu tenha bom sucesso. Que meus projetos estejam alinhados com a Tua vontade e tragam glória ao Teu santo nome. Amém."},
+                {id:"pr4",t:"Coração Generoso",r:"2 Coríntios 9:6",m:"Senhor, ensina-me a ser um semeador generoso. Que eu entenda que quem semeia com fartura, também colherá com alegria. Abençoa a minha vida financeira para que eu transborde em boas obras para o Teu Reino, sendo um exemplo de fidelidade e gratidão. Amém."},
+                {id:"pr5",t:"Honra ao Senhor",r:"Provérbios 3:9",m:"Deus, entrego a Ti as primícias de tudo o que recebo. Reconheço que tudo vem de Ti e nada tenho que não me tenha sido dado por Tua mão. Que eu tenha sabedoria para administrar cada centavo com responsabilidade, integridade e temor ao Senhor todos os dias. Amém."},
+                {id:"pr6",t:"Força para Prosperar",r:"Deuteronômio 8:18",m:"Senhor, agradeço pela inteligência e saúde que me dás para adquirir riquezas. Não permitas que o meu coração se envaideça, mas que eu sempre me lembre de que és Tu quem me dá a força para prosperar. Toda a honra e toda a glória pertencem somente a Ti. Amém."},
+                {id:"pr7",t:"Janelas do Céu",r:"Malaquias 3:10",m:"Pai amado, coloco minha fidelidade à prova da Tua promessa. Abre as janelas do céu e derrama sobre mim bênção tal que não haja lugar suficiente para a recolher. Repreende o devorador da minha vida financeira e que a Tua fartura se manifeste em meu lar. Amém."},
+                {id:"pr8",t:"Cálice Transbordante",r:"Salmos 23:5",m:"Senhor, Tu preparas uma mesa perante mim. Unges a minha cabeça com óleo e o meu cálice transborda. Agradeço pela fartura que tens derramado sobre mim, permitindo que eu viva com dignidade, segurança e paz, desfrutando da Tua bondade infinita todos os dias. Amém."},
+                {id:"pr9",t:"Bênção no Caminhar",r:"Deuteronômio 28:3",m:"Deus de Abraão, eu recebo a Tua bênção sobre tudo o que eu fizer hoje. Que eu seja bendito ao sair e ao entrar em todos os lugares. Que o meu negócio, emprego e investimentos floresçam, trazendo segurança e alegria para toda a minha família. Amém."},
+                {id:"pr10",t:"Prioridade do Reino",r:"Mateus 6:33",m:"Senhor, meu compromisso é buscar primeiro o Teu Reino e a Tua justiça. Confio plenamente que todas as outras coisas me serão acrescentadas conforme a Tua vontade. Dá-me paz para não andar ansioso e sabedoria para viver a prosperidade com equilíbrio. Amém."}
+            ],
+            saude: [
+                {id:"s1",t:"Cura Divina",r:"Êxodo 15:26",m:"Senhor, Tu és o Médico dos médicos e o autor da vida. Peço que estendas Tua mão poderosa sobre o meu corpo e restaure a minha saúde completamente. Fortalece o meu sistema imunológico e cura toda enfermidade física ou emocional que tente se instalar hoje. Amém."},
+                {id:"s2",t:"Restauração Total",r:"Jeremias 30:17",m:"Pai, Tu prometeste que trarias restauração e cura para as feridas da alma e do corpo. Peço que essa promessa se cumpra em minha vida agora. Remove qualquer dor, desequilíbrio ou mal-estar. Que a vitalidade do Teu Espírito flua em mi, trazendo saúde total. Amém."},
+                {id:"s3",t:"Renovo de Forças",r:"Isaías 40:31",m:"Senhor, quando me sinto cansado ou doente, busco em Ti o renovo. Que eu possa voar como águia, correr e não me cansar, caminhar e não fatigar. Dá-me a energia necessária para cumprir minhas tarefas diárias com saúde, disposição e um coração esperançoso. Amém."},
+                {id:"s4",t:"Saúde da Mente",r:"Provérbios 4:22",m:"Deus, Tua palavra é vida para quem a encontra e saúde para todo o corpo. Ajuda-me a guardar os Teus ensinamentos em meu coração. Que a minha mente seja limpa e que o meu corpo reflita a paz e o equilíbrio perfeito que vêm somente da Tua presença em mim. Amém."},
+                {id:"s5",t:"Fé que Restaura",r:"Mateus 9:22",m:"Jesus, assim como curaste tantos enfermos em Tua jornada, peço o Teu milagre em minha vida. Aumenta a minha fé para que eu receba a cura completa de que necessito. Que o meu testemunho sirva para exaltar o Teu santo nome e para inspirar outros a confiarem em Ti. Amém."},
+                {id:"s6",t:"Cura das Emoções",r:"Salmos 147:3",m:"Senhor, Tu saras os quebrantados de coração e pensas as suas feridas. Peço que cures as mágoas do meu passado e toda dor emocional que adoece o meu espírito. Traz alegria ao meu interior, pois sei que o coração alegre é o melhor remédio para uma vida saudável. Amém."},
+                {id:"s7",t:"Equilíbrio Real",r:"3 João 1:2",m:"Amado Deus, desejo que eu tenha saúde em tudo e que prospere, assim como prospera a minha alma. Que haja equilíbrio real entre o meu bem-estar físico, mental e espiritual. Cuida do meu corpo, que é o Teu templo, e ajuda-me a fazer escolhas sábias e vitais. Amém."},
+                {id:"s8",t:"Alívio do Sofrimento",r:"Mateus 11:28",m:"Jesus, venho a Ti buscar alívio para minhas dores. Se houver desconforto ou sofrimento, peço que tragas o Teu consolo e a Tua cura restauradora. Que eu sinta o Teu abraço protetor e que o Teu poder se manifeste em mim, restaurando cada célula e trazendo a paz agora. Amém."},
+                {id:"s9",t:"Toque de Vida",r:"Marcos 5:34",m:"Senhor, creio que apenas um toque Teu pode mudar completamente a minha situação de saúde. Vai em paz e sê curada — quero ouvir essa palavra doce no meu coração hoje. Recebo a Tua saúde com gratidão e decido viver cada dia para a Tua honra e glória. Amém."},
+                {id:"s10",t:"Proteção do Templo",r:"1 Coríntios 6:19",m:"Espírito Santo, habita em mim e traz ordem perfeita ao meu organismo. Ajuda-me a fazer escolhas saudáveis e a descansar o tempo necessário para minha recuperação. Que a saúde seja a minha porção diária para que eu possa servir ao Senhor com todas as minhas forças. Amém."}
+            ],
+            protecao: [
+                {id:"pt1",t:"Anjos Guardiões",r:"Salmos 34:7",m:"Meu Deus, peço que acampes Teus anjos ao meu redor e da minha família hoje. Livra-nos de assaltos, acidentes e de todo o laço maligno. Que Tua mão protetora nos guarde em nossas saídas e entradas, garantindo que cheguemos ao nosso destino em total segurança. Amém."},
+                {id:"pt2",t:"Escudo Fiel",r:"Salmos 91:4",m:"Senhor, cobre-me com as Tuas penas e sob as Tuas asas estarei seguro. Que a Tua fidelidade seja o meu escudo e a minha couraça contra as setas do mal. Não temerei o pavor da noite nem o perigo diário, pois Tu és o meu guarda fiel e minha rocha eterna. Amém."},
+                {id:"pt3",t:"Livramento do Mal",r:"Salmos 121:7",m:"O Senhor me guardará de todo o mal; Ele guardará a minha alma com zelo. Agradeço por esse cuidado constante em cada passo meu. Que nenhum mal me atinja e que eu caminhe com confiança absoluta, pois sei que Aquele que me guarda nunca dorme nem cochila. Amém."},
+                {id:"pt4",t:"Torre Forte",r:"Provérbios 18:10",m:"Senhor, o Teu nome é uma torre forte para a qual eu corro e encontro segurança imediata. Quando eu me sentir ameaçado ou vulnerável, lembra-me de invocar o Teu nome com fé. Que a Tua proteção seja uma barreira intransponível contra qualquer ataque maligno hoje. Amém."},
+                {id:"pt5",t:"Descanso no Cuidado",r:"1 Pedro 5:7",m:"Deus, lanço sobre Ti toda a minha ansiedade em relação à minha segurança e da minha casa. Obrigado por cuidar de mim com tanto amor. Sei que estou na palma da Tua mão e que nada acontece sem a Tua permissão. Descanso em paz no Teu cuidado soberano e fiel. Amém."},
+                {id:"pt6",t:"Presença Protetora",r:"Mateus 28:20",m:"Jesus, obrigado pela promessa de que estarias conosco todos os dias, até o fim dos tempos. Essa presença constante é a minha maior segurança. Que eu sinta a Tua companhia em cada lugar, sabendo que nunca estou sozinho diante dos perigos deste mundo. Amém."},
+                {id:"pt7",t:"Segurança na Vontade",r:"Provérbios 1:33",m:"Senhor, ajuda-me a dar ouvidos à Tua voz suave. Sei que, ao caminhar dentro da Tua vontade, habitarei seguro e estarei tranquilo, sem receio de qualquer mal. Que a Tua sabedoria seja a minha guia e a minha maior proteção contra escolhas erradas e perigosas. Amém."},
+                {id:"pt8",t:"Vitória Garantida",r:"Romanos 8:31",m:"Pai, se Tu és por nós, quem será contra nós? Com essa certeza inabalável, enfrento o meu dia sem medo. Nenhuma arma forjada contra mim ou contra minha família prosperará. Sou mais que vencedor por meio Daquele que me amou e me protege com braço forte. Amém."},
+                {id:"pt9",t:"Muro de Fogo",r:"Zacarias 2:5",m:"Senhor, sê para mim um muro de fogo ao redor da minha vida e do meu lar. Que a Tua glória esteja no meio de nós, impedindo a entrada de qualquer influência negativa ou destruição. Que o nosso ambiente seja santificado e protegido pela Tua presença majestosa. Amém."},
+                {id:"pt10",t:"Guarda de Israel",r:"Salmos 121:4",m:"Obrigado, Deus, porque o guarda de Israel não dorme nem cochila. Agradeço por Tua vigilância 24 horas sobre minha vida. Posso trabalhar e descansar em paz profunda, sabendo que o Criador dos céus e da terra é o meu protetor pessoal e meu refúgio seguro sempre. Amém."}
+            ],
+            sabedoria: [
+                {id:"sb1",t:"Direção Divina",r:"Tiago 1:5",m:"Pai Celeste, peço que me concedas sabedoria e discernimento para tomar as decisões corretas hoje. Que eu não me guie pelo meu próprio entendimento limitado, mas pela Tua voz que orienta. Ilumina o meu caminho para que eu saiba exatamente como agir agora. Amém."},
+                {id:"sb2",t:"Discernimento Espiritual",r:"Provérbios 2:6",m:"Senhor, Tu és a fonte de todo o conhecimento. Peço que dês discernimento para distinguir o certo do errado em meus relacionamentos e negócios. Que o meu coração seja sensível à Tua instrução e que eu tenha a inteligência espiritual necessária para vencer hoje. Amém."},
+                {id:"sb3",t:"Entendimento Profundo",r:"Provérbios 4:7",m:"Deus, ajuda-me a buscar a sabedoria acima de qualquer riqueza passageira. Que eu tenha entendimento sobre as circunstâncias e saiba aprender lições valiosas com cada experiência. Que a Tua verdade seja o fundamento sólido de todos os meus planos e sonhos futuros. Amém."},
+                {id:"sb4",t:"O Caminho Reto",r:"Salmos 32:8",m:"Senhor, instrui-me e ensina-me o caminho que devo seguir; guia-me com os Teus olhos atentos. Não permitas que eu me desvie para caminhos perigosos. Que a Tua luz brilhe sobre as minhas escolhas diárias, mostrando a direção que traz real paz à minha alma. Amém."},
+                {id:"sb5",t:"Mente de Cristo",r:"1 Coríntios 2:16",m:"Pai, peço que eu tenha a mente de Cristo em todos os meus pensamentos hoje. Purifica a minha mente de preconceitos e ideias vãs, enchendo-a com pensamentos que Te glorifiquem, tragam paz ao meu coração e sabedoria às minhas palavras em todo momento. Amém."},
+                {id:"sb6",t:"Olhos do Coração",r:"Efésios 1:18",m:"Senhor, ilumina os olhos do meu coração para que eu saiba qual é a esperança da Tua vocação em minha vida. Dá-me clareza sobre o meu propósito e sabedoria para usar meus talentos para servir ao próximo e edificar o Teu Reino com integridade e amor. Amém."},
+                {id:"sb7",t:"Conselho Fiel",r:"Salmos 73:24",m:"Deus, guia-me com o Teu conselho sábio. Agradeço porque não preciso caminhar às cegas, pois a Tua palavra é lâmpada para os meus pés e luz para a minha trilha. Que eu tenha a humildade de sempre Te consultar antes de tomar qualquer passo importante hoje. Amém."},
+                {id:"sb8",t:"Verdade Libertadora",r:"João 16:13",m:"Espírito Santo, guia-me a toda a verdade e afasta de mim todo o engano do mundo. Que eu tenha sabedoria para interpretar a realidade de forma correta e para ser uma pessoa íntegra e honesta em todas as minhas palavras, ações e intenções de coração. Amém."},
+                {id:"sb9",t:"Prudência no Falar",r:"Provérbios 8:12",m:"Senhor, que a prudência habite comigo em todos os momentos. Ajuda-me a controlar a minha língua e a falar apenas o que for útil e edificante. Dá-me sabedoria para saber o momento exato de falar e o de calar, agindo com equilíbrio e temperança sempre. Amém."},
+                {id:"sb10",t:"Temor do Senhor",r:"Salmos 111:10",m:"Deus, entendo que o temor ao Senhor é o princípio da verdadeira sabedoria. Que o meu respeito profundo e amor por Ti me guiem em cada atitude. Que eu tenha um bom entendimento por praticar os Teus mandamentos, vivendo com sabedoria prática e santidade. Amém."}
+            ],
+            forca: [
+                {id:"fc1",t:"Coragem na Luta",r:"Josué 1:9",m:"Senhor, quando me sentir desanimado e sem forças, lembra-me de que Tua força se aperfeiçoa na minha fraqueza. Dá-me coragem renovada para enfrentar os desafios e perseverança para não desistir dos meus sonhos. Sei que Tu és a minha rocha inabalável. Amém."},
+                {id:"fc2",t:"Poder que Fortalece",r:"Filipenses 4:13",m:"Pai, eu declaro com fé que tudo posso Naquele que me fortalece. Não por minha própria capacidade, mas pelo Teu poder que opera em mim. Quando os obstáculos parecerem grandes demais, renova a minha fé e dá-me a força necessária para vencer cada etapa hoje. Amém."},
+                {id:"fc3",t:"Renovação do Ânimo",r:"Isaías 40:29",m:"Deus, Tu dás força ao cansado e multiplicas o poder ao que não tem vigor. Peço esse renovo agora. Que o meu ânimo seja restaurado e que eu sinta a Tua mão poderosa me levantando acima das dificuldades diárias, renovando minhas esperanças de vitória plena. Amém."},
+                {id:"fc4",t:"Braço Forte",r:"Efésios 6:10",m:"Senhor, eu me fortaleço no Senhor e na força do Teu poder infinito. Reveste-me com a Tua armadura celestial para que eu possa resistir nos dias maus. Que a Tua presença seja a minha proteção e que eu saiba, no fundo do coração, que o Senhor luta por mim. Amém."},
+                {id:"fc5",t:"Resiliência na Graça",r:"2 Coríntios 12:9",m:"Pai, obrigado porque a Tua graça me basta em todos os momentos. Ensina-me a ser resiliente e a encontrar força mesmo em minhas limitações. Que eu não me abale com as críticas do mundo, mas que eu me glorie no Teu poder que me sustenta e faz prevalecer. Amém."},
+                {id:"fc6",t:"Rocha de Amparo",r:"Salmos 18:2",m:"Senhor, Tu és o meu rochedo, a minha fortaleza e o meu libertador. O meu Deus, em quem me refugio com total confiança. Agradeço por ser essa base sólida em minha vida. Com a Tua força, sinto-me seguro para enfrentar qualquer tempestade que tente me derrubar hoje. Amém."},
+                {id:"fc7",t:"Firmeza e Fé",r:"Salmos 125:1",m:"Deus, que eu seja como o monte de Sião, que não se abala, mas permanece para sempre. Firma os meus pés na Tua verdade eterna para que as circunstâncias da vida não roubem a minha estabilidade emocional. Que a minha força venha da comunhão constante Contigo. Amém."},
+                {id:"fc8",t:"Bom Ânimo Diário",r:"João 16:33",m:"Jesus, obrigado por vencer o mundo por mim e me dar esperança. Em meio às afflições da vida, peço que me dês bom ânimo e paz. Que eu não perca a motivação para continuar fazendo o bem e seguindo o Teu exemplo. Tua vitória na cruz é a garantia da minha força. Amém."},
+                {id:"fc9",t:"Sustento do Fardo",r:"Salmos 55:22",m:"Senhor, entrego o meu fardo pesado a Ti, pois não consigo carregá-lo sozinho. Sustenta-me conforme a Tua promessa de que nunca permitirás que o justo seja abalado. Tira o peso da ansiedade e coloca a leveza da Tua força em meu coração e em minha mente. Amém."},
+                {id:"fc10",t:"Armadura da Fé",r:"Efésios 6:11",m:"Deus, revisto-me de toda a armadura de Deus hoje. Que o escudo da fé me proteja de todos os ataques. Que a espada do Espírito, que é a Tua palavra viva, me dê a força e o discernimento necessários para vencer as ciladas e caminhar em triunfo hoje. Amém."}
+            ],
+            filhos: [
+                {id:"fh1",t:"Proteção dos Filhos",r:"Salmos 127:3",m:"Pai amado, entrego meus filhos em Tuas mãos protetoras. Guarda-os neste mundo, livra-os das más influências e guia os passos deles no caminho da retidão. Que eles cresçam em sabedoria e graça perante o Senhor e os homens, cumprindo o propósito que tens para eles. Amém."},
+                {id:"fh2",t:"Cuidado Divino",r:"Isaías 49:15",m:"Senhor, Tu disseste que nunca Te esquecerias de nós. Peço que esse mesmo cuidado eterno esteja sobre a vida de meus filhos hoje. Quando eu não puder estar presente fisicamente, que os Teus anjos os guardem e os protejam de todo o perigo visível e invisível. Amém."},
+                {id:"fh3",t:"Bênção da Linhagem",r:"Deuteronômio 28:4",m:"Deus de promessas, abençoa o fruto do meu ventre e toda a minha descendência. Que meus filhos sejam benditos em tudo o que fizerem. Que a Tua prosperidade e a Tua paz os alcancem em cada detalhe de suas vidas, hoje e em todas as gerações futuras. Amém."},
+                {id:"fh4",t:"Crescimento Saudável",r:"Lucas 2:52",m:"Pai, peço que meus filhos se desenvolvam de forma equilibrada — física, mental e espiritualmente. Protege a saúde deles, dá-lhes uma mente brilhante e um coração sensível à Tua voz. Que o crescimento deles seja motivo de alegria para nossa família. Amém."},
+                {id:"fh5",t:"Futuro de Esperança",r:"Jeremias 29:11",m:"Senhor, Tu tens pensamentos de paz sobre meus filhos, para lhes dar um futuro e uma esperança real. Eu descanso nessa promessa. Que eles encontrem a vocação deles em Ti e que o futuro de cada um deles seja brilhante e guiado pela Tua mão poderosa. Amém."},
+                {id:"fh6",t:"Ensino Fiel",r:"Deuteronômio 6:7",m:"Pai, ajuda-me a ser um instrutor fiel para meus filhos em Teus caminhos. Que eu saiba falar das Tuas palavras ao deitar e ao levantar com sabedoria. Dá-me paciência e amor para educá-los no temor do Senhor, para que nunca se desviem do caminho reto. Amém."},
+                {id:"fh7",t:"Promessa Cumprida",r:"Atos 2:39",m:"Deus fiel, agradeço porque a Tua promessa de salvação é para nós e para nossos filhos. Peço pelo selo do Espírito Santo sobre a vida de cada um deles. Que eles tenham um encontro real e transformador Contigo e vivam a Tua santa vontade sempre. Amém."},
+                {id:"fh8",t:"Paz Abundante",r:"Isaías 54:13",m:"Senhor, que todos os meus filhos sejam ensinados pelo Senhor e que a paz deles seja abundante. Livra-os do medo, da ansiedade e de todo trauma emocional. Que eles vivam uma infância e juventude tranquilas sob o abrigo do Altíssimo e Tua sombra. Amém."},
+                {id:"fh9",t:"Luz no Mundo",r:"Mateus 5:14",m:"Pai, que meus filhos sejam como cidades edificadas sobre um monte, brilhando em meio às trevas. Que eles reflitam a Tua luz na escola e entre os amigos. Que o caráter de Cristo seja formado neles, tornando-os influências positivas e transformadoras hoje. Amém."},
+                {id:"fh10",t:"Aliança de Verdade",r:"Isaías 59:21",m:"Senhor, eu selo esta aliança Contigo: que a Tua verdade permaneça em nossa família para sempre. Que a Tua palavra não se desvie da boca dos meus filhos, nem dos filhos deles, de geração em geração. Que sejamos uma família dedicada a Ti para todo o sempre. Amém."}
+            ]
+        };
+
+        const frasesInspiradoras = ["Deus tem um plano perfeito para você hoje.", "A oração é a chave que abre todas as portas.", "Sua fé é sua maior força.", "Onde há oração, há esperança.", "Deus nunca chega atrasado.", "Confie no tempo de Deus.", "Sua luz brilha mais forte com Ele."];
+        let favorites = JSON.parse(localStorage.getItem('ore_favs')) || [];
+        let currentOra = null;
+
+        function updateGreeting() {
+            const h = new Date().getHours();
+            const el = document.getElementById('saudacao');
+            if (h >= 5 && h < 12) el.innerText = "Bom dia!";
+            else if (h >= 12 && h < 18) el.innerText = "Boa tarde!";
+            else el.innerText = "Boa noite!";
+        }
+
+        function rotacionarFrase() {
+            const idx = Math.floor(Math.random() * frasesInspiradoras.length);
+            const msgEl = document.getElementById('msg-dia');
+            if(msgEl) msgEl.innerText = `"${frasesInspiradoras[idx]}"`;
+        }
+
+        function openModal(o) { 
+            currentOra = o; 
+            document.getElementById('mt').innerText = o.t; 
+            document.getElementById('mm').innerText = o.m; 
+            document.getElementById('mr').innerText = o.r; 
+            updateModalHeart(); 
+            document.getElementById('modal').style.display = 'flex'; 
+        }
+
+        function openCat(cat) { 
+            document.getElementById('cat-menu').style.display = 'none'; 
+            const container = document.getElementById('ora-container'); 
+            container.style.display = 'block'; 
+            container.innerHTML = `<button class="btn-back" onclick="show('list')">← Voltar</button>`; 
+            (db[cat] || []).forEach(o => { 
+                const div = document.createElement('div'); 
+                div.className = 'ora-item'; 
+                div.innerHTML = `<strong>${o.t}</strong><small>${o.r}</small>`; 
+                div.onclick = () => openModal(o); container.appendChild(div); 
+            }); 
+            document.getElementById('main-content').scrollTop = 0;
+        }
+
+        function toggleTheme() { const isDark = document.body.classList.toggle('dark-mode'); document.querySelector('.item-theme').innerHTML = isDark ? '🌙 Modo Escuro' : '☀️ Modo Claro'; localStorage.setItem('ore_theme', isDark ? 'dark' : 'light'); }
+        function show(id, el) { 
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); 
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); if(el) el.classList.add('active'); 
+            if(id === 'list') { document.getElementById('cat-menu').style.display = 'grid'; document.getElementById('ora-container').style.display = 'none'; } 
+            else if(id === 'favs') renderFavs(); else if(id === 'home') rotacionarFrase();
+            document.getElementById('main-content').scrollTop = 0;
+        }
+
+        function closeM() { document.getElementById('modal').style.display = 'none'; }
+        function updateModalHeart() { const isFav = favorites.find(f => f.id === currentOra.id); const btn = document.getElementById('btn-fav-modal'); btn.innerHTML = isFav ? '⭐' : '☆'; btn.style.color = isFav ? 'var(--f)' : '#ccc'; }
+        
+        document.getElementById('btn-fav-modal').onclick = (e) => { 
+            e.stopPropagation(); const index = favorites.findIndex(f => f.id === currentOra.id); 
+            if(index > -1) { favorites.splice(index, 1); showToast("Removido"); } 
+            else { favorites.push(currentOra); showToast("Salvo!"); } 
+            localStorage.setItem('ore_favs', JSON.stringify(favorites)); updateModalHeart(); 
+            if(document.querySelector('.screen.active').id === 'favs') renderFavs(); 
+        };
+
+        function renderFavs() { 
+            const container = document.getElementById('fav-list'); if(favorites.length === 0) { container.innerHTML = "<p style='text-align:center; opacity:0.5; margin-top:30px;'>Sem favoritos.</p>"; return; } 
+            container.innerHTML = ""; favorites.forEach(o => { const div = document.createElement('div'); div.className = 'ora-item'; div.innerHTML = `<strong>${o.t}</strong><small>${o.r}</small>`; div.onclick = () => openModal(o); container.appendChild(div); }); 
+        }
+
+        function randomO() { const cats = Object.keys(db); const rCatId = cats[Math.floor(Math.random() * cats.length)]; const rOra = db[rCatId][Math.floor(Math.random() * db[rCatId].length)]; openModal(rOra); }
+        function shareApp() { 
+            const t = "Fortaleça sua fé com o aplicativo Ore Comigo!\n\n" + window.location.href; 
+            window.open("https://wa.me/?text=" + encodeURIComponent(t)); 
+        }
+        function copyPix(chave) { navigator.clipboard.writeText(chave).then(() => { showToast("PIX Copiado!"); }); }
+        function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
+        window.onload = () => { const savedTheme = localStorage.getItem('ore_theme'); if(savedTheme === 'dark') { document.body.classList.add('dark-mode'); document.querySelector('.item-theme').innerHTML = '🌙 Modo Escuro'; } rotacionarFrase(); updateGreeting(); };
+    </script>
+</body>
+</html>
