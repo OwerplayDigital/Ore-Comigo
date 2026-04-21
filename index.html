@@ -30,10 +30,14 @@
         
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; width: 100%; }
         .card-cat { background: var(--w); padding: 10px; border-radius: 22px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 110px; overflow: hidden; }
-        .card-cat:active { transform: translateY(-4px); }
         .card-cat div { font-size: 24px; margin-bottom: 5px; flex-shrink: 0; }
         .card-cat span { display: block; font-weight: 700; font-size: 9px; color: var(--p); text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.1; word-wrap: break-word; max-width: 100%; }
         
+        .cl-item { background: var(--w); padding: 20px; border-radius: 20px; margin-bottom: 15px; border-left: 5px solid var(--p); }
+        .cl-item h4 { font-size: 14px; color: var(--p); margin-bottom: 10px; }
+        .cl-item ul { list-style: none; font-size: 12px; line-height: 1.8; }
+        .cl-item li::before { content: "• "; color: var(--a); font-weight: bold; }
+
         .ora-item { background: var(--w); padding: 12px 15px; border-radius: 14px; margin-bottom: 10px; cursor: pointer; border-left: 4px solid var(--p); box-shadow: 0 2px 5px rgba(0,0,0,0.02); width: 100%; }
         .ora-item strong { display: block; font-size: 14px; color: var(--t); margin-bottom: 2px; font-weight: 700; }
         .ora-item small { display: block; font-size: 11px; color: var(--a); font-weight: 600; }
@@ -46,9 +50,6 @@
         .btn-amen { display: block; margin: 20px auto 0; padding: 12px 40px; border: none; background: var(--p); color: white; border-radius: 20px; font-weight: 700; cursor: pointer; }
         #toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #2d3436; color: white; padding: 10px 20px; border-radius: 25px; font-size: 13px; z-index: 3000; opacity: 0; transition: 0.3s; pointer-events: none; }
         #toast.show { opacity: 1; }
-        
-        .donate-card { background: var(--w); padding: 40px 20px; border-radius: 30px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.04); width: 100%; margin-top: 20px; }
-        .pix-box { background: var(--bg); padding: 15px 20px; border-radius: 22px; border: 2px dashed var(--p); cursor: pointer; margin: 20px 0; display: flex; align-items: center; justify-content: center; min-height: 80px; user-select: none; }
 
         @media (max-width: 600px) { .sidebar { width: 150px; } main { margin-left: 150px; } .sidebar h1 { font-size: 18px; } }
     </style>
@@ -61,7 +62,8 @@
             <div class="nav-item active" onclick="show('home', this)">🏠 Início</div>
             <div class="nav-item" onclick="show('list', this)">📖 Orações</div>
             <div class="nav-item" onclick="show('favs', this)">⭐ Favoritos</div>
-            <div class="nav-item item-apoio" onclick="show('donate', this)">❤️ Apoie o Projeto</div>
+            <div class="nav-item" onclick="show('changelog', this)">📋 Novidades</div>
+            <div class="nav-item item-apoio" onclick="show('donate', this)">❤️ Apoie</div>
             <div class="nav-item item-share" onclick="shareApp()">🔗 Compartilhar</div>
             <div class="nav-item item-theme" onclick="toggleTheme()">☀️ Modo Claro</div>
         </div>
@@ -69,12 +71,25 @@
 
     <main id="main-content">
         <section id="home" class="screen active">
-            <div style="background: linear-gradient(135deg, #6d8299, #8da9c4); color:white; padding:35px 20px; border-radius:25px; text-align:center; transition: 0.3s; box-shadow: 0 4px 15px rgba(109,130,153,0.2);">
-                <h2 id="saudacao" style="font-weight: 700; font-size: 22px;">Seja Bem-vindo</h2>
+            <div style="background: linear-gradient(135deg, #6d8299, #8da9c4); color:white; padding:35px 20px; border-radius:25px; text-align:center; box-shadow: 0 4px 15px rgba(109,130,153,0.2);">
+                <h2 id="saudacao" style="font-weight: 700; font-size: 22px;">Boa tarde!</h2>
                 <div style="height: 2px; background: rgba(255,255,255,0.3); width: 30px; margin: 15px auto;"></div>
                 <p id="msg-dia" style="font-size:14px; font-style:italic; min-height: 40px; display: flex; align-items: center; justify-content: center;"></p>
             </div>
             <button onclick="randomO()" style="margin-top:25px; background:var(--w); border:1px solid #ddd; padding:18px; border-radius:22px; width:100%; color:var(--p); font-weight:700; cursor:pointer;">✨ Receber uma Palavra</button>
+        </section>
+
+        <section id="changelog" class="screen">
+            <h3 style="text-align:center; color:var(--p); margin-bottom:20px; font-weight:700;">Notas da Versão</h3>
+            <div class="cl-item">
+                <h4>v1.0 (Pré-lançamento)</h4>
+                <ul>
+                    <li>Banco de dados com 100 orações restaurado.</li>
+                    <li>25 frases de saudação configuradas.</li>
+                    <li>Estrutura lateral de 175px e cards de 110px fixos.</li>
+                    <li>Sistema de favoritos e compartilhamento operacional.</li>
+                </ul>
+            </div>
         </section>
 
         <section id="list" class="screen">
@@ -96,14 +111,10 @@
         <section id="favs" class="screen"><h3 style="text-align:center; color:var(--p); margin-bottom:20px; font-weight:700;">Favoritos</h3><div id="fav-list"></div></section>
 
         <section id="donate" class="screen">
-            <div class="donate-card">
+            <div style="background: var(--w); padding: 40px 20px; border-radius: 30px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
                 <div style="font-size: 50px; margin-bottom: 10px;">💎</div>
-                <h3 style="color: var(--p); font-size: 22px; font-weight: 700;">Apoie esta Missão</h3>
-                <p style="font-size: 14px; opacity: 0.8; margin-top: 15px; line-height: 1.6; font-style: italic;">"Este projeto é mantido por corações generosos como o seu. Ajude-nos a continuar esta obra."</p>
-                <div class="pix-box" onclick="copyPix('65173337000146')">
-                    <span style="font-size: 13px; font-weight: 700; color: var(--p); letter-spacing: 1px;">TOQUE PARA COPIAR O PIX</span>
-                </div>
-                <p style="font-size: 11px; opacity: 0.5; line-height: 1.4; font-weight: 600;">"Não cansemos de fazer o bem, pois no tempo próprio colheremos, se não desanimarmos."<br><span style="font-size: 9px;">(Gálatas 6:9)</span></p>
+                <h3 style="color: var(--p); font-size: 22px; font-weight: 700;">Apoie o Projeto</h3>
+                <div onclick="copyPix('65173337000146')" style="background: var(--bg); padding: 15px; border-radius: 22px; border: 2px dashed var(--p); cursor: pointer; margin: 20px 0; font-weight: 700; color: var(--p); font-size: 12px;">COPIAR PIX</div>
             </div>
         </section>
     </main>
@@ -250,24 +261,24 @@
             "Deus nunca chega atrasado.",
             "Confie no tempo de Deus.",
             "Sua luz brilha mais forte com Ele.",
-            "Onde quer que você esteja, Deus está cuidando de você.",
-            "A paz de Deus excede todo o entendimento humano.",
-            "Cada novo dia é uma nova chance de recomeçar com Ele.",
-            "Deixe sua luz brilhar e inspire o próximo.",
-            "Deus te chamou para ser vencedor através da fé.",
-            "Em cada detalhe, sinta o amor do Criador.",
-            "A gratidão atrai as melhores bênçãos do céu.",
-            "Seja paciente; as promessas de Deus nunca falham.",
-            "Sua história está sendo escrita pelas mãos do Senhor.",
+            "Deus está cuidando de cada detalhe.",
+            "A paz de Deus excede todo o entendimento.",
+            "Cada novo dia é uma chance de recomeçar.",
+            "Deixe sua luz brilhar.",
+            "Deus te chamou para ser vencedor.",
+            "Sinta o amor do Criador agora.",
+            "A gratidão atrai bênçãos do céu.",
+            "As promessas de Deus nunca falham.",
+            "Sua história está nas mãos do Senhor.",
             "Um coração que confia descansa em águas tranquilas.",
-            "A fé remove montanhas e abre caminhos novos.",
+            "A fé remove montanhas.",
             "Nada é impossível para aquele que crê.",
-            "O Senhor é o meu pastor e nada me faltará.",
+            "O Senhor é o meu pastor.",
             "Fortaleça-se no amor infinito de Deus.",
             "Sua jornada é guiada pela luz divina.",
             "A alegria do Senhor é a nossa força.",
-            "Acredite: milagres acontecem todos os dias.",
-            "Em Deus, encontramos o refúgio seguro."
+            "Milagres acontecem todos os dias.",
+            "Em Deus, encontramos refúgio seguro."
         ];
 
         let favorites = JSON.parse(localStorage.getItem('ore_favs')) || [];
@@ -283,17 +294,17 @@
 
         function rotacionarFrase() {
             const idx = Math.floor(Math.random() * frasesInspiradoras.length);
-            const msgEl = document.getElementById('msg-dia');
-            if(msgEl) msgEl.innerText = `"${frasesInspiradoras[idx]}"`;
+            document.getElementById('msg-dia').innerText = `"${frasesInspiradoras[idx]}"`;
         }
 
-        function openModal(o) { 
-            currentOra = o; 
-            document.getElementById('mt').innerText = o.t; 
-            document.getElementById('mm').innerText = o.m; 
-            document.getElementById('mr').innerText = o.r; 
-            updateModalHeart(); 
-            document.getElementById('modal').style.display = 'flex'; 
+        function show(id, el) { 
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); 
+            document.getElementById(id).classList.add('active'); 
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); 
+            if(el) el.classList.add('active'); 
+            if(id === 'list') { document.getElementById('cat-menu').style.display = 'grid'; document.getElementById('ora-container').style.display = 'none'; } 
+            else if(id === 'favs') renderFavs(); else if(id === 'home') rotacionarFrase();
+            document.getElementById('main-content').scrollTop = 0;
         }
 
         function openCat(cat) { 
@@ -307,16 +318,15 @@
                 div.innerHTML = `<strong>${o.t}</strong><small>${o.r}</small>`; 
                 div.onclick = () => openModal(o); container.appendChild(div); 
             }); 
-            document.getElementById('main-content').scrollTop = 0;
         }
 
-        function toggleTheme() { const isDark = document.body.classList.toggle('dark-mode'); document.querySelector('.item-theme').innerHTML = isDark ? '🌙 Modo Escuro' : '☀️ Modo Claro'; localStorage.setItem('ore_theme', isDark ? 'dark' : 'light'); }
-        function show(id, el) { 
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); 
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); if(el) el.classList.add('active'); 
-            if(id === 'list') { document.getElementById('cat-menu').style.display = 'grid'; document.getElementById('ora-container').style.display = 'none'; } 
-            else if(id === 'favs') renderFavs(); else if(id === 'home') rotacionarFrase();
-            document.getElementById('main-content').scrollTop = 0;
+        function openModal(o) { 
+            currentOra = o; 
+            document.getElementById('mt').innerText = o.t; 
+            document.getElementById('mm').innerText = o.m; 
+            document.getElementById('mr').innerText = o.r; 
+            updateModalHeart(); 
+            document.getElementById('modal').style.display = 'flex'; 
         }
 
         function closeM() { document.getElementById('modal').style.display = 'none'; }
@@ -324,15 +334,21 @@
         
         document.getElementById('btn-fav-modal').onclick = (e) => { 
             e.stopPropagation(); const index = favorites.findIndex(f => f.id === currentOra.id); 
-            if(index > -1) { favorites.splice(index, 1); showToast("Removido"); } 
-            else { favorites.push(currentOra); showToast("Salvo!"); } 
+            if(index > -1) favorites.splice(index, 1); 
+            else favorites.push(currentOra); 
             localStorage.setItem('ore_favs', JSON.stringify(favorites)); updateModalHeart(); 
             if(document.querySelector('.screen.active').id === 'favs') renderFavs(); 
         };
 
         function renderFavs() { 
-            const container = document.getElementById('fav-list'); if(favorites.length === 0) { container.innerHTML = "<p style='text-align:center; opacity:0.5; margin-top:30px;'>Sem favoritos.</p>"; return; } 
-            container.innerHTML = ""; favorites.forEach(o => { const div = document.createElement('div'); div.className = 'ora-item'; div.innerHTML = `<strong>${o.t}</strong><small>${o.r}</small>`; div.onclick = () => openModal(o); container.appendChild(div); }); 
+            const container = document.getElementById('fav-list'); 
+            if(favorites.length === 0) { container.innerHTML = "<p style='text-align:center; opacity:0.5; margin-top:30px;'>Sem favoritos.</p>"; return; } 
+            container.innerHTML = ""; 
+            favorites.forEach(o => { 
+                const div = document.createElement('div'); div.className = 'ora-item'; 
+                div.innerHTML = `<strong>${o.t}</strong><small>${o.r}</small>`; 
+                div.onclick = () => openModal(o); container.appendChild(div); 
+            }); 
         }
 
         function randomO() { 
@@ -341,14 +357,21 @@
             const rOra = db[rCatId][Math.floor(Math.random() * db[rCatId].length)]; 
             openModal(rOra); 
         }
-        
-        function shareApp() { 
-            const t = "Fortaleça sua fé com o aplicativo Ore Comigo!\n\n" + window.location.href; 
-            window.open("https://wa.me/?text=" + encodeURIComponent(t)); 
+
+        function toggleTheme() { 
+            const isDark = document.body.classList.toggle('dark-mode'); 
+            document.querySelector('.item-theme').innerHTML = isDark ? '🌙 Modo Escuro' : '☀️ Modo Claro'; 
+            localStorage.setItem('ore_theme', isDark ? 'dark' : 'light'); 
         }
-        function copyPix(chave) { navigator.clipboard.writeText(chave).then(() => { showToast("PIX Copiado!"); }); }
-        function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
-        window.onload = () => { const savedTheme = localStorage.getItem('ore_theme'); if(savedTheme === 'dark') { document.body.classList.add('dark-mode'); document.querySelector('.item-theme').innerHTML = '🌙 Modo Escuro'; } rotacionarFrase(); updateGreeting(); };
+
+        function copyPix(chave) { navigator.clipboard.writeText(chave).then(() => { const t = document.getElementById('toast'); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }); }
+        function shareApp() { const t = "Fortaleça sua fé com o app Ore Comigo!\n" + window.location.href; window.open("https://wa.me/?text=" + encodeURIComponent(t)); }
+
+        window.onload = () => { 
+            const savedTheme = localStorage.getItem('ore_theme'); 
+            if(savedTheme === 'dark') { document.body.classList.add('dark-mode'); document.querySelector('.item-theme').innerHTML = '🌙 Modo Escuro'; } 
+            rotacionarFrase(); updateGreeting(); 
+        };
     </script>
 </body>
 </html>
