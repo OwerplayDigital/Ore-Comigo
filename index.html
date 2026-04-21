@@ -28,7 +28,6 @@
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
-        /* GRID DE CATEGORIAS COM TRAVA DE TAMANHO REAL */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; width: 100%; }
         .card-cat { background: var(--w); padding: 10px; border-radius: 22px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 110px; overflow: hidden; }
         .card-cat:active { transform: translateY(-4px); }
@@ -208,8 +207,8 @@
             sabedoria: [
                 {id:"sb1",t:"Direção Divina",r:"Tiago 1:5",m:"Pai Celeste, peço que me concedas sabedoria e discernimento para tomar as decisões corretas hoje. Que eu não me guie pelo meu próprio entendimento limitado, mas pela Tua voz que orienta. Ilumina o meu caminho para que eu saiba exatamente como agir agora. Amém."},
                 {id:"sb2",t:"Discernimento Espiritual",r:"Provérbios 2:6",m:"Senhor, Tu és a fonte de todo o conhecimento. Peço que dês discernimento para distinguir o certo do errado em meus relacionamentos e negócios. Que o meu coração seja sensível à Tua instrução e que eu tenha a inteligência espiritual necessária para vencer hoje. Amém."},
-                {id:"sb3",t:"Entendimento Profundo",r:"Provérbios 4:7",m:"Deus, ajuda-me a buscar a sabedoria acima de qualquer riqueza passageira. Que eu tenha entendimento sobre as circunstâncias e saiba aprender lições valiosas com cada experiência. Que a Tua verdade seja o fundamento sólido de todos os meus planos e sonhos futuros. Amém."},
-                {id:"sb4",t:"O Caminho Reto",r:"Salmos 32:8",m:"Senhor, instrui-me e ensina-me o caminho que devo seguir; guia-me com os Teus olhos atentos. Não permitas que eu me desvie para caminhos perigosos. Que a Tua luz brilhe sobre as minhas escolhas diárias, mostrando a direção que traz real paz à minha alma. Amém."},
+                {id:"sb3",t:"Entendimento Profundo",r:"Provérbios 4:7",m:"Deus, ajuda-me a buscar a sabedoria acima de qualquer riqueza passageira. Que eu tenha entendimento sobre as circunstâncias e saiba aprender lições valiosas com cada experiênca. Que a Tua verdade seja o fundamento sólido de todos os meus planos e sonhos futuros. Amém."},
+                {id:"sb4",t:"O Caminho Reto",r:"Salmos 32:8",m:"Senhor, instrui-me e ensina-me o caminho que devo seguir; guia-me com os Teus olhos atentos. Não permitas que eu me desvie para caminhos perigosos. Que a Tua luz brilha sobre as minhas escolhas diárias, mostrando a direção que traz real paz à minha alma. Amém."},
                 {id:"sb5",t:"Mente de Cristo",r:"1 Coríntios 2:16",m:"Pai, peço que eu tenha a mente de Cristo em todos os meus pensamentos hoje. Purifica a minha mente de preconceitos e ideias vãs, enchendo-a com pensamentos que Te glorifiquem, tragam paz ao meu coração e sabedoria às minhas palavras em todo momento. Amém."},
                 {id:"sb6",t:"Olhos do Coração",r:"Efésios 1:18",m:"Senhor, ilumina os olhos do meu coração para que eu saiba qual é a esperança da Tua vocação em minha vida. Dá-me clareza sobre o meu propósito e sabedoria para usar meus talentos para servir ao próximo e edificar o Teu Reino com integridade e amor. Amém."},
                 {id:"sb7",t:"Conselho Fiel",r:"Salmos 73:24",m:"Deus, guia-me com o Teu conselho sábio. Agradeço porque não preciso caminhar às cegas, pois a Tua palavra é lâmpada para os meus pés e luz para a minha trilha. Que eu tenha a humildade de sempre Te consultar antes de tomar qualquer passo importante hoje. Amém."},
@@ -243,7 +242,34 @@
             ]
         };
 
-        const frasesInspiradoras = ["Deus tem um plano perfeito para você hoje.", "A oração é a chave que abre todas as portas.", "Sua fé é sua maior força.", "Onde há oração, há esperança.", "Deus nunca chega atrasado.", "Confie no tempo de Deus.", "Sua luz brilha mais forte com Ele."];
+        const frasesInspiradoras = [
+            "Deus tem um plano perfeito para você hoje.",
+            "A oração é a chave que abre todas as portas.",
+            "Sua fé é sua maior força.",
+            "Onde há oração, há esperança.",
+            "Deus nunca chega atrasado.",
+            "Confie no tempo de Deus.",
+            "Sua luz brilha mais forte com Ele.",
+            "Onde quer que você esteja, Deus está cuidando de você.",
+            "A paz de Deus excede todo o entendimento humano.",
+            "Cada novo dia é uma nova chance de recomeçar com Ele.",
+            "Deixe sua luz brilhar e inspire o próximo.",
+            "Deus te chamou para ser vencedor através da fé.",
+            "Em cada detalhe, sinta o amor do Criador.",
+            "A gratidão atrai as melhores bênçãos do céu.",
+            "Seja paciente; as promessas de Deus nunca falham.",
+            "Sua história está sendo escrita pelas mãos do Senhor.",
+            "Um coração que confia descansa em águas tranquilas.",
+            "A fé remove montanhas e abre caminhos novos.",
+            "Nada é impossível para aquele que crê.",
+            "O Senhor é o meu pastor e nada me faltará.",
+            "Fortaleça-se no amor infinito de Deus.",
+            "Sua jornada é guiada pela luz divina.",
+            "A alegria do Senhor é a nossa força.",
+            "Acredite: milagres acontecem todos os dias.",
+            "Em Deus, encontramos o refúgio seguro."
+        ];
+
         let favorites = JSON.parse(localStorage.getItem('ore_favs')) || [];
         let currentOra = null;
 
@@ -309,7 +335,13 @@
             container.innerHTML = ""; favorites.forEach(o => { const div = document.createElement('div'); div.className = 'ora-item'; div.innerHTML = `<strong>${o.t}</strong><small>${o.r}</small>`; div.onclick = () => openModal(o); container.appendChild(div); }); 
         }
 
-        function randomO() { const cats = Object.keys(db); const rCatId = cats[Math.floor(Math.random() * cats.length)]; const rOra = db[rCatId][Math.floor(Math.random() * db[rCatId].length)]; openModal(rOra); }
+        function randomO() { 
+            const cats = Object.keys(db); 
+            const rCatId = cats[Math.floor(Math.random() * cats.length)]; 
+            const rOra = db[rCatId][Math.floor(Math.random() * db[rCatId].length)]; 
+            openModal(rOra); 
+        }
+        
         function shareApp() { 
             const t = "Fortaleça sua fé com o aplicativo Ore Comigo!\n\n" + window.location.href; 
             window.open("https://wa.me/?text=" + encodeURIComponent(t)); 
