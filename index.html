@@ -2,319 +2,460 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ore Comigo | Oficial</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ore Comigo</title>
     <style>
-        :root { --p: #6d8299; --a: #d4a373; --bg: #f4f7f6; --w: #ffffff; --t: #2d3436; --h: #e74c3c; --f: #f1c40f; --s: #27ae60; --modal-bg: rgba(0,0,0,0.5); --item-bg: rgba(109,130,153,0.08); }
-        body.dark-mode { --bg: #1a1a2e; --w: #16213e; --t: #e9ecef; --p: #a2b2c8; --modal-bg: rgba(0,0,0,0.8); --item-bg: rgba(255,255,255,0.05); }
-        
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: var(--t); display: flex; height: 100vh; overflow: hidden; }
-        
-        .sidebar { width: 175px; background: var(--w); border-right: 1px solid rgba(0,0,0,0.05); height: 100vh; position: fixed; left: 0; top: 0; display: flex; flex-direction: column; padding: 15px 10px; z-index: 1000; }
-        .sidebar h1 { color: var(--p); text-align: center; margin-bottom: 20px; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; padding-bottom: 8px; border-bottom: 1px solid var(--item-bg); }
-        
-        .nav-group { display: flex; flex-direction: column; gap: 12px; }
-        .nav-item { padding: 10px 10px; border-radius: 12px; cursor: pointer; color: var(--t); font-weight: 700; font-size: 11px; display: flex; align-items: center; gap: 6px; transition: 0.2s; background: var(--item-bg); white-space: nowrap; }
-        .nav-item.active { background: var(--p); color: white; box-shadow: 0 4px 10px rgba(109,130,153,0.15); }
-        
-        .item-apoio { background: rgba(231, 76, 60, 0.08) !important; color: var(--h) !important; font-size: 10.5px !important; }
-        .item-share { background: rgba(39, 174, 96, 0.08) !important; color: var(--s) !important; }
-        .item-theme { border: 1px dashed rgba(0,0,0,0.1) !important; background: transparent !important; }
-        
-        main { flex: 1; margin-left: 175px; padding: 15px; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; align-items: center; }
-        .screen { display: none; width: 100%; max-width: 400px; animation: fadeIn 0.3s ease-out; padding-bottom: 80px; }
-        .screen.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; width: 100%; }
-        .card-cat { background: var(--w); padding: 10px; border-radius: 22px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 110px; overflow: hidden; }
-        .card-cat div { font-size: 24px; margin-bottom: 5px; flex-shrink: 0; }
-        .card-cat span { display: block; font-weight: 700; font-size: 9px; color: var(--p); text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.1; word-wrap: break-word; max-width: 100%; }
-        
-        .ora-item { background: var(--w); padding: 12px 15px; border-radius: 14px; margin-bottom: 10px; cursor: pointer; border-left: 4px solid var(--p); box-shadow: 0 2px 5px rgba(0,0,0,0.02); width: 100%; }
-        .ora-item strong { display: block; font-size: 14px; color: var(--t); margin-bottom: 2px; font-weight: 700; }
-        .ora-item small { display: block; font-size: 11px; color: var(--a); font-weight: 600; }
-        
-        .btn-back { background: none; border: none; color: var(--p); font-weight: 700; font-size: 15px; cursor: pointer; margin-bottom: 15px; display: flex; align-items: center; gap: 5px; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-bg); z-index: 2000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
-        .m-box { background: var(--w); padding: 25px; border-radius: 25px; width: 100%; max-width: 330px; position: relative; overflow: hidden; }
-        .m-box h3 { text-align: center; margin-bottom: 15px; color: var(--p); font-weight: 700; }
-        
-        .btn-amen { display: block; margin: 20px auto 0; padding: 12px 40px; border: none; background: var(--p); color: white; border-radius: 20px; font-weight: 700; cursor: pointer; }
-        #toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #2d3436; color: white; padding: 10px 20px; border-radius: 25px; font-size: 13px; z-index: 3000; opacity: 0; transition: 0.3s; pointer-events: none; }
-        #toast.show { opacity: 1; }
-        
-        .donate-card { background: var(--w); padding: 40px 20px; border-radius: 30px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.04); width: 100%; margin-top: 20px; }
-        .pix-box { background: var(--bg); padding: 15px 20px; border-radius: 22px; border: 2px dashed var(--p); cursor: pointer; margin: 20px 0; display: flex; align-items: center; justify-content: center; min-height: 80px; user-select: none; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-        @media (max-width: 600px) { .sidebar { width: 150px; } main { margin-left: 150px; } .sidebar h1 { font-size: 18px; } }
+        :root {
+            --bg-primary: #faf8f5;
+            --bg-secondary: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #9ca3af;
+            --accent: #6366f1;
+            --accent-light: #eef2ff;
+            --accent-hover: #4f46e5;
+            --border: #f0ebe0;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.12);
+            --radius-sm: 10px;
+            --radius-md: 14px;
+            --radius-lg: 22px;
+            --radius-full: 50px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark-mode {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #252540;
+            --text-primary: #e8e6f0;
+            --text-secondary: #8b8ba8;
+            --accent: #818cf8;
+            --accent-light: #2a2a45;
+            --accent-hover: #a5b4fc;
+            --border: #333355;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(160deg, #eef2ff 0%, #faf8f5 40%, #f5f0e8 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: background 0.4s ease;
+        }
+        .dark-mode body { background: linear-gradient(160deg, #1a1a2e 0%, #252540 40%, #1e1e35 100%); }
+
+        .app-container {
+            width: 100%; max-width: 420px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg); box-shadow: var(--shadow-xl);
+            overflow: hidden; display: flex; flex-direction: column;
+            height: 85vh; max-height: 780px; position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: background 0.4s ease, border-color 0.4s ease;
+        }
+        .dark-mode .app-container { background: rgba(30, 30, 50, 0.8); border-color: rgba(255, 255, 255, 0.08); }
+
+        /* ============ SIDEBAR ============ */
+        .sidebar-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); z-index: 90; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(4px); }
+        .sidebar-overlay.open { opacity: 1; pointer-events: all; }
+        .sidebar { position: absolute; left: 0; top: 0; bottom: 0; width: 280px; background: rgba(250,248,245,0.98); backdrop-filter: blur(20px); z-index: 100; transform: translateX(-100%); transition: transform 0.35s; display: flex; flex-direction: column; box-shadow: var(--shadow-xl); }
+        .dark-mode .sidebar { background: rgba(30,30,50,0.98); }
+        .sidebar.open { transform: translateX(0); }
+        .sidebar-support-top { padding: 16px 14px 12px; margin: 8px 10px 0; background: linear-gradient(135deg,#fef3c7,#fde68a,#fef3c7); border-radius: var(--radius-md); border:1px solid #fde68a; text-align:center; }
+        .dark-mode .sidebar-support-top { background: linear-gradient(135deg,#3d2e0a,#5c4510,#3d2e0a); border-color:#5c4510; }
+        .sidebar-support-top .support-heart { font-size:20px; margin-bottom:2px; }
+        .sidebar-support-top .support-msg { font-size:12px; font-weight:600; color:#92400e; margin-bottom:8px; }
+        .dark-mode .sidebar-support-top .support-msg { color:#fde68a; }
+        .sidebar-support-top .support-donate-btn { display:inline-block; padding:8px 18px; border-radius:var(--radius-full); background:white; color:#92400e; font-size:13px; font-weight:600; border:1px solid #fde68a; cursor:pointer; transition:var(--transition); font-family:'Inter',sans-serif; }
+        .dark-mode .sidebar-support-top .support-donate-btn { background:#252540; color:#fde68a; border-color:#5c4510; }
+        .sidebar-header { padding:20px 22px 12px; display:flex; align-items:center; justify-content:space-between; }
+        .sidebar-header h2 { font-size:20px; font-weight:700; color:var(--text-primary); }
+        .sidebar-close { width:38px; height:38px; border-radius:50%; border:none; background:#f5f0e8; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:var(--transition); color:var(--text-secondary); }
+        .dark-mode .sidebar-close { background:#333355; }
+        .sidebar-close:hover { background:#fee2e2; color:#ef4444; transform:rotate(90deg); }
+        .sidebar-chips { flex:1; overflow-y:auto; padding:4px 14px 12px; display:flex; flex-direction:column; gap:4px; }
+        .sidebar-chip { padding:14px 16px; border-radius:var(--radius-md); border:none; background:transparent; font-size:15px; font-weight:500; cursor:pointer; transition:var(--transition); font-family:'Inter',sans-serif; color:var(--text-secondary); display:flex; align-items:center; gap:14px; text-align:left; position:relative; }
+        .sidebar-chip:hover { background:#f5f0e8; color:var(--text-primary); transform:translateX(3px); }
+        .dark-mode .sidebar-chip:hover { background:#333355; }
+        .sidebar-chip.active { background:var(--accent-light); color:var(--accent); font-weight:600; }
+        .sidebar-chip.active::before { content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:3px; height:28px; background:var(--accent); border-radius:0 3px 3px 0; }
+        .sidebar-chip-icon { font-size:22px; width:28px; text-align:center; flex-shrink:0; }
+        .sidebar-chip-name { flex:1; }
+        .sidebar-chip-count { font-size:12px; opacity:0.5; font-weight:400; }
+        .sidebar-share-bottom { padding:10px 14px 12px; border-top:1px solid #efe8dc; display:flex; flex-direction:column; gap:6px; }
+        .dark-mode .sidebar-share-bottom { border-color:#333355; }
+        .sidebar-share-btn { display:flex; align-items:center; gap:10px; width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid #efe8dc; background:white; font-size:13px; font-weight:500; cursor:pointer; transition:var(--transition); font-family:'Inter',sans-serif; color:var(--text-primary); text-align:left; }
+        .dark-mode .sidebar-share-btn { background:#252540; border-color:#333355; }
+        .sidebar-share-btn:hover { background:var(--accent-light); border-color:var(--accent); }
+        .sidebar-share-btn .share-icon { font-size:18px; color:#6366f1; }
+
+        /* ============ MODALS ============ */
+        .pix-modal-overlay { position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center; padding:20px; animation:fadeIn 0.3s ease; }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+        .pix-modal-backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(6px); }
+        .pix-modal-card { position:relative; z-index:1; background:var(--bg-secondary); border-radius:var(--radius-lg); padding:32px 24px 24px; text-align:center; max-width:360px; width:100%; box-shadow:var(--shadow-xl); border:1px solid var(--border); }
+        .pix-heart { font-size:44px; margin-bottom:8px; animation:float 3s ease-in-out infinite; }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+        .pix-modal-card h3 { font-size:22px; font-weight:700; color:var(--text-primary); margin-bottom:4px; }
+        .pix-subtitle { font-size:13px; color:var(--text-secondary); margin-bottom:20px; }
+        .pix-copy-area { background:var(--bg-primary); border:2px dashed var(--border); border-radius:var(--radius-md); padding:22px 18px; margin-bottom:8px; cursor:pointer; transition:var(--transition); text-align:center; }
+        .pix-copy-area:hover { border-color:var(--accent); background:var(--accent-light); }
+        .pix-copied-msg { font-size:13px; color:#10b981; font-weight:600; height:22px; opacity:0; transition:opacity 0.3s; margin-bottom:8px; }
+        .pix-copied-msg.show { opacity:1; }
+        .pix-verse { background:var(--accent-light); border-radius:var(--radius-md); padding:14px 16px; margin:12px 0 16px; font-size:13px; line-height:1.7; color:var(--text-primary); font-style:italic; border:1px solid var(--border); }
+        .pix-verse-ref { display:block; margin-top:6px; font-size:11px; font-weight:600; color:var(--accent); text-transform:uppercase; font-style:normal; }
+        .pix-close-btn { padding:10px 24px; border-radius:var(--radius-full); border:1px solid var(--border); background:var(--bg-secondary); font-size:13px; font-weight:500; cursor:pointer; font-family:'Inter',sans-serif; color:var(--text-secondary); }
+        .welcome-modal { position:fixed; inset:0; z-index:400; display:flex; align-items:center; justify-content:center; padding:20px; animation:fadeIn 0.5s ease; }
+        .welcome-backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(10px); }
+        .welcome-content { position:relative; z-index:1; background:linear-gradient(180deg,#faf8f5,#f5f0e8,#efe8dc); border-radius:var(--radius-lg); padding:36px 28px 32px; text-align:center; max-width:380px; width:100%; max-height:80vh; overflow-y:auto; box-shadow:var(--shadow-xl); animation:scaleIn 0.5s ease; border:1px solid #efe8dc; }
+        @keyframes scaleIn { from{opacity:0;transform:scale(0.9)} to{opacity:1;transform:scale(1)} }
+        .welcome-moment-icon { font-size:56px; margin-bottom:8px; animation:float 3s infinite; }
+        .welcome-moment-label { display:inline-block; padding:5px 16px; background:rgba(255,255,255,0.7); color:var(--accent); font-weight:600; border-radius:var(--radius-full); font-size:12px; margin-bottom:12px; border:1px solid #efe8dc; }
+        .welcome-content h2 { font-size:22px; font-weight:700; color:var(--text-primary); margin-bottom:16px; }
+        .welcome-prayer-card { background:white; border-radius:var(--radius-md); padding:24px 20px; border:1px solid #f0ebe0; margin-bottom:20px; text-align:center; font-size:15px; line-height:2; color:#374151; }
+        .dark-mode .welcome-prayer-card { background:#252540; border-color:#333355; color:#c8c8d8; }
+        .welcome-verse { background:white; border-radius:var(--radius-md); padding:14px 16px; border:1px solid #f0ebe0; margin-bottom:20px; font-size:13px; line-height:1.7; color:#374151; }
+        .welcome-verse .v-icon { font-size:16px; }
+        .welcome-verse .v-text { font-style:italic; font-weight:500; color:var(--text-primary); }
+        .welcome-verse .v-ref { display:block; font-size:11px; font-weight:600; color:var(--accent); text-transform:uppercase; }
+        .welcome-continue-btn { display:inline-flex; align-items:center; gap:8px; padding:14px 36px; border-radius:var(--radius-full); border:none; background:var(--accent); color:white; font-size:15px; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif; }
+        .prayer-detail-wrapper { position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; animation:fadeIn 0.3s; }
+        .prayer-detail-backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); }
+        .prayer-display { position:relative; z-index:1; width:100%; max-width:400px; max-height:80vh; border-radius:var(--radius-lg); text-align:center; overflow-y:auto; border:1px solid #efe8dc; background:linear-gradient(180deg,#faf8f5,#f5f0e8,#efe8dc); }
+        .prayer-back-btn { position:sticky; top:12px; left:12px; z-index:10; width:36px; height:36px; border-radius:50%; border:1px solid #d4c5b0; background:rgba(255,255,255,0.7); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--text-primary); margin-bottom:-20px; }
+        .prayer-display-content { padding:24px 24px 32px; margin-top:-16px; }
+        .prayer-display h3 { font-size:20px; font-weight:700; color:var(--text-primary); margin-bottom:16px; }
+        .prayer-glass-card { background:white; border-radius:var(--radius-md); padding:24px 20px; border:1px solid #f0ebe0; margin-bottom:16px; }
+        .dark-mode .prayer-glass-card { background:#252540; border-color:#333355; }
+        .prayer-text { font-size:15px; line-height:2; color:#374151; text-align:center; }
+        .dark-mode .prayer-text { color:#c8c8d8; }
+        .verse-reference { background:white; border-radius:var(--radius-md); padding:16px 18px; font-size:13px; line-height:1.7; color:#374151; text-align:center; border:1px solid #f0ebe0; }
+        .dark-mode .verse-reference { background:#252540; border-color:#333355; color:#c8c8d8; }
+        .verse-reference .verse-icon { font-size:16px; }
+        .verse-reference .verse-content { font-style:italic; font-weight:500; color:var(--text-primary); }
+        .verse-reference .verse-citation { display:block; margin-top:6px; font-size:11px; font-weight:600; color:var(--accent); text-transform:uppercase; }
+
+        /* ============ HEADER & CARDS ============ */
+        .top-header { padding:20px 20px 4px; display:flex; align-items:center; justify-content:center; position:relative; flex-shrink:0; }
+        .menu-btn { position:absolute; left:16px; top:50%; transform:translateY(-50%); width:40px; height:40px; border-radius:50%; border:1px solid #f0ebe0; background:rgba(255,255,255,0.5); font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--text-primary); z-index:10; }
+        .header-center { text-align:center; }
+        .greeting { font-size:12px; color:var(--text-secondary); font-weight:500; }
+        .app-title { font-size:22px; font-weight:700; color:var(--text-primary); }
+        .home-btn { position:absolute; right:16px; top:50%; transform:translateY(-50%); width:36px; height:36px; border-radius:50%; border:1px solid #f0ebe0; background:rgba(255,255,255,0.5); font-size:18px; cursor:pointer; display:none; align-items:center; justify-content:center; color:var(--text-secondary); z-index:10; }
+        .home-btn.visible { display:flex; }
+        .verse-card-main { margin:12px 16px; padding:24px 22px; background:linear-gradient(135deg,#f5f0e8,#efe8dc,#faf8f5); border-radius:var(--radius-lg); text-align:center; flex-shrink:0; cursor:pointer; border:1px solid #f0ebe0; position:relative; overflow:hidden; }
+        .verse-card-main::before { content:'"'; position:absolute; top:10px; left:16px; font-size:56px; color:#d4c5b0; opacity:0.25; font-family:Georgia,serif; }
+        .verse-main-text { font-size:17px; font-weight:500; color:var(--text-primary); line-height:1.8; font-style:italic; position:relative; z-index:1; }
+        .verse-main-ref { display:block; margin-top:12px; font-size:12px; font-weight:600; color:var(--accent); text-transform:uppercase; }
+        .verse-main-refresh { display:inline-block; margin-top:12px; font-size:12px; color:var(--text-secondary); }
+        .inspirational-phrase { margin:8px 16px; padding:16px 20px; text-align:center; flex-shrink:0; }
+        .inspirational-phrase p { font-size:14px; color:var(--text-secondary); }
+        .main-content { flex:1; overflow-y:auto; padding:10px 16px 4px; display:flex; flex-direction:column; gap:6px; }
+        .prayer-list { display:flex; flex-direction:column; gap:6px; }
+        .prayer-card { background:white; border-radius:var(--radius-md); padding:15px 16px; cursor:pointer; transition:var(--transition); display:flex; align-items:center; gap:14px; border:1px solid #f0ebe0; }
+        .dark-mode .prayer-card { background:#252540; border-color:#333355; }
+        .prayer-card:hover { box-shadow:var(--shadow-md); transform:translateY(-1px); }
+        .prayer-icon-wrapper { width:42px; height:42px; border-radius:var(--radius-sm); background:linear-gradient(135deg,#faf8f5,#f5f0e8); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+        .prayer-name { font-weight:600; font-size:14px; color:var(--text-primary); flex:1; }
+        .favorite-btn { background:none; border:none; font-size:20px; cursor:pointer; padding:6px; color:#e5e7eb; border-radius:50%; flex-shrink:0; }
+        .favorite-btn.active { color:#fbbf24; }
+        .section-title { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--text-secondary); padding:4px 4px 8px; }
+
+        /* ============ DESAFIOS & DIÁRIO ============ */
+        .challenges-container { display:flex; flex-direction:column; gap:16px; }
+        .challenge-card { background:white; border-radius:var(--radius-md); padding:20px; border:2px solid var(--border); cursor:pointer; transition:var(--transition); }
+        .dark-mode .challenge-card { background:#252540; border-color:#333355; }
+        .challenge-card:hover { border-color:var(--accent); transform:translateY(-2px); }
+        .challenge-card.active-challenge { border-color:var(--accent); background:var(--accent-light); }
+        .challenge-card-header { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+        .challenge-icon { font-size:36px; }
+        .challenge-info { flex:1; }
+        .challenge-name { font-weight:700; font-size:16px; color:var(--text-primary); }
+        .challenge-duration { font-size:12px; color:var(--text-secondary); }
+        .challenge-desc { font-size:13px; color:var(--text-secondary); margin-bottom:12px; }
+        .challenge-progress { display:flex; align-items:center; gap:8px; background:var(--bg-primary); border-radius:var(--radius-full); padding:4px; height:8px; overflow:hidden; }
+        .challenge-progress-bar { height:100%; border-radius:var(--radius-full); background:var(--accent); }
+        .challenge-start-btn { display:inline-block; padding:8px 18px; border-radius:var(--radius-full); border:none; background:var(--accent); color:white; font-size:13px; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif; }
+        .diary-container { display:flex; flex-direction:column; gap:16px; }
+        .diary-header-card { background:var(--accent-light); border-radius:var(--radius-md); padding:20px; text-align:center; border:1px solid var(--border); }
+        .diary-header-card .diary-icon { font-size:40px; margin-bottom:8px; }
+        .diary-header-card h3 { font-size:18px; font-weight:700; color:var(--text-primary); }
+        .diary-header-card .diary-subtitle { font-size:12px; color:var(--text-secondary); }
+        .diary-new-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:14px 20px; border-radius:var(--radius-full); border:none; background:var(--accent); color:white; font-size:14px; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif; }
+        .diary-editor { background:white; border-radius:var(--radius-md); padding:20px; border:1px solid var(--border); }
+        .dark-mode .diary-editor { background:#252540; border-color:#333355; }
+        .diary-textarea { width:100%; min-height:150px; padding:14px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--bg-primary); font-family:'Inter',sans-serif; font-size:14px; color:var(--text-primary); resize:vertical; line-height:1.8; }
+        .diary-actions { display:flex; gap:8px; margin-top:12px; }
+        .diary-save-btn { flex:1; padding:12px; border-radius:var(--radius-full); border:none; background:var(--accent); color:white; font-size:14px; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif; }
+        .diary-cancel-btn { padding:12px 16px; border-radius:var(--radius-full); border:1px solid var(--border); background:white; color:var(--text-secondary); font-size:14px; font-weight:500; cursor:pointer; font-family:'Inter',sans-serif; }
+        .diary-entries { display:flex; flex-direction:column; gap:10px; }
+        .diary-entry { background:white; border-radius:var(--radius-md); padding:18px; border:1px solid var(--border); position:relative; cursor:pointer; }
+        .dark-mode .diary-entry { background:#252540; border-color:#333355; }
+        .diary-entry:hover { box-shadow:var(--shadow-md); }
+        .diary-entry-date { font-size:11px; font-weight:600; color:var(--accent); text-transform:uppercase; margin-bottom:8px; }
+        .diary-entry-text { font-size:14px; line-height:1.8; color:var(--text-primary); white-space:pre-wrap; }
+        .diary-read-more { font-size:11px; color:var(--accent); font-weight:500; margin-top:6px; }
+        .diary-entry-delete { position:absolute; top:12px; right:12px; width:28px; height:28px; border-radius:50%; border:none; background:transparent; color:var(--text-secondary); cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; z-index:5; }
+        .diary-entry-delete:hover { background:#fee2e2; color:#ef4444; }
+        .diary-empty { text-align:center; padding:40px 20px; color:var(--text-secondary); }
+        .diary-empty .empty-icon { font-size:48px; margin-bottom:12px; opacity:0.7; }
+        .diary-view-overlay { position:fixed; inset:0; z-index:500; display:flex; align-items:center; justify-content:center; padding:20px; animation:fadeIn 0.3s; }
+        .diary-view-backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(6px); }
+        .diary-view-modal { position:relative; z-index:1; background:var(--bg-secondary); border-radius:var(--radius-lg); padding:28px 24px 24px; max-width:400px; width:100%; max-height:80vh; overflow-y:auto; box-shadow:var(--shadow-xl); border:1px solid var(--border); display:flex; flex-direction:column; }
+        .diary-view-close { position:absolute; top:12px; right:12px; width:32px; height:32px; border-radius:50%; border:none; background:var(--bg-primary); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); }
+        .diary-view-date { font-size:12px; font-weight:600; color:var(--accent); text-transform:uppercase; margin-bottom:16px; text-align:center; }
+        .diary-view-text { font-size:15px; line-height:2; color:var(--text-primary); white-space:pre-wrap; word-wrap:break-word; text-align:left; margin-bottom:20px; flex:1; overflow-y:auto; }
+        .diary-view-btn { display:block; margin:0 auto; padding:10px 28px; border-radius:var(--radius-full); border:1px solid var(--border); background:var(--bg-secondary); font-size:14px; font-weight:500; cursor:pointer; font-family:'Inter',sans-serif; color:var(--text-secondary); }
+        .diary-delete-modal { position:relative; z-index:1; background:var(--bg-secondary); border-radius:var(--radius-lg); padding:32px 24px 24px; max-width:360px; width:100%; text-align:center; box-shadow:var(--shadow-xl); border:1px solid var(--border); }
+        .diary-delete-icon { font-size:48px; margin-bottom:12px; }
+        .diary-delete-modal h3 { font-size:20px; font-weight:700; color:var(--text-primary); }
+        .diary-delete-actions { display:flex; gap:10px; justify-content:center; }
+        .diary-delete-cancel { padding:10px 20px; border-radius:var(--radius-full); border:1px solid var(--border); background:var(--bg-secondary); font-size:14px; font-weight:500; cursor:pointer; font-family:'Inter',sans-serif; color:var(--text-secondary); }
+        .diary-delete-confirm { padding:10px 20px; border-radius:var(--radius-full); border:none; background:#ef4444; color:white; font-size:14px; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif; }
+
+        /* ============ TIMER ============ */
+        .timer-card { background:white; border-radius:var(--radius-lg); padding:32px 24px; text-align:center; border:1px solid #f0ebe0; box-shadow:var(--shadow-sm); }
+        .dark-mode .timer-card { background:#252540; border-color:#333355; }
+        .timer-label { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--text-secondary); margin-bottom:8px; }
+        .timer-display { font-size:68px; font-weight:200; color:var(--text-primary); letter-spacing:-3px; margin:16px 0; }
+        .timer-presets { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin-bottom:20px; }
+        .preset-btn { padding:8px 16px; border-radius:var(--radius-full); border:1.5px solid #f0ebe0; background:white; font-size:13px; font-weight:500; cursor:pointer; transition:var(--transition); font-family:'Inter',sans-serif; color:var(--text-secondary); }
+        .dark-mode .preset-btn { background:#1e1e35; border-color:#333355; }
+        .preset-btn:hover { background:var(--accent-light); color:var(--accent); border-color:var(--accent); }
+        .preset-btn.active-preset { background:var(--accent); color:white; border-color:var(--accent); }
+        .timer-controls { display:flex; gap:10px; justify-content:center; }
+        .timer-btn { padding:14px 32px; border-radius:var(--radius-full); font-size:15px; font-weight:600; cursor:pointer; transition:var(--transition); font-family:'Inter',sans-serif; }
+        .timer-btn.start { background:var(--accent); color:white; border:none; }
+        .timer-btn.pause { background:#fef3c7; color:#d97706; border:none; }
+        .timer-btn.reset { background:white; color:var(--text-secondary); border:2px solid #f0ebe0; }
+
+        /* ============ BOTTOM NAV ============ */
+        .bottom-nav { display:flex; align-items:center; justify-content:space-around; padding:6px 4px 10px; background:rgba(250,248,245,0.8); backdrop-filter:blur(20px); border-top:1px solid #efe8dc; flex-shrink:0; }
+        .dark-mode .bottom-nav { background:rgba(30,30,50,0.8); border-color:#333355; }
+        .nav-item { display:flex; flex-direction:column; align-items:center; gap:3px; padding:6px 8px; border:none; background:transparent; cursor:pointer; transition:var(--transition); font-family:'Inter',sans-serif; color:var(--text-secondary); border-radius:var(--radius-sm); min-width:50px; }
+        .nav-item:hover { color:var(--text-primary); }
+        .nav-item.active { color:var(--accent); }
+        .nav-item-icon { font-size:20px; }
+        .nav-item-label { font-size:9px; font-weight:600; }
+        .nav-item-dot { width:4px; height:4px; border-radius:50%; background:var(--accent); opacity:0; }
+        .nav-item.active .nav-item-dot { opacity:1; }
+
+        @media (max-width:440px) { .app-container { height:100vh; max-height:100vh; border-radius:0; max-width:100%; } body { padding:0; } }
     </style>
 </head>
 <body>
-    <div id="toast">Ação realizada!</div>
-    <aside class="sidebar">
-        <h1>Ore Comigo</h1>
-        <div class="nav-group">
-            <div class="nav-item active" onclick="show('home', this)">🏠 Início</div>
-            <div class="nav-item" onclick="show('list', this)">📖 Orações</div>
-            <div class="nav-item" onclick="show('favs', this)">⭐ Favoritos</div>
-            <div class="nav-item item-apoio" onclick="show('donate', this)">❤️ Apoie o Projeto</div>
-            <div class="nav-item item-share" onclick="shareApp()">🔗 Compartilhar</div>
-            <div class="nav-item item-theme" onclick="toggleTheme()">☀️ Modo Claro</div>
-        </div>
-    </aside>
-
-    <main id="main-content">
-        <section id="home" class="screen active">
-            <div style="background: linear-gradient(135deg, #6d8299, #8da9c4); color:white; padding:35px 20px; border-radius:25px; text-align:center; transition: 0.3s; box-shadow: 0 4px 15px rgba(109,130,153,0.2);">
-                <h2 id="saudacao" style="font-weight: 700; font-size: 22px;">Seja Bem-vindo</h2>
-                <div style="height: 2px; background: rgba(255,255,255,0.3); width: 30px; margin: 15px auto;"></div>
-                <p id="msg-dia" style="font-size:14px; font-style:italic; min-height: 40px; display: flex; align-items: center; justify-content: center;"></p>
+    <div class="app-container" id="appContainer">
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-support-top"><div class="support-heart">💛</div><div class="support-msg">Ajude a manter o app gratuito</div><button class="support-donate-btn" onclick="openPixModal()">💎 Doar via PIX</button></div>
+            <div class="sidebar-header"><h2>📿 Categorias</h2><button class="sidebar-close" onclick="closeSidebar()">✕</button></div>
+            <div class="sidebar-chips" id="sidebarChips"></div>
+            <div class="sidebar-share-bottom">
+                <button class="sidebar-share-btn" onclick="shareApp()"><span class="share-icon">📤</span><span>Compartilhar</span></button>
+                <button class="sidebar-share-btn" onclick="toggleDarkMode()" id="darkModeBtn"><span class="share-icon">🌙</span><span>Modo Escuro</span></button>
             </div>
-            <button onclick="randomO()" style="margin-top:25px; background:var(--w); border:1px solid #ddd; padding:18px; border-radius:22px; width:100%; color:var(--p); font-weight:700; cursor:pointer;">✨ Receber uma Palavra</button>
-        </section>
+        </aside>
 
-        <section id="list" class="screen">
-            <div id="cat-menu" class="grid">
-                <div class="card-cat" onclick="openCat('paz')"><div>🕊️</div><span>PAZ</span></div>
-                <div class="card-cat" onclick="openCat('familia')"><div>🏠</div><span>FAMÍLIA</span></div>
-                <div class="card-cat" onclick="openCat('gratidao')"><div>🙏</div><span>GRATIDÃO</span></div>
-                <div class="card-cat" onclick="openCat('perdao')"><div>🔓</div><span>PERDÃO</span></div>
-                <div class="card-cat" onclick="openCat('prosperidade')"><div>💰</div><span>PROSPERIDADE</span></div>
-                <div class="card-cat" onclick="openCat('saude')"><div>🌿</div><span>SAÚDE</span></div>
-                <div class="card-cat" onclick="openCat('protecao')"><div>🛡️</div><span>PROTEÇÃO</span></div>
-                <div class="card-cat" onclick="openCat('sabedoria')"><div>💡</div><span>SABEDORIA</span></div>
-                <div class="card-cat" onclick="openCat('forca')"><div>💪</div><span>FORÇA</span></div>
-                <div class="card-cat" onclick="openCat('filhos')"><div>👶</div><span>FILHOS</span></div>
-            </div>
-            <div id="ora-container" style="display:none"></div>
-        </section>
+        <div class="pix-modal-overlay" id="pixModal" style="display:none;" onclick="closePixModal(event)"><div class="pix-modal-backdrop"></div><div class="pix-modal-card"><div class="pix-heart">💛</div><h3>Apoie esta Missão</h3><p class="pix-subtitle">Este projeto é mantido por corações generosos.</p><div class="pix-copy-area" onclick="copyPix()"><div style="font-size:32px;">📋</div><div style="font-weight:600;">Toque para copiar o PIX</div></div><div class="pix-copied-msg" id="pixCopied">✅ Chave copiada!</div><div class="pix-verse">"Não cansemos de fazer o bem..."<span class="pix-verse-ref">Gálatas 6:9</span></div><button class="pix-close-btn" onclick="document.getElementById('pixModal').style.display='none'">Fechar</button></div></div>
+        <div class="welcome-modal" id="welcomeModal" style="display:none;"><div class="welcome-backdrop" onclick="closeWelcome()"></div><div class="welcome-content" id="welcomeContent"></div></div>
+        <div class="prayer-detail-wrapper" id="prayerDetailWrapper" style="display:none;" onclick="closePrayerFromBackdrop(event)"><div class="prayer-detail-backdrop"></div><div class="prayer-display" id="prayerDetailContent"></div></div>
 
-        <section id="favs" class="screen"><h3 style="text-align:center; color:var(--p); margin-bottom:20px; font-weight:700;">Favoritos</h3><div id="fav-list"></div></section>
+        <header class="top-header"><button class="menu-btn" onclick="openSidebar()">☰</button><div class="header-center"><div class="greeting" id="greetingText">Bom dia!</div><div class="app-title">✨ Ore Comigo</div></div><button class="home-btn" id="homeBtn" onclick="goHome()">🏠</button></header>
+        <div class="verse-card-main" id="verseCardMain" onclick="refreshVerse()"><div class="verse-main-text" id="verseMainText">"Em tudo dai graças..."</div><span class="verse-main-ref" id="verseMainRef">1Ts 5:18</span><div class="verse-main-refresh">🔔 Toque para receber</div></div>
+        <div class="inspirational-phrase"><p>"Que a paz de Deus preencha seu coração."</p></div>
+        <main class="main-content" id="mainContent"></main>
 
-        <section id="donate" class="screen">
-            <div class="donate-card">
-                <div style="font-size: 50px; margin-bottom: 10px;">💎</div>
-                <h3 style="color: var(--p); font-size: 22px; font-weight: 700;">Apoie esta Missão</h3>
-                <p style="font-size: 14px; opacity: 0.8; margin-top: 15px; line-height: 1.6; font-style: italic;">"Este projeto é mantido por corações generosos como o seu. Ajude-nos a continuar esta obra."</p>
-                <div class="pix-box" onclick="copyPix('65173337000146')">
-                    <span style="font-size: 13px; font-weight: 700; color: var(--p); letter-spacing: 1px;">TOQUE PARA COPIAR O PIX</span>
-                </div>
-                <p style="font-size: 11px; opacity: 0.5; line-height: 1.4; font-weight: 600;">"Não cansemos de fazer o bem, pois no tempo próprio colheremos, se não desanimarmos."<br><span style="font-size: 9px;">(Gálatas 6:9)</span></p>
-            </div>
-        </section>
-    </main>
-
-    <div id="modal" class="modal" onclick="closeM()">
-        <div class="m-box" onclick="event.stopPropagation()">
-            <div id="btn-fav-modal" style="position:absolute; top:15px; right:15px; font-size:24px; cursor:pointer;">☆</div>
-            <h3 id="mt"></h3>
-            <p id="mm" style="font-size:15px; line-height:1.5; text-align:left;"></p>
-            <small id="mr" style="display:block; text-align:center; margin-top:15px; color:var(--a); font-weight:700;"></small>
-            <button class="btn-amen" onclick="closeM()">Amém</button>
-        </div>
+        <nav class="bottom-nav" id="bottomNav">
+            <button class="nav-item" data-tab="challenges" onclick="switchTab('challenges')"><span class="nav-item-icon">🎯</span><span class="nav-item-label">Desafios</span><span class="nav-item-dot"></span></button>
+            <button class="nav-item" data-tab="diary" onclick="switchTab('diary')"><span class="nav-item-icon">📝</span><span class="nav-item-label">Diário</span><span class="nav-item-dot"></span></button>
+            <button class="nav-item" data-tab="favorites" onclick="switchTab('favorites')"><span class="nav-item-icon">⭐</span><span class="nav-item-label">Favoritos</span><span class="nav-item-dot"></span></button>
+            <button class="nav-item" data-tab="timer" onclick="switchTab('timer')"><span class="nav-item-icon">⏱️</span><span class="nav-item-label">Meditar</span><span class="nav-item-dot"></span></button>
+        </nav>
     </div>
 
     <script>
-        const db = {
-            paz: [
-                {id:"p1",t:"Paz no Coração",r:"João 14:27",m:"Senhor, peço que Tua paz inunde meu coração agora. Afasta toda ansiedade e medo que tentam roubar minha alegria. Que eu possa descansar na certeza de que Tu tens o controle de tudo. Me dê um sono calmo e uma mente tranquila para enfrentar o amanhã com fé. Amém."},
-                {id:"p2",t:"O Descanso na Fé",r:"Salmos 4:8",m:"Pai amado, ao final deste dia, entrego minhas preocupações aos Teus pés. Ensina-me a confiar plenamente na Tua providência. Que Tua presença silencie os ruídos do mundo e permita que minha alma encontre o descanso necessário para prosseguir. Amém."},
-                {id:"p3",t:"A Quietude da Alma",r:"Filipenses 4:7",m:"Deus, peço que Tua paz guarde meus pensamentos em Cristo Jesus. Quando a confusão tentar entrar em meu lar, que eu seja um instrumento de calma. Que eu aprenda a respirar na Tua graça, reconhecendo que nada foge ao Teu controle soberano. Amém."},
-                {id:"p4",t:"Porto Seguro",r:"Salmos 91:1",m:"Senhor, Tu és meu refúgio e fortaleza. Peço que eu possa habitar sob Tua sombra protetora hoje. Livra-me das armadilhas do medo. Que a confiança na Tua proteção seja maior do que qualquer ameaça externa, trazendo paz ao meu interior. Amém."},
-                {id:"p5",t:"O Jugo Suave",r:"Mateus 11:28",m:"Jesus, aceito o Teu convite e Te entrego meu cansaço. Troca minha carga pesada pela Tua leveza. Dá-me a serenidade necessária para enfrentar os desafios sem perder a esperança. Em Ti encontro o verdadeiro descanso que minha alma precisa hoje. Amém."},
-                {id:"p6",t:"Mente Firme",r:"Isaías 26:3",m:"Senhor, Tu prometeste paz aos que firmam o pensamento em Ti. Ajuda-me a desviar os olhos dos problemas e focar na Tua grandeza. Que minha mente seja como uma rocha firme alicerçada na Tua palavra, trazendo estabilidade às minhas emoções. Amém."},
-                {id:"p7",t:"Silêncio Renovador",r:"Salmos 46:10",m:"Pai, ajuda-me a aquietar o coração e reconhecer que Tu és Deus. Ensina-me a buscar o silêncio da Tua presença no meio da agitação. É nesse secreto que minhas forças são renovadas e minha visão se torna clara para caminhar em Tua paz. Amém."},
-                {id:"p8",t:"Luz na Jornada",r:"João 8:12",m:"Jesus, Tu és a luz que dissipa as trevas da angústia. Ilumina minha vida com Tua paz transformadora. Que eu nunca caminhe em incertezas, mas que a Tua verdade me traga o discernimento necessário para viver com propósito e fé hoje. Amém."},
-                {id:"p9",t:"Consolo Divino",r:"Salmos 23:4",m:"Senhor, mesmo no vale mais escuro, não temerei, pois Tu estás comigo. Tua presença é meu maior consolo e proteção. Que o Teu abraço venha sobre mim nos momentos de tristeza, sabendo que a vitória é garantida pela Tua fidelidade eterna. Amém."},
-                {id:"p10",t:"Paz Profunda",r:"Colossenses 3:15",m:"Que a paz de Cristo seja o árbitro em meu coração. Em todas as minhas escolhas e relacionamentos, que a harmonia prevaleça. Sou grato por pertencer a um corpo que busca a paz e a Tua graça. Amém."}
-            ],
-            familia: [
-                {id:"f1",t:"Bênção para o Lar",r:"Josué 24:15",m:"Senhor, consagro minha casa e minha família a Ti. Que o Teu amor seja o alicerce do nosso lar e que a Tua presença seja sentida em cada cômodo. Protege-nos de todo o mal e que a união prevaleça entre nós. Que em nossa casa haja sempre provisão e paz. Amém."},
-                {id:"f2",t:"União Familiar",r:"Salmos 133:1",m:"Deus de amor, peço que derrames Tua bênção de união sobre meus familiares. Remove toda barreira de orgulho ou mágoa que possa existir entre nós. Ensina-nos a perdoar e a valorizar cada momento juntos, refletindo a Tua misericórdia. Amém."},
-                {id:"f3",t:"Proteção do Lar",r:"Números 6:24",m:"Senhor, abençoa e guarda cada membro da minha família. Que o Teu rosto resplandeça sobre nós. Que em nossa casa haja sempre provisão, saúde e um ambiente de paz, onde o Teu nome seja honrado acima de tudo. Amém."},
-                {id:"f4",t:"Amor Sacrificial",r:"1 Coríntios 13:13",m:"Pai, ensina-nos a amar uns aos outros como Tu nos amas. Que a paciência, a bondade e a compreensão sejam as marcas do nosso convívio. Ajuda-nos a suportar as falhas uns dos outros com caridade e a construir um lar cheio de Tua luz. Amém."},
-                {id:"f5",t:"Sabedoria para Pais",r:"Provérbios 22:6",m:"Senhor, dá-me sabedoria para guiar meus familiares pelos caminhos da retidão. Que eu saiba instruir com amor e ser um exemplo vivo da Tua palavra para as gerações que vêm de mim, plantando sementes de fé que durarão para sempre. Amém."},
-                {id:"f6",t:"Respeito Mútuo",r:"Efésios 6:1",m:"Deus, peço que o respeito seja o pilar dos nossos relacionamentos. Que os filhos honrem os pais e os pais tratem os filhos com carinho. Que não haja espaço para palavras rudes, mas sim para o encorajamento e o crescimento mútuo em Tua graça. Amém."},
-                {id:"f7",t:"Paz nas Conversas",r:"Provérbios 15:1",m:"Senhor, guarda a nossa boca. Que tenhamos respostas brandas que desviem o furor. Afasta todo espírito de contenda do nosso meio e que a comunicação entre nós seja sempre honesta e cheia da Tua sabedoria, trazendo vida à nossa casa. Amém."},
-                {id:"f8",t:"Prosperidade no Lar",r:"Salmos 128:3",m:"Pai amado, abençoa o fruto do nosso trabalho e que a prosperidade habite em nossa casa. Que não nos falte o pão de cada dia e que possamos desfrutar das Tuas bênçãos com alegria, gratidão e um coração generoso. Amém."},
-                {id:"f9",t:"Edificação da Casa",r:"Provérbios 14:1",m:"Senhor, dá-nos sabedoria para edificar o nosso lar. Que sejamos prudentes na administração dos bens e na condução da rotina. Que a nossa casa seja um lugar de refúgio, renovação e oração para todos os que aqui habitam. Amém."},
-                {id:"f10",t:"Aliança Eterna",r:"Gênesis 17:7",m:"Deus fiel, peço que a Tua mão esteja sobre a minha descendência. Que meus filhos conheçam a Tua fidelidade e vivam sob a Tua proteção por todas as gerações. Tu és o nosso Deus hoje e sempre, e em Ti depositamos nossa esperança. Amém."}
-            ],
-            gratidao: [
-                {id:"g1",t:"Gratidão Diária",r:"1 Tess. 5:18",m:"Meu Deus, hoje eu não quero pedir nada, apenas agradecer. Obrigado pela vida, pelo fôlego e pela saúde. Obrigado por me sustentar nos momentos difíceis e por nunca me abandonar, provendo tudo o que preciso com amor e cuidado infinito. Sou grato por tudo. Amém."},
-                {id:"g2",t:"Coração Grato",r:"Salmos 100:4",m:"Senhor, entro em Teus átrios com louvor. Agradeço pela Tua bondade que dura para sempre e pela Tua fidelidade constante. Obrigado por ser o meu Pai amoroso e por cuidar de cada detalhe da minha jornada com tanta perfeição e carinho. Tu és maravilhoso. Amém."},
-                {id:"g3",t:"Pelo Pão",r:"Mateus 6:11",m:"Pai Celeste, obrigado pelo alimento à minha mesa. Agradeço pelo trabalho que provê o sustento e pela Tua provisão que nunca falha. Que eu saiba sempre valorizar o que tenho e ser generoso com os que possuem menos, reconhecendo que tudo vem de Ti. Amém."},
-                {id:"g4",t:"Dom da Vida",r:"Salmos 118:24",m:"Este é o dia que o Senhor fez; nele me alegrarei. Obrigado pela oportunidade de viver mais este dia, de ver o sol nascer e de ter novas chances de ser uma pessoa melhor. A vida é um presente Teu que recebo com o coração cheio de alegria e louvor. Amém."},
-                {id:"g5",t:"Bênçãos Infinitas",r:"Salmos 103:2",m:"Minha alma, bendiga ao Senhor e não se esqueça de seus benefícios. Agradeço pela cura, pelo livramento e pelas portas abertas. Tu és um Deus generoso e eu reconheço que cada conquista e fôlego são frutos da Tua graça imerecida em meu favor. Amém."},
-                {id:"g6",t:"Pela Salvação",r:"João 3:16",m:"Obrigado, Jesus, pelo Teu sacrifício. Agradeço por me amar de tal maneira que deste a Tua vida por mim. Minha maior gratidão é pela certeza da vida eterna e pelo perdão dos meus pecados. Sou livre e transformado pelo Teu sangue precioso derramado na cruz. Amém."},
-                {id:"g7",t:"Pela Força",r:"Salmos 28:7",m:"Senhor, obrigado por ser a minha força e o meu escudo. Agradeço porque, quando me senti fraco, Tu me levantaste. Quando o medo tentou me paralisar, o Teu amor me trouxe coragem. Obrigado pelo sustento diário e por lutar minhas batalhas invisíveis. Amém."},
-                {id:"g8",t:"Pelo Socorro",r:"Salmos 121:1",m:"Elevo meus olhos para os montes e agradeço porque o meu socorro vem do Senhor. Obrigado por me guardar de todo o mal e por não permitir que meus pés tropecem. Tua vigilância é minha segurança e Tua proteção é meu maior motivo de gratidão hoje. Amém."},
-                {id:"g9",t:"Pela Paz",r:"2 Tess. 3:16",m:"Obrigado, Senhor da paz, por me dar paz em todo o tempo. Agradeço por essa paz que acalma o meu coração mesmo quando o mundo ao redor está em caos. Ter a Tua presença constante ao meu lado é o meu maior motivo de gratidão e alegria profunda. Amém."},
-                {id:"g10",t:"Pelo Amor",r:"1 João 4:19",m:"Agradeço, Pai, porque me amaste primeiro. Obrigado porque o Teu amor é incondicional e restaura minha alma. Que a minha gratidão se transforme em ações de amor para com o próximo, refletindo a Tua luz e Tua bondade em tudo o que eu fizer hoje. Amém."}
-            ],
-            perdao: [
-                {id:"pe1",t:"Coração Puro",r:"Salmos 51:10",m:"Senhor, reconheço minhas falhas e peço Teu perdão. Lava o meu coração de todo pecado e renova em mim um espírito reto. Ajuda-me também a perdoar aqueles que me feriram, tirando de mim qualquer peso de mágoa ou amargura que impeça minha caminhada. Amém."},
-                {id:"pe2",t:"Perdoar Sempre",r:"Mateus 18:22",m:"Senhor, ensina-me a perdoar setenta vezes sete. Que o meu coração seja livre de rancores e que eu tenha a humildade de pedir perdão quando eu errar. Que o Teu exemplo de amor na cruz me inspire a liberar perdão e a viver em paz com todos ao meu redor. Amém."},
-                {id:"pe3",t:"Misericórdia",r:"Lucas 6:36",m:"Pai, peço que a Tua misericórdia me alcance hoje. Assim como recebo o Teu perdão generoso, ajuda-me a ser misericordioso com os erros alheios. Que eu seja um canal da Tua graça restauradora, levando reconciliação onde houver conflito e amor onde houver ódio. Amém."},
-                {id:"pe4",t:"Libertação",r:"João 8:36",m:"Senhor Jesus, obrigado porque o Teu perdão me traz verdadeira liberdade. Peço que me libertes das correntes da culpa e do remorso que tentam me prender ao passado. Que eu aceite o Teu perdão e caminhe para frente, focado nas novas oportunidades que tens. Amém."},
-                {id:"pe5",t:"Arrependimento",r:"1 João 1:9",m:"Deus fiel e justo, venho confessar os meus pecados. Arrependo-me de tudo o que fiz que Te entristeceu e peço que me purifiques de toda injustiça. Obrigado por me dar a chance de recomeçar com o coração renovado e fortalecido pela Tua graça infinita. Amém."},
-                {id:"pe6",t:"Novas Criaturas",r:"2 Cor. 5:17",m:"Senhor, agradeço porque em Cristo as coisas velhas já passaram e tudo se fez novo. Peço que o meu passado não tenha poder sobre o meu presente. Que o Teu perdão me transforme em uma pessoa melhor, mais parecida com Jesus e cheia de esperança no futuro. Amém."},
-                {id:"pe7",t:"Paz com o Próximo",r:"Efésios 4:32",m:"Pai, ajuda-me a ser bondoso e com paciência. Que eu possa perdoar os outros assim como Tu me perdoaste em Cristo. Remove toda a amargura do meu coração, para que eu viva em paz e harmonia, espalhando o Teu amor por onde quer que eu passar hoje. Amém."},
-                {id:"pe8",t:"Limpeza Profunda",r:"Isaías 1:18",m:"Senhor, Tu prometeste que nossos pecados ficariam brancos como a neve. Agradeço por essa limpeza profunda em minha alma. Que eu valorize esse sacrifício e procure viver uma vida santa e agradável a Ti, honrando o Teu nome em cada pensamento meu. Amém."},
-                {id:"pe9",t:"Amor Restaurador",r:"1 Pedro 4:8",m:"Deus, que o amor prevaleça sobre os meus julgamentos. Ensina-me que o amor cobre uma multidão de pecados e cura as feridas da alma. Que eu prefira amar e perdoar do que ter razão, construindo pontes de restauração e esperança em meus relacionamentos. Amém."},
-                {id:"pe10",t:"Recomeço Divino",r:"Lamentações 3:22",m:"Obrigado, Senhor, porque Tuas misericórdias se renovam a cada manhã. Peço que este novo dia seja marcado pelo Teu perdão e por uma nova disposição em meu espírito. Que eu não repita os erros de ontem e viva plenamente a Tua vontade soberana hoje. Amém."}
-            ],
-            prosperidade: [
-                {id:"pr1",t:"Portas de Trabalho",r:"Salmos 90:17",m:"Pai das Luzes, peço Tua direção sobre a minha vida profissional. Abre portas de oportunidades onde não vejo saída e abençoa o trabalho das minhas mãos. Que o fruto do meu esforço supra minhas necessidades e seja um canal de bênção para outras pessoas também. Amém."},
-                {id:"pr2",t:"Abundância",r:"Filipenses 4:19",m:"Senhor, confio na Tua promessa de que suprirás todas as minhas necessidades segundo as Tuas riquezas. Afasta de mim o medo da escassez e dá-me a fé para acreditar que Tu és o meu provedor fiel em todos os momentos, cuidando de cada detalhe da minha vida. Amém."},
-                {id:"pr3",t:"Sucesso nos Planos",r:"Josué 1:8",m:"Pai, ajuda-me a meditar na Tua palavra dia e noite. Que eu seja obediente aos Teus princípios para que o meu caminho seja próspero e eu tenha bom sucesso. Que meus projetos estejam alinhados com a Tua vontade e tragam glória ao Teu santo nome. Amém."},
-                {id:"pr4",t:"Coração Generoso",r:"2 Coríntios 9:6",m:"Senhor, ensina-me a ser um semeador generoso. Que eu entenda que quem semeia com fartura, também colherá com alegria. Abençoa a minha vida financeira para que eu transborde em boas obras para o Teu Reino, sendo um exemplo de fidelidade e gratidão. Amém."},
-                {id:"pr5",t:"Honra ao Senhor",r:"Provérbios 3:9",m:"Deus, entrego a Ti as primícias de tudo o que recebo. Reconheço que tudo vem de Ti e nada tenho que não me tenha sido dado por Tua mão. Que eu tenha sabedoria para administrar cada centavo com responsabilidade, integridade e temor ao Senhor todos os dias. Amém."},
-                {id:"pr6",t:"Força para Prosperar",r:"Deuteronômio 8:18",m:"Senhor, agradeço pela inteligência e saúde que me dás para adquirir riquezas. Não permitas que o meu coração se envaideça, mas que eu sempre me lembre de que és Tu quem me dá a força para prosperar. Toda a honra e toda a glória pertencem somente a Ti. Amém."},
-                {id:"pr7",t:"Janelas do Céu",r:"Malaquias 3:10",m:"Pai amado, coloco minha fidelidade à prova da Tua promessa. Abre as janelas do céu e derrama sobre mim bênção tal que não haja lugar suficiente para a recolher. Repreende o devorador da minha vida financeira e que a Tua fartura se manifeste em meu lar. Amém."},
-                {id:"pr8",t:"Cálice Transbordante",r:"Salmos 23:5",m:"Senhor, Tu preparas uma mesa perante mim. Unges a minha cabeça com óleo e o meu cálice transborda. Agradeço pela fartura que tens derramado sobre mim, permitindo que eu viva com dignidade, segurança e paz, desfrutando da Tua bondade infinita todos os dias. Amém."},
-                {id:"pr9",t:"Bênção no Caminhar",r:"Deuteronômio 28:3",m:"Deus de Abraão, eu recebo a Tua bênção sobre tudo o que eu fizer hoje. Que eu seja bendito ao sair e ao entrar em todos os lugares. Que o meu negócio, emprego e investimentos floresçam, trazendo segurança e alegria para toda a minha família. Amém."},
-                {id:"pr10",t:"Prioridade do Reino",r:"Mateus 6:33",m:"Senhor, meu compromisso é buscar primeiro o Teu Reino e a Tua justiça. Confio plenamente que todas as outras coisas me serão acrescentadas conforme a Tua vontade. Dá-me paz para não andar ansioso e sabedoria para viver a prosperidade com equilíbrio. Amém."}
-            ],
-            saude: [
-                {id:"s1",t:"Cura Divina",r:"Êxodo 15:26",m:"Senhor, Tu és o Médico dos médicos e o autor da vida. Peço que estendas Tua mão poderosa sobre o meu corpo e restaure a minha saúde completamente. Fortalece o meu sistema imunológico e cura toda enfermidade física ou emocional que tente se instalar hoje. Amém."},
-                {id:"s2",t:"Restauração Total",r:"Jeremias 30:17",m:"Pai, Tu prometeste que trarias restauração e cura para as feridas da alma e do corpo. Peço que essa promessa se cumpra em minha vida agora. Remove qualquer dor, desequilíbrio ou mal-estar. Que a vitalidade do Teu Espírito flua em mi, trazendo saúde total. Amém."},
-                {id:"s3",t:"Renovo de Forças",r:"Isaías 40:31",m:"Senhor, quando me sinto cansado ou doente, busco em Ti o renovo. Que eu possa voar como águia, correr e não me cansar, caminhar e não fatigar. Dá-me a energia necessária para cumprir minhas tarefas diárias com saúde, disposição e um coração esperançoso. Amém."},
-                {id:"s4",t:"Saúde da Mente",r:"Provérbios 4:22",m:"Deus, Tua palavra é vida para quem a encontra e saúde para todo o corpo. Ajuda-me a guardar os Teus ensinamentos em meu coração. Que a minha mente seja limpa e que o meu corpo reflita a paz e o equilíbrio perfeito que vêm somente da Tua presença em mim. Amém."},
-                {id:"s5",t:"Fé que Restaura",r:"Mateus 9:22",m:"Jesus, assim como curaste tantos enfermos em Tua jornada, peço o Teu milagre em minha vida. Aumenta a minha fé para que eu receba a cura completa de que necessito. Que o meu testemunho sirva para exaltar o Teu santo nome e para inspirar outros a confiarem em Ti. Amém."},
-                {id:"s6",t:"Cura das Emoções",r:"Salmos 147:3",m:"Senhor, Tu saras os quebrantados de coração e pensas as suas feridas. Peço que cures as mágoas do meu passado e toda dor emocional que adoece o meu espírito. Traz alegria ao meu interior, pois sei que o coração alegre é o melhor remédio para uma vida saudável. Amém."},
-                {id:"s7",t:"Equilíbrio Real",r:"3 João 1:2",m:"Amado Deus, desejo que eu tenha saúde em tudo e que prospere, assim como prospera a minha alma. Que haja equilíbrio real entre o meu bem-estar físico, mental e espiritual. Cuida do meu corpo, que é o Teu templo, e ajuda-me a fazer escolhas sábias e vitais. Amém."},
-                {id:"s8",t:"Alívio do Sofrimento",r:"Mateus 11:28",m:"Jesus, venho a Ti buscar alívio para minhas dores. Se houver desconforto ou sofrimento, peço que tragas o Teu consolo e a Tua cura restauradora. Que eu sinta o Teu abraço protetor e que o Teu poder se manifeste em mim, restaurando cada célula e trazendo a paz agora. Amém."},
-                {id:"s9",t:"Toque de Vida",r:"Marcos 5:34",m:"Senhor, creio que apenas um toque Teu pode mudar completamente a minha situação de saúde. Vai em paz e sê curada — quero ouvir essa palavra doce no meu coração hoje. Recebo a Tua saúde com gratidão e decido viver cada dia para a Tua honra e glória. Amém."},
-                {id:"s10",t:"Proteção do Templo",r:"1 Coríntios 6:19",m:"Espírito Santo, habita em mim e traz ordem perfeita ao meu organismo. Ajuda-me a fazer escolhas saudáveis e a descansar o tempo necessário para minha recuperação. Que a saúde seja a minha porção diária para que eu possa servir ao Senhor com todas as minhas forças. Amém."}
-            ],
-            protecao: [
-                {id:"pt1",t:"Anjos Guardiões",r:"Salmos 34:7",m:"Meu Deus, peço que acampes Teus anjos ao meu redor e da minha família hoje. Livra-nos de assaltos, acidentes e de todo o laço maligno. Que Tua mão protetora nos guarde em nossas saídas e entradas, garantindo que cheguemos ao nosso destino em total segurança. Amém."},
-                {id:"pt2",t:"Escudo Fiel",r:"Salmos 91:4",m:"Senhor, cobre-me com as Tuas penas e sob as Tuas asas estarei seguro. Que a Tua fidelidade seja o meu escudo e a minha couraça contra as setas do mal. Não temerei o pavor da noite nem o perigo diário, pois Tu és o meu guarda fiel e minha rocha eterna. Amém."},
-                {id:"pt3",t:"Livramento do Mal",r:"Salmos 121:7",m:"O Senhor me guardará de todo o mal; Ele guardará a minha alma com zelo. Agradeço por esse cuidado constante em cada passo meu. Que nenhum mal me atinja e que eu caminhe com confiança absoluta, pois sei que Aquele que me guarda nunca dorme nem cochila. Amém."},
-                {id:"pt4",t:"Torre Forte",r:"Provérbios 18:10",m:"Senhor, o Teu nome é uma torre forte para a qual eu corro e encontro segurança imediata. Quando eu me sentir ameaçado ou vulnerável, lembra-me de invocar o Teu nome com fé. Que a Tua proteção seja uma barreira intransponível contra qualquer ataque maligno hoje. Amém."},
-                {id:"pt5",t:"Descanso no Cuidado",r:"1 Pedro 5:7",m:"Deus, lanço sobre Ti toda a minha ansiedade em relação à minha segurança e da minha casa. Obrigado por cuidar de mim com tanto amor. Sei que estou na palma da Tua mão e que nada acontece sem a Tua permissão. Descanso em paz no Teu cuidado soberano e fiel. Amém."},
-                {id:"pt6",t:"Presença Protetora",r:"Mateus 28:20",m:"Jesus, obrigado pela promessa de que estarias conosco todos os dias, até o fim dos tempos. Essa presença constante é a minha maior segurança. Que eu sinta a Tua companhia em cada lugar, sabendo que nunca estou sozinho diante dos perigos deste mundo. Amém."},
-                {id:"pt7",t:"Segurança na Vontade",r:"Provérbios 1:33",m:"Senhor, ajuda-me a dar ouvidos à Tua voz suave. Sei que, ao caminhar dentro da Tua vontade, habitarei seguro e estarei tranquilo, sem receio de qualquer mal. Que a Tua sabedoria seja a minha guia e a minha maior proteção contra escolhas erradas e perigosas. Amém."},
-                {id:"pt8",t:"Vitória Garantida",r:"Romanos 8:31",m:"Pai, se Tu és por nós, quem será contra nós? Com essa certeza inabalável, enfrento o meu dia sem medo. Nenhuma arma forjada contra mim ou contra minha família prosperará. Sou mais que vencedor por meio Daquele que me amou e me protege com braço forte. Amém."},
-                {id:"pt9",t:"Muro de Fogo",r:"Zacarias 2:5",m:"Senhor, sê para mim um muro de fogo ao redor da minha vida e do meu lar. Que a Tua glória esteja no meio de nós, impedindo a entrada de qualquer influência negativa ou destruição. Que o nosso ambiente seja santificado e protegido pela Tua presença majestosa. Amém."},
-                {id:"pt10",t:"Guarda de Israel",r:"Salmos 121:4",m:"Obrigado, Deus, porque o guarda de Israel não dorme nem cochila. Agradeço por Tua vigilância 24 horas sobre minha vida. Posso trabalhar e descansar em paz profunda, sabendo que o Criador dos céus e da terra é o meu protetor pessoal e meu refúgio seguro sempre. Amém."}
-            ],
-            sabedoria: [
-                {id:"sb1",t:"Direção Divina",r:"Tiago 1:5",m:"Pai Celeste, peço que me concedas sabedoria e discernimento para tomar as decisões corretas hoje. Que eu não me guie pelo meu próprio entendimento limitado, mas pela Tua voz que orienta. Ilumina o meu caminho para que eu saiba exatamente como agir agora. Amém."},
-                {id:"sb2",t:"Discernimento Espiritual",r:"Provérbios 2:6",m:"Senhor, Tu és a fonte de todo o conhecimento. Peço que dês discernimento para distinguir o certo do errado em meus relacionamentos e negócios. Que o meu coração seja sensível à Tua instrução e que eu tenha a inteligência espiritual necessária para vencer hoje. Amém."},
-                {id:"sb3",t:"Entendimento Profundo",r:"Provérbios 4:7",m:"Deus, ajuda-me a buscar a sabedoria acima de qualquer riqueza passageira. Que eu tenha entendimento sobre as circunstâncias e saiba aprender lições valiosas com cada experiência. Que a Tua verdade seja o fundamento sólido de todos os meus planos e sonhos futuros. Amém."},
-                {id:"sb4",t:"O Caminho Reto",r:"Salmos 32:8",m:"Senhor, instrui-me e ensina-me o caminho que devo seguir; guia-me com os Teus olhos atentos. Não permitas que eu me desvie para caminhos perigosos. Que a Tua luz brilhe sobre as minhas escolhas diárias, mostrando a direção que traz real paz à minha alma. Amém."},
-                {id:"sb5",t:"Mente de Cristo",r:"1 Coríntios 2:16",m:"Pai, peço que eu tenha a mente de Cristo em todos os meus pensamentos hoje. Purifica a minha mente de preconceitos e ideias vãs, enchendo-a com pensamentos que Te glorifiquem, tragam paz ao meu coração e sabedoria às minhas palavras em todo momento. Amém."},
-                {id:"sb6",t:"Olhos do Coração",r:"Efésios 1:18",m:"Senhor, ilumina os olhos do meu coração para que eu saiba qual é a esperança da Tua vocação em minha vida. Dá-me clareza sobre o meu propósito e sabedoria para usar meus talentos para servir ao próximo e edificar o Teu Reino com integridade e amor. Amém."},
-                {id:"sb7",t:"Conselho Fiel",r:"Salmos 73:24",m:"Deus, guia-me com o Teu conselho sábio. Agradeço porque não preciso caminhar às cegas, pois a Tua palavra é lâmpada para os meus pés e luz para a minha trilha. Que eu tenha a humildade de sempre Te consultar antes de tomar qualquer passo importante hoje. Amém."},
-                {id:"sb8",t:"Verdade Libertadora",r:"João 16:13",m:"Espírito Santo, guia-me a toda a verdade e afasta de mim todo o engano do mundo. Que eu tenha sabedoria para interpretar a realidade de forma correta e para ser uma pessoa íntegra e honesta em todas as minhas palavras, ações e intenções de coração. Amém."},
-                {id:"sb9",t:"Prudência no Falar",r:"Provérbios 8:12",m:"Senhor, que a prudência habite comigo em todos os momentos. Ajuda-me a controlar a minha língua e a falar apenas o que for útil e edificante. Dá-me sabedoria para saber o momento exato de falar e o de calar, agindo com equilíbrio e temperança sempre. Amém."},
-                {id:"sb10",t:"Temor do Senhor",r:"Salmos 111:10",m:"Deus, entendo que o temor ao Senhor é o princípio da verdadeira sabedoria. Que o meu respeito profundo e amor por Ti me guiem em cada atitude. Que eu tenha um bom entendimento por praticar os Teus mandamentos, vivendo com sabedoria prática e santidade. Amém."}
-            ],
-            forca: [
-                {id:"fc1",t:"Coragem na Luta",r:"Josué 1:9",m:"Senhor, quando me sentir desanimado e sem forças, lembra-me de que Tua força se aperfeiçoa na minha fraqueza. Dá-me coragem renovada para enfrentar os desafios e perseverança para não desistir dos meus sonhos. Sei que Tu és a minha rocha inabalável. Amém."},
-                {id:"fc2",t:"Poder que Fortalece",r:"Filipenses 4:13",m:"Pai, eu declaro com fé que tudo posso Naquele que me fortalece. Não por minha própria capacidade, mas pelo Teu poder que opera em mim. Quando os obstáculos parecerem grandes demais, renova a minha fé e dá-me a força necessária para vencer cada etapa hoje. Amém."},
-                {id:"fc3",t:"Renovação do Ânimo",r:"Isaías 40:29",m:"Deus, Tu dás força ao cansado e multiplicas o poder ao que não tem vigor. Peço esse renovo agora. Que o meu ânimo seja restaurado e que eu sinta a Tua mão poderosa me levantando acima das dificuldades diárias, renovando minhas esperanças de vitória plena. Amém."},
-                {id:"fc4",t:"Braço Forte",r:"Efésios 6:10",m:"Senhor, eu me fortaleço no Senhor e na força do Teu poder infinito. Reveste-me com a Tua armadura celestial para que eu possa resistir nos dias maus. Que a Tua presença seja a minha proteção e que eu saiba, no fundo do coração, que o Senhor luta por mim. Amém."},
-                {id:"fc5",t:"Resiliência na Graça",r:"2 Coríntios 12:9",m:"Pai, obrigado porque a Tua graça me basta em todos os momentos. Ensina-me a ser resiliente e a encontrar força mesmo em minhas limitações. Que eu não me abale com as críticas do mundo, mas que eu me glorie no Teu poder que me sustenta e faz prevalecer. Amém."},
-                {id:"fc6",t:"Rocha de Amparo",r:"Salmos 18:2",m:"Senhor, Tu és o meu rochedo, a minha fortaleza e o meu libertador. O meu Deus, em quem me refugio com total confiança. Agradeço por ser essa base sólida em minha vida. Com a Tua força, sinto-me seguro para enfrentar qualquer tempestade que tente me derrubar hoje. Amém."},
-                {id:"fc7",t:"Firmeza e Fé",r:"Salmos 125:1",m:"Deus, que eu seja como o monte de Sião, que não se abala, mas permanece para sempre. Firma os meus pés na Tua verdade eterna para que as circunstâncias da vida não roubem a minha estabilidade emocional. Que a minha força venha da comunhão constante Contigo. Amém."},
-                {id:"fc8",t:"Bom Ânimo Diário",r:"João 16:33",m:"Jesus, obrigado por vencer o mundo por mim e me dar esperança. Em meio às afflições da vida, peço que me dês bom ânimo e paz. Que eu não perca a motivação para continuar fazendo o bem e seguindo o Teu exemplo. Tua vitória na cruz é a garantia da minha força. Amém."},
-                {id:"fc9",t:"Sustento do Fardo",r:"Salmos 55:22",m:"Senhor, entrego o meu fardo pesado a Ti, pois não consigo carregá-lo sozinho. Sustenta-me conforme a Tua promessa de que nunca permitirás que o justo seja abalado. Tira o peso da ansiedade e coloca a leveza da Tua força em meu coração e em minha mente. Amém."},
-                {id:"fc10",t:"Armadura da Fé",r:"Efésios 6:11",m:"Deus, revisto-me de toda a armadura de Deus hoje. Que o escudo da fé me proteja de todos os ataques. Que a espada do Espírito, que é a Tua palavra viva, me dê a força e o discernimento necessários para vencer as ciladas e caminhar em triunfo hoje. Amém."}
-            ],
-            filhos: [
-                {id:"fh1",t:"Proteção dos Filhos",r:"Salmos 127:3",m:"Pai amado, entrego meus filhos em Tuas mãos protetoras. Guarda-os neste mundo, livra-os das más influências e guia os passos deles no caminho da retidão. Que eles cresçam em sabedoria e graça perante o Senhor e os homens, cumprindo o propósito que tens para eles. Amém."},
-                {id:"fh2",t:"Cuidado Divino",r:"Isaías 49:15",m:"Senhor, Tu disseste que nunca Te esquecerias de nós. Peço que esse mesmo cuidado eterno esteja sobre a vida de meus filhos hoje. Quando eu não puder estar presente fisicamente, que os Teus anjos os guardem e os protejam de todo o perigo visível e invisível. Amém."},
-                {id:"fh3",t:"Bênção da Linhagem",r:"Deuteronômio 28:4",m:"Deus de promessas, abençoa o fruto do meu ventre e toda a minha descendência. Que meus filhos sejam benditos em tudo o que fizerem. Que a Tua prosperidade e a Tua paz os alcancem em cada detalhe de suas vidas, hoje e em todas as gerações futuras. Amém."},
-                {id:"fh4",t:"Crescimento Saudável",r:"Lucas 2:52",m:"Pai, peço que meus filhos se desenvolvam de forma equilibrada — física, mental e espiritualmente. Protege a saúde deles, dá-lhes uma mente brilhante e um coração sensível à Tua voz. Que o crescimento deles seja motivo de alegria para nossa família. Amém."},
-                {id:"fh5",t:"Futuro de Esperança",r:"Jeremias 29:11",m:"Senhor, Tu tens pensamentos de paz sobre meus filhos, para lhes dar um futuro e uma esperança real. Eu descanso nessa promessa. Que eles encontrem a vocação deles em Ti e que o futuro de cada um deles seja brilhante e guiado pela Tua mão poderosa. Amém."},
-                {id:"fh6",t:"Ensino Fiel",r:"Deuteronômio 6:7",m:"Pai, ajuda-me a ser um instruitor fiel para meus filhos em Teus caminhos. Que eu saiba falar das Tuas palavras ao deitar e ao levantar com sabedoria. Dá-me paciência e amor para educá-los no temor do Senhor, para que nunca se desviem do caminho reto. Amém."},
-                {id:"fh7",t:"Promessa Cumprida",r:"Atos 2:39",m:"Deus fiel, agradeço porque a Tua promessa de salvação é para nós e para nossos filhos. Peço pelo selo do Espírito Santo sobre a vida de cada um deles. Que eles tenham um encontro real e transformador Contigo e vivam a Tua santa vontade sempre. Amém."},
-                {id:"fh8",t:"Paz Abundante",r:"Isaías 54:13",m:"Senhor, que todos os meus filhos sejam ensinados pelo Senhor e que a paz deles seja abundante. Livra-os do medo, da ansiedade e de todo trauma emocional. Que eles vivam uma infância e juventude tranquilas sob o abrigo do Altíssimo e Tua sombra. Amém."},
-                {id:"fh9",t:"Luz no Mundo",r:"Mateus 5:14",m:"Pai, que meus filhos sejam como cidades edificadas sobre um monte, brilhando em meio às trevas. Que eles reflitam a Tua luz na escola e entre os amigos. Que o caráter de Cristo seja formado neles, tornando-os influências positivas e transformadoras hoje. Amém."},
-                {id:"fh10",t:"Aliança de Verdade",r:"Isaías 59:21",m:"Senhor, eu selo esta aliança Contigo: que a Tua verdade permaneça em nossa família para sempre. Que a Tua palavra não se desvie da boca dos meus filhos, nem dos filhos deles, de geração em geração. Que sejamos uma família dedicada a Ti para todo o sempre. Amém."}
-            ]
+        const categories = [
+            { id: 'gratidao', name: 'Gratidão', emoji: '🙏' }, { id: 'perdao', name: 'Perdão', emoji: '💝' },
+            { id: 'protecao', name: 'Proteção', emoji: '🛡️' }, { id: 'familia', name: 'Família', emoji: '👨‍👩‍👧‍👦' },
+            { id: 'cura', name: 'Cura', emoji: '💚' }, { id: 'paz', name: 'Paz', emoji: '🕊️' },
+            { id: 'sabedoria', name: 'Sabedoria', emoji: '📖' }
+        ];
+
+        // 70 orações (10 por categoria)
+        const prayers = [
+            { id: 1, name: "Gratidão Matinal", category: "gratidao", icon: "🌅", text: "Senhor, ao abrir meus olhos neste novo dia, quero começar agradecendo. Obrigado pela vida que pulsa em mim, pelo ar que enche meus pulmões, pela saúde que me permite levantar. Sei que nada disso é por acaso. Tudo vem de Ti. Amém.", verse: "Em tudo dai graças.", verseRef: "1Ts 5:18" },
+            { id: 2, name: "Gratidão nas Dificuldades", category: "gratidao", icon: "💪", text: "Pai, hoje quero Te agradecer de um jeito diferente. Não só pelas vitórias, mas também pelas noites em que chorei, pelas portas que se fecharam. Foi na escassez que aprendi a depender de Ti. Amém.", verse: "Todas as coisas cooperam para o bem.", verseRef: "Rm 8:28" },
+            { id: 3, name: "Gratidão pela Família", category: "gratidao", icon: "👨‍👩‍👧‍👦", text: "Senhor, obrigado pela minha família. Por cada pessoa que colocaste em minha vida. Sei que nem toda família é perfeita, mas é nela que aprendo a amar, a perdoar, a crescer. Amém.", verse: "Honra teu pai e tua mãe.", verseRef: "Êx 20:12" },
+            { id: 4, name: "Gratidão pelo Trabalho", category: "gratidao", icon: "💼", text: "Deus, obrigado pelo meu trabalho. Mesmo nos dias cansativos, eu Te agradeço. É através dele que sustento minha casa. Dá-me disposição para fazer o meu melhor. Amém.", verse: "Tudo o que fizerem, façam de coração.", verseRef: "Cl 3:23" },
+            { id: 5, name: "Gratidão pela Natureza", category: "gratidao", icon: "🌿", text: "Criador, obrigado pela beleza do mundo. Pelo sol que nasce, pela chuva. Em meio ao concreto, ajuda-me a perceber Tua presença. Amém.", verse: "Os céus declaram a glória de Deus.", verseRef: "Sl 19:1" },
+            { id: 6, name: "Gratidão pelos Amigos", category: "gratidao", icon: "🤝", text: "Senhor, obrigado pelos amigos. Os que me ouvem sem julgar, os que me estendem a mão. Ajuda-me a ser também um bom amigo. Amém.", verse: "O amigo ama em todos os momentos.", verseRef: "Pv 17:17" },
+            { id: 7, name: "Gratidão pela Saúde", category: "gratidao", icon: "❤️", text: "Pai, obrigado pela saúde. Muitas vezes esqueço de agradecer quando o corpo funciona bem. São bênçãos tão básicas, mas tão preciosas. Amém.", verse: "Oro para que você tenha boa saúde.", verseRef: "3Jo 1:2" },
+            { id: 8, name: "Gratidão pelo Perdão", category: "gratidao", icon: "🕊️", text: "Deus, obrigado porque Tu me perdoas. Mesmo quando erro de novo, Tua graça me alcança. Ensina-me a perdoar como Tu perdoas. Amém.", verse: "Ele é fiel e justo para nos perdoar.", verseRef: "1Jo 1:9" },
+            { id: 9, name: "Gratidão pelo Dia", category: "gratidao", icon: "🌙", text: "Senhor, ao final deste dia, quero Te agradecer por tudo. Pelas conversas, pelos desafios, pela Tua presença silenciosa. Amém.", verse: "Este é o dia que o Senhor fez.", verseRef: "Sl 118:24" },
+            { id: 10, name: "Gratidão Incondicional", category: "gratidao", icon: "🙌", text: "Pai, hoje não quero pedir nada. Só quero agradecer. Pela vida, pelo amor, pela fé. Tua bondade me basta. Amém.", verse: "Bendize, ó minha alma, ao Senhor.", verseRef: "Sl 103:2" },
+
+            { id: 11, name: "Perdão a Si Mesmo", category: "perdao", icon: "🤲", text: "Deus, hoje eu preciso me perdoar. Sei que carrego culpas que já não deveriam pesar mais sobre mim. Errei, é verdade. Mas ficar me punindo não vai mudar o passado. Amém.", verse: "Se confessarmos, Ele é fiel.", verseRef: "1Jo 1:9" },
+            { id: 12, name: "Perdoar Quem Ofendeu", category: "perdao", icon: "💝", text: "Senhor, esta oração é difícil. O perdão não é sobre quem me feriu, é sobre me libertar do veneno que eu mesmo continuo bebendo. Com Tua ajuda, eu perdoo. Amém.", verse: "Perdoai as ofensas.", verseRef: "Cl 3:13" },
+            { id: 13, name: "Perdão no Casamento", category: "perdao", icon: "💑", text: "Senhor, abençoa meu casamento. Que o amor seja maior que o orgulho, e o perdão mais rápido que a ofensa. Amém.", verse: "Suportando-vos uns aos outros.", verseRef: "Ef 4:2" },
+            { id: 14, name: "Perdoar os Pais", category: "perdao", icon: "👴", text: "Deus, hoje quero perdoar meus pais. Sei que fizeram o melhor que podiam. Liberto-os de qualquer cobrança. Amém.", verse: "Honra teu pai e tua mãe.", verseRef: "Êx 20:12" },
+            { id: 15, name: "Perdoar Erros Passados", category: "perdao", icon: "🔗", text: "Senhor, tem coisas que fiz e ainda me envergonham. Mas não há condenação para quem está em Ti. Eu aceito Teu perdão. Amém.", verse: "Nenhuma condenação há.", verseRef: "Rm 8:1" },
+            { id: 16, name: "Pedir Perdão", category: "perdao", icon: "📞", text: "Pai, dá-me coragem para pedir perdão. Sei que magoei alguém. Ajuda-me a dar o primeiro passo. Amém.", verse: "Vai primeiro reconciliar-te.", verseRef: "Mt 5:23-24" },
+            { id: 17, name: "Perdão no Trabalho", category: "perdao", icon: "💼", text: "Senhor, no trabalho surgem conflitos. Ajuda-me a não guardar rancor, a resolver as questões com maturidade. Amém.", verse: "Tende paz com todos.", verseRef: "Rm 12:18" },
+            { id: 18, name: "Perdoar Traições", category: "perdao", icon: "💔", text: "Deus, fui traído. A dor foi profunda, mas não quero viver acorrentado a essa mágoa. Entrego essa dor em Tuas mãos. Amém.", verse: "O Senhor está perto dos quebrantados.", verseRef: "Sl 34:18" },
+            { id: 19, name: "Perdoar Inimigos", category: "perdao", icon: "🕊️", text: "Senhor, Tu ensinaste a amar os inimigos. É difícil, mas quero tentar. Abençoa quem me fez mal. Amém.", verse: "Amai os vossos inimigos.", verseRef: "Mt 5:44" },
+            { id: 20, name: "Perdão e Libertação", category: "perdao", icon: "🦋", text: "Pai, hoje declaro minha libertação. Não carrego mais o peso de quem me feriu. Estou livre, em nome de Jesus. Amém.", verse: "Se o Filho vos libertar, sereis livres.", verseRef: "Jo 8:36" },
+
+            { id: 21, name: "Proteção Diária", category: "protecao", icon: "🛡️", text: "Pai, antes de sair, coloco minha vida em Tuas mãos. Protege-me de todo mal. Vou confiante, pois sei que não estou só. Amém.", verse: "O anjo do Senhor acampa-se.", verseRef: "Sl 34:7" },
+            { id: 22, name: "Proteção da Família", category: "protecao", icon: "🏠", text: "Senhor, guardião do meu lar, coloco minha família diante de Ti. Protege-nos dos perigos que vemos e dos que não vemos. Amém.", verse: "Deus é o nosso refúgio e fortaleza.", verseRef: "Sl 46:1" },
+            { id: 23, name: "Proteção ao Viajar", category: "protecao", icon: "✈️", text: "Senhor, vou pegar a estrada e coloco minha viagem em Tuas mãos. Guarda o veículo, o trajeto. Vai à nossa frente. Amém.", verse: "O Senhor guardará a tua saída e entrada.", verseRef: "Sl 121:8" },
+            { id: 24, name: "Proteção Contra o Mal", category: "protecao", icon: "⚔️", text: "Deus, cubro-me com o sangue de Jesus. Nenhum mal me atingirá. O Senhor é meu escudo. Amém.", verse: "Nenhum mal te sucederá.", verseRef: "Sl 91:10" },
+            { id: 25, name: "Proteção dos Filhos", category: "protecao", icon: "👶", text: "Pai, cuida dos meus filhos por mim. Quando eu não estiver por perto, sê Tu os olhos que vigiam. Amém.", verse: "Grande será a paz de teus filhos.", verseRef: "Is 54:13" },
+            { id: 26, name: "Proteção Espiritual", category: "protecao", icon: "🔥", text: "Senhor, revisto-me da Tua armadura. Protege minha mente dos ataques do inimigo. Amém.", verse: "Revesti-vos de toda a armadura de Deus.", verseRef: "Ef 6:11" },
+            { id: 27, name: "Proteção no Trabalho", category: "protecao", icon: "🏢", text: "Deus, no meu trabalho, sê meu escudo. Protege-me de fofocas e injustiças. Guarda meu emprego. Amém.", verse: "O Senhor é a minha luz e salvação.", verseRef: "Sl 27:1" },
+            { id: 28, name: "Proteção da Mente", category: "protecao", icon: "🧠", text: "Senhor, protege minha mente. Dos pensamentos negativos, das preocupações que me consomem. Amém.", verse: "Nisso pensai: tudo o que é verdadeiro.", verseRef: "Fp 4:8" },
+            { id: 29, name: "Proteção da Noite", category: "protecao", icon: "🌙", text: "Pai, a noite chega. Guarda meu sono e minha casa. Em paz me deito e logo adormeço. Amém.", verse: "Em paz me deito e logo adormeço.", verseRef: "Sl 4:8" },
+            { id: 30, name: "Proteção do Lar", category: "protecao", icon: "🏡", text: "Senhor, abençoa esta casa. Que nenhum mal entre por estas paredes. Que este lar seja um refúgio de paz. Amém.", verse: "Se o Senhor não edificar a casa.", verseRef: "Sl 127:1" },
+
+            { id: 31, name: "Bênção aos Filhos", category: "familia", icon: "👶", text: "Pai do Céu, olha pelos meus filhos. Saúde, sabedoria e bondade. Eles são o maior presente. Amém.", verse: "Herança do Senhor são os filhos.", verseRef: "Sl 127:3" },
+            { id: 32, name: "União Familiar", category: "familia", icon: "👨‍👩‍👧‍👦", text: "Senhor, que nossa casa seja um porto seguro. Onde há correria, traz calma. Onde há discussão, traz escuta. Amém.", verse: "Se o Senhor não edificar a casa.", verseRef: "Sl 127:1" },
+            { id: 33, name: "Oração pelo Cônjuge", category: "familia", icon: "💑", text: "Deus, abençoa quem colocaste ao meu lado. Dá-lhe saúde, sabedoria e paz. Que nosso amor cresça. Amém.", verse: "O que Deus uniu, ninguém separe.", verseRef: "Mt 19:6" },
+            { id: 34, name: "Família em Crise", category: "familia", icon: "🫂", text: "Senhor, nossa família passa por dificuldades. Restaura o que está quebrado entre nós. Amém.", verse: "Revesti-vos de amor.", verseRef: "Cl 3:14" },
+            { id: 35, name: "Pais Idosos", category: "familia", icon: "👴", text: "Pai, cuida dos meus pais idosos. Dá-lhes saúde, paciência e alegria. Que eu saiba retribuir o cuidado. Amém.", verse: "Honra teu pai e tua mãe.", verseRef: "Êx 20:12" },
+            { id: 36, name: "Irmãos Unidos", category: "familia", icon: "🤝", text: "Senhor, abençoa a relação entre irmãos. Que as diferenças não nos afastem. Amém.", verse: "Quão bom é que os irmãos vivam em união.", verseRef: "Sl 133:1" },
+            { id: 37, name: "Família à Mesa", category: "familia", icon: "🍽️", text: "Deus, obrigado por este alimento. Abençoa cada pessoa nesta mesa. Que seja momento de união. Amém.", verse: "Fazei tudo para glória de Deus.", verseRef: "1Co 10:31" },
+            { id: 38, name: "Filhos Rebeldes", category: "familia", icon: "🙏", text: "Senhor, entrego-Te meu filho que está longe de Ti. Toca o coração dele. Amém.", verse: "Educa a criança no caminho.", verseRef: "Pv 22:6" },
+            { id: 39, name: "Lar Abençoado", category: "familia", icon: "🏡", text: "Pai, que este lar seja um pedacinho do céu. Onde haja amor, abraços e diálogo. Amém.", verse: "Eu e a minha casa serviremos ao Senhor.", verseRef: "Js 24:15" },
+            { id: 40, name: "Família Abençoadora", category: "familia", icon: "🌟", text: "Senhor, que nossa família seja canal de bênçãos. Que outros conheçam Teu amor através de nós. Amém.", verse: "Vós sois a luz do mundo.", verseRef: "Mt 5:14" },
+
+            { id: 41, name: "Cura do Corpo", category: "cura", icon: "💚", text: "Senhor Jesus, estende Tua mão sobre mim. Toca meu corpo onde dói. Creio no Teu poder. Amém.", verse: "Eu sou o Senhor que te sara.", verseRef: "Êx 15:26" },
+            { id: 42, name: "Cura da Alma", category: "cura", icon: "💖", text: "Deus, há feridas em mim que ninguém vê. Cura o que está quebrado. Restaura minha alegria. Amém.", verse: "Sara os quebrantados de coração.", verseRef: "Sl 147:3" },
+            { id: 43, name: "Cura de Enfermidade", category: "cura", icon: "🏥", text: "Pai, estou doente e preciso de Ti. Dá força ao meu corpo para reagir. Amém.", verse: "Clamam os justos, e o Senhor os ouve.", verseRef: "Sl 34:17" },
+            { id: 44, name: "Cura Emocional", category: "cura", icon: "🌈", text: "Senhor, minhas emoções estão descontroladas. Acalma meu coração. Amém.", verse: "O coração alegre serve de bom remédio.", verseRef: "Pv 17:22" },
+            { id: 45, name: "Cura de Traumas", category: "cura", icon: "🦋", text: "Deus, coisas ruins marcaram meu passado. Cura essas memórias. Transforma cicatrizes em testemunho. Amém.", verse: "Eis que faço uma coisa nova.", verseRef: "Is 43:18-19" },
+            { id: 46, name: "Cura de Vícios", category: "cura", icon: "🔓", text: "Senhor, liberta-me deste vício. Minhas forças não bastam. Preciso de Ti. Amém.", verse: "Se o Filho vos libertar, sereis livres.", verseRef: "Jo 8:36" },
+            { id: 47, name: "Cura de Relacionamentos", category: "cura", icon: "💞", text: "Deus, cura meus relacionamentos quebrados. Mostra-me o caminho da reconciliação. Amém.", verse: "Tende paz com todos os homens.", verseRef: "Rm 12:18" },
+            { id: 48, name: "Cura da Depressão", category: "cura", icon: "🌅", text: "Senhor, tem dias difíceis até para levantar. Tira-me desse poço escuro. Devolve-me a alegria. Amém.", verse: "A alegria vem pela manhã.", verseRef: "Sl 30:5" },
+            { id: 49, name: "Cura Financeira", category: "cura", icon: "💰", text: "Pai, minhas finanças estão em crise. Abre portas de oportunidade. Amém.", verse: "O meu Deus suprirá todas as necessidades.", verseRef: "Fp 4:19" },
+            { id: 50, name: "Cura pela Fé", category: "cura", icon: "✝️", text: "Senhor, eu creio que Tu és o mesmo ontem, hoje e sempre. Estendo minhas mãos para Ti. Amém.", verse: "Tudo é possível ao que crê.", verseRef: "Mc 9:23" },
+
+            { id: 51, name: "Paz Interior", category: "paz", icon: "🕊️", text: "Senhor, minha mente não para. Quero parar. Respirar. Entregar tudo a Ti. Tua paz me basta. Amém.", verse: "Deixo-vos a paz.", verseRef: "Jo 14:27" },
+            { id: 52, name: "Paz no Mundo", category: "paz", icon: "🌍", text: "Deus, olha para nosso mundo ferido. Onde há guerra, reconciliação. A paz começa em mim. Amém.", verse: "Bem-aventurados os pacificadores.", verseRef: "Mt 5:9" },
+            { id: 53, name: "Paz no Coração", category: "paz", icon: "💓", text: "Pai, meu coração parece um campo de batalha. Dá-me a paz que não depende das circunstâncias. Amém.", verse: "A paz de Deus guardará vossos corações.", verseRef: "Fp 4:7" },
+            { id: 54, name: "Paz para Dormir", category: "paz", icon: "🌙", text: "Senhor, a noite chegou e a mente acelera. Entrego tudo em Tuas mãos. Guarda meu sono. Amém.", verse: "Em paz me deito.", verseRef: "Sl 4:8" },
+            { id: 55, name: "Paz em Tempos de Crise", category: "paz", icon: "⚓", text: "Deus, o mundo parece desabar. Mas Tu és minha âncora. Segura minha mão. Amém.", verse: "Tende bom ânimo, eu venci o mundo.", verseRef: "Jo 16:33" },
+            { id: 56, name: "Paz nos Relacionamentos", category: "paz", icon: "🤝", text: "Senhor, faze-me pacificador. Onde houver conflito, que eu leve calma. Amém.", verse: "Tende paz com todos.", verseRef: "Rm 12:18" },
+            { id: 57, name: "Paz na Família", category: "paz", icon: "🏠", text: "Pai, que Tua paz reine em nosso lar. Discussões deem lugar ao diálogo. Amém.", verse: "Bem-aventurados os pacificadores.", verseRef: "Mt 5:9" },
+            { id: 58, name: "Paz Financeira", category: "paz", icon: "💰", text: "Senhor, acalma meu coração em relação às finanças. Ajuda-me a confiar. Amém.", verse: "Lançando sobre Ele toda a ansiedade.", verseRef: "1Pe 5:7" },
+            { id: 59, name: "Paz e Confiança", category: "paz", icon: "🙌", text: "Deus, entrego-Te o que não posso controlar. O Teu tempo é perfeito. Descanso em Ti. Amém.", verse: "Entrega o teu caminho ao Senhor.", verseRef: "Sl 37:5" },
+            { id: 60, name: "Paz que Vem de Deus", category: "paz", icon: "✨", text: "Senhor, não peço uma vida sem problemas, mas Tua paz em meio a eles. Tua presença é tudo. Amém.", verse: "Em mim tenhais paz.", verseRef: "Jo 16:33" },
+
+            { id: 61, name: "Sabedoria nas Decisões", category: "sabedoria", icon: "🤔", text: "Deus, estou diante de uma decisão difícil. Fecha as portas erradas, abre as certas. Amém.", verse: "Peça-a a Deus, e lhe será concedida.", verseRef: "Tg 1:5" },
+            { id: 62, name: "Discernimento Espiritual", category: "sabedoria", icon: "📖", text: "Espírito Santo, quero ouvir Tua voz. Ensina-me a distinguir o que vem de Ti. Amém.", verse: "Confia no Senhor de todo o coração.", verseRef: "Pv 3:5" },
+            { id: 63, name: "Sabedoria Financeira", category: "sabedoria", icon: "💡", text: "Senhor, dá-me sabedoria com o dinheiro. Gastar com consciência, poupar com disciplina. Amém.", verse: "O que toma emprestado é servo.", verseRef: "Pv 22:7" },
+            { id: 64, name: "Sabedoria para Educar", category: "sabedoria", icon: "👶", text: "Pai, dá-me sabedoria para educar. Corrigir sem machucar, ensinar com paciência. Amém.", verse: "Educa a criança no caminho.", verseRef: "Pv 22:6" },
+            { id: 65, name: "Sabedoria no Trabalho", category: "sabedoria", icon: "💼", text: "Senhor, dá-me sabedoria no trabalho. Tomar decisões acertadas, crescer com ética. Amém.", verse: "Tudo o que fizerem, façam de coração.", verseRef: "Cl 3:23" },
+            { id: 66, name: "Sabedoria para Falar", category: "sabedoria", icon: "🗣️", text: "Deus, controla minha língua. Saber a hora de falar e a hora de calar. Amém.", verse: "O que guarda a boca conserva a alma.", verseRef: "Pv 13:3" },
+            { id: 67, name: "Sabedoria nos Relacionamentos", category: "sabedoria", icon: "🤝", text: "Senhor, ensina-me a me relacionar bem. Escolher amizades, manter limites saudáveis. Amém.", verse: "As más companhias corrompem.", verseRef: "1Co 15:33" },
+            { id: 68, name: "Sabedoria na Adversidade", category: "sabedoria", icon: "🏔️", text: "Deus, dá-me sabedoria nos problemas. Aprender a lição, sair mais forte. Amém.", verse: "Todas as coisas cooperam para o bem.", verseRef: "Rm 8:28" },
+            { id: 69, name: "Sabedoria para Priorizar", category: "sabedoria", icon: "⏳", text: "Senhor, a vida é curta. Ajuda-me a priorizar o que importa: a família, a fé, o amor. Amém.", verse: "Ensina-nos a contar os nossos dias.", verseRef: "Sl 90:12" },
+            { id: 70, name: "Sabedoria do Alto", category: "sabedoria", icon: "🌟", text: "Pai, quero a sabedoria que vem de Ti. Pura, pacífica, cheia de misericórdia. Amém.", verse: "A sabedoria do alto é pura.", verseRef: "Tg 3:17" }
+        ];
+
+        const challenges = [
+            { id: 'gratidao7', name: '7 Dias de Gratidão', icon: '🙏', duration: 7, category: 'gratidao', desc: 'Uma jornada para cultivar um coração agradecido.' },
+            { id: 'perdao7', name: '7 Dias de Perdão', icon: '💝', duration: 7, category: 'perdao', desc: 'Liberte seu coração através do poder do perdão.' },
+            { id: 'paz5', name: '5 Dias de Paz', icon: '🕊️', duration: 5, category: 'paz', desc: 'Encontre serenidade em meio às tempestades.' },
+            { id: 'cura5', name: '5 Dias de Cura', icon: '💚', duration: 5, category: 'cura', desc: 'Restauração para corpo, mente e espírito.' }
+        ];
+
+        const welcomePrayers = {
+            morning: { icon: "🌅", label: "Oração da Manhã", title: "Bom dia!", text: "Senhor, neste novo amanhecer, elevo meu coração a Ti. Obrigado por mais um dia. Guia meus passos. Em nome de Jesus, Amém.", verse: "As misericórdias se renovam a cada manhã.", verseRef: "Lm 3:22-23" },
+            afternoon: { icon: "🌤️", label: "Oração da Tarde", title: "Boa tarde!", text: "Senhor, na pausa desta tarde, renovo minhas forças em Ti. Restaura minhas energias. Em nome de Jesus, Amém.", verse: "Vinde a mim, os cansados.", verseRef: "Mt 11:28" },
+            evening: { icon: "🌙", label: "Oração da Noite", title: "Boa noite!", text: "Pai, ao final deste dia, entrego-Te tudo. Perdoa-me. Guarda meu sono. Em nome de Jesus, Amém.", verse: "Em paz me deito.", verseRef: "Sl 4:8" }
         };
 
-        const frasesInspiradoras = ["Deus tem um plano perfeito para você hoje.", "A oração é a chave que abre todas as portas.", "Sua fé é sua maior força.", "Onde há oração, há esperança.", "Deus nunca chega atrasado.", "Confie no tempo de Deus.", "Sua luz brilha mais forte com Ele.", "Onde quer que você esteja, Deus está cuidando de você.", "A paz de Deus excede todo o entendimento humano.", "Cada novo dia é uma nova chance de recomeçar com Ele.", "Deixe sua luz brilhar e inspire o próximo.", "Deus te chamou para ser vencedor através da fé.", "Em cada detalhe, sinta o amor do Criador.", "A gratidão atrai as melhores bênçãos do céu.", "Seja paciente; as promessas de Deus nunca falham.", "Sua história está sendo escrita pelas mãos do Senhor.", "Um coração que confia descansa em águas tranquilas.", "A fé remove montanhas e abre caminhos novos.", "Nada é impossível para aquele que crê.", "O Senhor é o meu pastor e nada me faltará.", "Fortaleça-se no amor infinito de Deus.", "Sua jornada é guiada pela luz divina.", "A alegria do Senhor é a nossa força.", "Acredite: milagres acontecem todos os dias.", "Em Deus, encontramos o refúgio seguro."];
-        let favorites = JSON.parse(localStorage.getItem('ore_favs')) || [];
-        let currentOra = null;
+        const dailyVerses = [
+            { text: "Em tudo dai graças.", ref: "1Ts 5:18" }, { text: "A paz de Deus guardará vossos corações.", ref: "Fp 4:7" },
+            { text: "Tudo posso naquele que me fortalece.", ref: "Fp 4:13" }, { text: "Deus é nosso refúgio.", ref: "Sl 46:1" }
+        ];
 
-        function updateGreeting() {
-            const h = new Date().getHours();
-            const el = document.getElementById('saudacao');
-            if (h >= 5 && h < 12) el.innerText = "Bom dia!";
-            else if (h >= 12 && h < 18) el.innerText = "Boa tarde!";
-            else el.innerText = "Boa noite!";
+        let favorites = JSON.parse(localStorage.getItem('prayerFavorites') || '[]');
+        let diaryEntries = JSON.parse(localStorage.getItem('prayerDiary') || '[]');
+        let activeChallenge = JSON.parse(localStorage.getItem('activeChallenge') || 'null');
+        let challengeStartDate = localStorage.getItem('challengeStartDate') || null;
+        let currentTab = 'home';
+        let selectedPrayer = null;
+        let activeCategory = null;
+        let sidebarOpen = false;
+        let timerInterval = null;
+        let timerSeconds = 0;
+        let timerRunning = false;
+        let darkMode = localStorage.getItem('darkMode') === 'true';
+
+        function applyDarkMode() { if(darkMode){document.body.classList.add('dark-mode');document.getElementById('darkModeBtn').querySelector('span:last-child').textContent='Modo Claro';document.getElementById('darkModeBtn').querySelector('.share-icon').textContent='☀️';}else{document.body.classList.remove('dark-mode');document.getElementById('darkModeBtn').querySelector('span:last-child').textContent='Modo Escuro';document.getElementById('darkModeBtn').querySelector('.share-icon').textContent='🌙';} }
+        function toggleDarkMode() { darkMode=!darkMode; localStorage.setItem('darkMode',darkMode); applyDarkMode(); }
+        function getMomentOfDay() { const h=new Date().getHours(); return h>=5&&h<12?'morning':h>=12&&h<18?'afternoon':'evening'; }
+        function showWelcomeIfFirstTime() { const m=getMomentOfDay(); if(localStorage.getItem('welcomeLastMoment')===m)return; const p=welcomePrayers[m]; document.getElementById('welcomeContent').innerHTML=`<div class="welcome-moment-icon">${p.icon}</div><span class="welcome-moment-label">${p.label}</span><h2>${p.title}</h2><div class="welcome-prayer-card">${p.text}</div><div class="welcome-verse"><div class="v-icon">📖</div><div class="v-text">"${p.verse}"</div><span class="v-ref">${p.verseRef}</span></div><button class="welcome-continue-btn" onclick="closeWelcome()">✨ Amém</button>`; document.getElementById('welcomeModal').style.display='flex'; document.body.style.overflow='hidden'; }
+        function closeWelcome() { document.getElementById('welcomeModal').style.display='none'; document.body.style.overflow=''; localStorage.setItem('welcomeLastMoment',getMomentOfDay()); }
+        function updateGreeting() { document.getElementById('greetingText').textContent=new Date().getHours()<12?'Bom dia! ☀️':new Date().getHours()<18?'Boa tarde! 🌤️':'Boa noite! 🌙'; }
+        function refreshVerse() { const te=document.getElementById('verseMainText'),re=document.getElementById('verseMainRef'); const cur=te.textContent.replace(/[""]/g,''); let nv; do{nv=dailyVerses[Math.floor(Math.random()*dailyVerses.length)];}while(nv.text===cur&&dailyVerses.length>1); te.style.opacity='0';te.style.transform='translateY(-8px)';re.style.opacity='0'; setTimeout(()=>{te.textContent=`"${nv.text}"`;re.textContent=nv.ref;te.style.opacity='1';te.style.transform='translateY(0)';re.style.opacity='1';},200); }
+        function openSidebar() { document.getElementById('sidebar').classList.add('open');document.getElementById('sidebarOverlay').classList.add('open');sidebarOpen=true;renderSidebarChips(); }
+        function closeSidebar() { document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');sidebarOpen=false; }
+        function renderSidebarChips() { document.getElementById('sidebarChips').innerHTML=categories.map(cat=>`<button class="sidebar-chip ${activeCategory===cat.id?'active':''}" onclick="selectCategory('${cat.id}')"><span class="sidebar-chip-icon">${cat.emoji}</span><span class="sidebar-chip-name">${cat.name}</span><span class="sidebar-chip-count">${prayers.filter(p=>p.category===cat.id).length}</span></button>`).join(''); }
+        function selectCategory(catId) { activeCategory=catId; closeSidebar(); currentTab='prayers'; updateUI(); renderUI(); }
+        function openPixModal() { closeSidebar(); document.getElementById('pixModal').style.display='flex'; }
+        function closePixModal(e) { if(e.target===document.getElementById('pixModal')||e.target.classList.contains('pix-modal-backdrop'))document.getElementById('pixModal').style.display='none'; }
+        function copyPix() { navigator.clipboard.writeText('65173337000146').then(()=>{const c=document.getElementById('pixCopied');c.classList.add('show');setTimeout(()=>c.classList.remove('show'),2000);}); }
+        function shareApp() { if(navigator.share){navigator.share({title:'✨ Ore Comigo',text:'App gratuito de orações.',url:window.location.href}).catch(()=>{});}else{alert('Compartilhe:\n\n'+window.location.href);} }
+        function switchTab(tab) { currentTab=tab; selectedPrayer=null; if(tab==='home')activeCategory=null; updateUI(); renderUI(); }
+        function goHome() { currentTab='home'; updateUI(); renderUI(); }
+        function updateUI() { const hb=document.getElementById('homeBtn'),vs=document.getElementById('verseCardMain'),ps=document.querySelector('.inspirational-phrase'); if(currentTab==='home'){hb.classList.remove('visible');vs.style.display='block';ps.style.display='block';}else{hb.classList.add('visible');vs.style.display='none';ps.style.display='none';} updateBottomNav(); }
+        function updateBottomNav() { document.querySelectorAll('.nav-item').forEach(b=>{b.classList.remove('active');if(b.dataset.tab===currentTab)b.classList.add('active');}); }
+        function openPrayer(id) { selectedPrayer=id; const p=prayers.find(x=>x.id===selectedPrayer); if(!p)return; document.getElementById('prayerDetailContent').innerHTML=`<button class="prayer-back-btn" onclick="closePrayer()">←</button><div class="prayer-display-content"><h3>${p.name}</h3><div class="prayer-glass-card"><div class="prayer-text">${p.text}</div></div><div class="verse-reference"><div class="verse-icon">📖</div><div class="verse-content">"${p.verse}"</div><span class="verse-citation">${p.verseRef}</span></div></div>`; document.getElementById('prayerDetailWrapper').style.display='flex'; document.body.style.overflow='hidden'; }
+        function closePrayer() { document.getElementById('prayerDetailWrapper').style.display='none'; document.body.style.overflow=''; selectedPrayer=null; }
+        function closePrayerFromBackdrop(e) { if(e.target===document.getElementById('prayerDetailWrapper')||e.target.classList.contains('prayer-detail-backdrop'))closePrayer(); }
+        function getChallengeProgress(id) { if(!activeChallenge||activeChallenge!==id||!challengeStartDate)return 0; const diff=Math.floor((new Date()-new Date(challengeStartDate))/86400000); const ch=challenges.find(c=>c.id===id); return ch?Math.min(diff+1,ch.duration):0; }
+        function startChallenge(id) { if(activeChallenge&&!confirm('Abandonar o desafio atual?'))return; activeChallenge=id; challengeStartDate=new Date().toISOString(); localStorage.setItem('activeChallenge',JSON.stringify(activeChallenge)); localStorage.setItem('challengeStartDate',challengeStartDate); renderUI(); }
+        function abandonChallenge() { if(confirm('Abandonar desafio?')){activeChallenge=null;challengeStartDate=null;localStorage.removeItem('activeChallenge');localStorage.removeItem('challengeStartDate');renderUI();} }
+        function getTodayChallengePrayer() { if(!activeChallenge||!challengeStartDate)return null; const ch=challenges.find(c=>c.id===activeChallenge); if(!ch)return null; const dayIndex=Math.floor((new Date()-new Date(challengeStartDate))/86400000); if(dayIndex>=ch.duration)return null; const catPrayers=prayers.filter(p=>p.category===ch.category); return catPrayers.length?catPrayers[dayIndex%catPrayers.length]:null; }
+
+        function renderUI() {
+            const mc=document.getElementById('mainContent');
+            if(currentTab==='home'){mc.innerHTML='';mc.style.display='none';return;}
+            mc.style.display='flex';
+            if(currentTab==='prayers'){ const f=activeCategory?prayers.filter(p=>p.category===activeCategory):prayers; const cat=activeCategory?categories.find(c=>c.id===activeCategory):null; let h=`<div class="section-title">${cat?cat.emoji+' '+cat.name:'📿 Orações'}</div><div class="prayer-list">`; f.forEach((p,i)=>{const fav=favorites.includes(p.id);h+=`<div class="prayer-card" onclick="openPrayer(${p.id})"><div class="prayer-icon-wrapper">${p.icon}</div><div class="prayer-name">${p.name}</div><button class="favorite-btn ${fav?'active':''}" onclick="event.stopPropagation();toggleFavorite(${p.id})">${fav?'⭐':'☆'}</button></div>`;}); h+='</div>';mc.innerHTML=h; }
+            else if(currentTab==='favorites'){ const favs=prayers.filter(p=>favorites.includes(p.id)); if(!favs.length){mc.innerHTML='<div class="section-title">⭐ Favoritas</div><div style="text-align:center;padding:40px;color:var(--text-secondary);"><p style="font-size:48px;">⭐</p><p>Nenhuma favorita</p></div>';} else{let h='<div class="section-title">⭐ Favoritas</div><div class="prayer-list">';favs.forEach(p=>h+=`<div class="prayer-card" onclick="openPrayer(${p.id})"><div class="prayer-icon-wrapper">${p.icon}</div><div class="prayer-name">${p.name}</div><button class="favorite-btn active" onclick="event.stopPropagation();toggleFavorite(${p.id});renderUI()">⭐</button></div>`);h+='</div>';mc.innerHTML=h;} }
+            else if(currentTab==='challenges'){ let h=`<div class="challenges-container"><div class="diary-header-card"><div class="diary-icon">🎯</div><h3>Desafios de Oração</h3><p class="diary-subtitle">Fortaleça sua fé com planos temáticos.</p></div>`; if(activeChallenge){ const ch=challenges.find(c=>c.id===activeChallenge); const prog=getChallengeProgress(activeChallenge); const today=getTodayChallengePrayer(); if(ch)h+=`<div class="challenge-card active-challenge"><div class="challenge-card-header"><span class="challenge-icon">${ch.icon}</span><div class="challenge-info"><div class="challenge-name">${ch.name}</div><div class="challenge-duration">🔥 Em andamento</div></div></div><div class="challenge-progress"><div class="challenge-progress-bar" style="width:${(prog/ch.duration)*100}%"></div></div><p style="font-size:12px;color:var(--text-secondary);margin-top:6px;">Dia ${prog} de ${ch.duration}</p>${today?`<button class="challenge-start-btn" onclick="openPrayer(${today.id})" style="width:100%;margin-top:8px;">📿 Oração de hoje</button>`:'<p style="color:#10b981;">🎉 Concluído!</p>'}<button class="diary-cancel-btn" onclick="abandonChallenge()" style="width:100%;margin-top:8px;">Abandonar</button></div>`; } challenges.forEach(ch=>{if(activeChallenge===ch.id)return; h+=`<div class="challenge-card" onclick="startChallenge('${ch.id}')"><div class="challenge-card-header"><span class="challenge-icon">${ch.icon}</span><div class="challenge-info"><div class="challenge-name">${ch.name}</div><div class="challenge-duration">${ch.duration} dias</div></div></div><p class="challenge-desc">${ch.desc}</p><button class="challenge-start-btn">▶ Começar</button></div>`;}); h+=`</div>`;mc.innerHTML=h; }
+            else if(currentTab==='diary'){ let h=`<div class="diary-container"><div class="diary-header-card"><div class="diary-icon">📝</div><h3>Diário de Oração</h3><p class="diary-subtitle">Registre seus pedidos, agradecimentos e reflexões.</p></div><button class="diary-new-btn" onclick="showDiaryEditor()">✨ Nova anotação</button>`; if(!diaryEntries.length)h+=`<div class="diary-empty"><div class="empty-icon">📖</div><p>Nenhuma anotação</p></div>`; else{ h+=`<div class="diary-entries">`; [...diaryEntries].reverse().forEach((e,i)=>{ const d=new Date(e.date); const f=d.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}); const prev=e.text.length>150?e.text.substring(0,150)+'...':e.text; const ri=diaryEntries.length-1-i; h+=`<div class="diary-entry" onclick="viewDiaryEntry(${ri})"><div class="diary-entry-date">📅 ${f}</div><div class="diary-entry-text">${escapeHtml(prev)}</div>${e.text.length>150?'<div class="diary-read-more">Toque para ler mais...</div>':''}<button class="diary-entry-delete" onclick="event.stopPropagation();showDeleteConfirm(${ri})">🗑️</button></div>`; }); h+=`</div>`; } h+=`</div>`;mc.innerHTML=h; }
+            else if(currentTab==='timer'){ const m=Math.floor(timerSeconds/60),s=timerSeconds%60; mc.innerHTML=`<div class="timer-card"><div class="timer-label">⏱️ Meditação Silenciosa</div><div class="timer-display">${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}</div><div class="timer-presets">${[1,5,10,15,20].map(min=>`<button class="preset-btn ${timerSeconds===min*60&&!timerRunning?'active-preset':''}" onclick="setTimer(${min*60})">${min} min</button>`).join('')}</div><div class="timer-controls">${!timerRunning?`<button class="timer-btn start" onclick="startTimer()">▶ Iniciar</button>`:`<button class="timer-btn pause" onclick="pauseTimer()">⏸ Pausar</button>`}<button class="timer-btn reset" onclick="resetTimer()">↺</button></div></div>`; }
         }
 
-        function rotacionarFrase() {
-            const idx = Math.floor(Math.random() * frasesInspiradoras.length);
-            const msgEl = document.getElementById('msg-dia');
-            if(msgEl) msgEl.innerText = `"${frasesInspiradoras[idx]}"`;
-        }
+        function showDiaryEditor() { document.getElementById('mainContent').innerHTML=`<div class="diary-container"><div class="diary-header-card"><div class="diary-icon">✍️</div><h3>Nova Anotação</h3></div><div class="diary-editor"><textarea class="diary-textarea" id="diaryTextarea" placeholder="Escreva aqui..."></textarea><div class="diary-actions"><button class="diary-cancel-btn" onclick="switchTab('diary')">Cancelar</button><button class="diary-save-btn" onclick="saveDiaryEntry()">💾 Salvar</button></div></div></div>`; setTimeout(()=>document.getElementById('diaryTextarea').focus(),300); }
+        function saveDiaryEntry() { const t=document.getElementById('diaryTextarea').value.trim(); if(!t){alert('Escreva algo.');return;} diaryEntries.push({text:t,date:new Date().toISOString()}); localStorage.setItem('prayerDiary',JSON.stringify(diaryEntries)); switchTab('diary'); }
+        function viewDiaryEntry(i) { const e=diaryEntries[i],d=new Date(e.date); const f=d.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}); const ov=document.createElement('div');ov.className='diary-view-overlay'; ov.innerHTML=`<div class="diary-view-backdrop" onclick="this.parentElement.remove()"></div><div class="diary-view-modal"><button class="diary-view-close" onclick="this.closest('.diary-view-overlay').remove()">✕</button><div class="diary-view-date">📅 ${f}</div><div class="diary-view-text">${escapeHtml(e.text)}</div><button class="diary-view-btn" onclick="this.closest('.diary-view-overlay').remove()">Fechar</button></div>`; document.body.appendChild(ov); }
+        function showDeleteConfirm(i) { const ov=document.createElement('div');ov.className='diary-view-overlay'; ov.innerHTML=`<div class="diary-view-backdrop" onclick="this.parentElement.remove()"></div><div class="diary-delete-modal"><div class="diary-delete-icon">🗑️</div><h3>Excluir?</h3><p>Não pode ser desfeito.</p><div class="diary-delete-actions"><button class="diary-delete-cancel" onclick="this.closest('.diary-view-overlay').remove()">Cancelar</button><button class="diary-delete-confirm" onclick="deleteDiaryEntry(${i});this.closest('.diary-view-overlay').remove()">Sim</button></div></div>`; document.body.appendChild(ov); }
+        function deleteDiaryEntry(i) { diaryEntries.splice(i,1); localStorage.setItem('prayerDiary',JSON.stringify(diaryEntries)); renderUI(); }
+        function escapeHtml(t) { const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+        function toggleFavorite(id) { favorites.includes(id)?favorites=favorites.filter(f=>f!==id):favorites.push(id); localStorage.setItem('prayerFavorites',JSON.stringify(favorites)); if(currentTab==='favorites')renderUI(); }
+        function setTimer(s) { pauseTimer(); timerSeconds=s; renderUI(); }
+        function startTimer() { if(timerSeconds<=0)return; timerRunning=true; const st=Date.now(),init=timerSeconds; timerInterval=setInterval(()=>{timerSeconds=Math.max(0,init-Math.floor((Date.now()-st)/1000));if(timerSeconds<=0){pauseTimer();alert('🕊️ Meditação concluída.');}renderUI();},200);renderUI(); }
+        function pauseTimer() { timerRunning=false;clearInterval(timerInterval);renderUI(); }
+        function resetTimer() { pauseTimer();timerSeconds=0;renderUI(); }
 
-        function openModal(o) { 
-            currentOra = o; 
-            document.getElementById('mt').innerText = o.t; 
-            document.getElementById('mm').innerText = o.m; 
-            document.getElementById('mr').innerText = o.r; 
-            updateModalHeart(); 
-            document.getElementById('modal').style.display = 'flex'; 
-        }
+        document.addEventListener('keydown',e=>{if(e.key==='Escape'){ if(document.getElementById('welcomeModal').style.display==='flex')closeWelcome(); else if(document.getElementById('pixModal').style.display==='flex')document.getElementById('pixModal').style.display='none'; else if(selectedPrayer)closePrayer(); else if(sidebarOpen)closeSidebar(); else if(document.querySelector('.diary-view-overlay'))document.querySelector('.diary-view-overlay').remove(); else goHome(); }});
 
-        function openCat(cat) { 
-            document.getElementById('cat-menu').style.display = 'none'; 
-            const container = document.getElementById('ora-container'); 
-            container.style.display = 'block'; 
-            container.innerHTML = `<button class="btn-back" onclick="show('list')">← Voltar</button>`; 
-            (db[cat] || []).forEach(o => { 
-                const div = document.createElement('div'); 
-                div.className = 'ora-item'; 
-                div.innerHTML = `<strong>${o.t}</strong><small>${o.r}</small>`; 
-                div.onclick = () => openModal(o); container.appendChild(div); 
-            }); 
-            document.getElementById('main-content').scrollTop = 0;
-        }
-
-        function toggleTheme() { const isDark = document.body.classList.toggle('dark-mode'); document.querySelector('.item-theme').innerHTML = isDark ? '🌙 Modo Escuro' : '☀️ Modo Claro'; localStorage.setItem('ore_theme', isDark ? 'dark' : 'light'); }
-        function show(id, el) { 
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); 
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); if(el) el.classList.add('active'); 
-            if(id === 'list') { document.getElementById('cat-menu').style.display = 'grid'; document.getElementById('ora-container').style.display = 'none'; } 
-            else if(id === 'favs') renderFavs(); else if(id === 'home') rotacionarFrase();
-            document.getElementById('main-content').scrollTop = 0;
-        }
-
-        function closeM() { document.getElementById('modal').style.display = 'none'; }
-        function updateModalHeart() { const isFav = favorites.find(f => f.id === currentOra.id); const btn = document.getElementById('btn-fav-modal'); btn.innerHTML = isFav ? '⭐' : '☆'; btn.style.color = isFav ? 'var(--f)' : '#ccc'; }
-        
-        document.getElementById('btn-fav-modal').onclick = (e) => { 
-            e.stopPropagation(); const index = favorites.findIndex(f => f.id === currentOra.id); 
-            if(index > -1) { favorites.splice(index, 1); showToast("Removido"); } 
-            else { favorites.push(currentOra); showToast("Salvo!"); } 
-            localStorage.setItem('ore_favs', JSON.stringify(favorites)); updateModalHeart(); 
-            if(document.querySelector('.screen.active').id === 'favs') renderFavs(); 
-        };
-
-        function renderFavs() { 
-            const container = document.getElementById('fav-list'); if(favorites.length === 0) { container.innerHTML = "<p style='text-align:center; opacity:0.5; margin-top:30px;'>Sem favoritos.</p>"; return; } 
-            container.innerHTML = ""; favorites.forEach(o => { const div = document.createElement('div'); div.className = 'ora-item'; div.innerHTML = `<strong>${o.t}</strong><small>${o.r}</small>`; div.onclick = () => openModal(o); container.appendChild(div); }); 
-        }
-
-        function randomO() { const cats = Object.keys(db); const rCatId = cats[Math.floor(Math.random() * cats.length)]; const rOra = db[rCatId][Math.floor(Math.random() * db[rCatId].length)]; openModal(rOra); }
-        function shareApp() { 
-            const t = "Fortaleça sua fé com o aplicativo Ore Comigo!\n\n" + window.location.href; 
-            window.open("https://wa.me/?text=" + encodeURIComponent(t)); 
-        }
-        function copyPix(chave) { navigator.clipboard.writeText(chave).then(() => { showToast("PIX Copiado!"); }); }
-        function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
-        window.onload = () => { const savedTheme = localStorage.getItem('ore_theme'); if(savedTheme === 'dark') { document.body.classList.add('dark-mode'); document.querySelector('.item-theme').innerHTML = '🌙 Modo Escuro'; } rotacionarFrase(); updateGreeting(); };
+        applyDarkMode(); updateGreeting(); updateUI(); renderUI(); showWelcomeIfFirstTime();
     </script>
 </body>
 </html>
