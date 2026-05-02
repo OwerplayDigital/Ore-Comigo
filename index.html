@@ -4,17 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#6c5ce7">
-    <meta name="description" content="Ore Comigo — App devocional com 30 orações curtas, versículos diários, desafios de fé, diário espiritual e meditação guiada. Encontre paz, força e direção.">
-    <meta name="keywords" content="oração, orações, devocional, versículos, fé, paz, meditação cristã, ore comigo">
+    <meta name="description" content="Ore Comigo — App devocional com 40 orações, versículos diários, desafios de fé, diário espiritual e meditação guiada. Encontre paz, força, gratidão e direção.">
+    <meta name="keywords" content="oração, orações, devocional, versículos, fé, paz, gratidão, meditação cristã, ore comigo">
     <meta name="author" content="Ore Comigo">
     <link rel="canonical" href="https://orecomigo.app/">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://orecomigo.app/">
     <meta property="og:title" content="Ore Comigo — Orações que falam ao coração">
-    <meta property="og:description" content="30 orações, versículos diários, desafios de fé e meditação guiada. Um momento com Deus a qualquer hora.">
+    <meta property="og:description" content="40 orações, versículos diários, desafios de fé e meditação. Um momento com Deus a qualquer hora.">
     <meta property="og:locale" content="pt_BR">
     <meta property="og:site_name" content="Ore Comigo">
+    <meta property="og:image" content="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23faf9f7'/%3E%3Cstop offset='1' stop-color='%23ece7df'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='630' fill='url(%23g)'/%3E%3Cline x1='340' y1='195' x2='860' y2='195' stroke='%23b8974e' stroke-width='2'/%3E%3Ctext x='600' y='260' text-anchor='middle' font-family='Georgia,serif' font-size='86' font-weight='300' fill='%236c5ce7'%3EOre Comigo%3C/text%3E%3Cline x1='340' y1='290' x2='860' y2='290' stroke='%23b8974e' stroke-width='2'/%3E%3Ctext x='600' y='400' text-anchor='middle' font-family='Georgia,serif' font-size='34' font-style='italic' fill='%231a1a24'%3EOra%C3%A7%C3%B5es que falam ao cora%C3%A7%C3%A3o%3C/text%3E%3Ctext x='600' y='470' text-anchor='middle' font-family='Inter,sans-serif' font-size='22' fill='%236b6b7a'%3EVers%C3%ADculos di%C3%A1rios %C2%B7 Desafios de f%C3%A9 %C2%B7 Medita%C3%A7%C3%A3o%3C/text%3E%3C/svg%3E">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Ore Comigo — Orações que falam ao coração">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
@@ -32,7 +37,7 @@
 
     <!-- JSON-LD -->
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"WebApplication","name":"Ore Comigo","description":"App devocional com orações, versículos diários e meditação.","applicationCategory":"LifestyleApplication","operatingSystem":"Any","inLanguage":"pt-BR","offers":{"@type":"Offer","price":"0","priceCurrency":"BRL"}}
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Ore Comigo","description":"App devocional com orações, versículos diários e meditação.","applicationCategory":"Lifestyle","operatingSystem":"Any","inLanguage":"pt-BR","offers":{"@type":"Offer","price":"0","priceCurrency":"BRL"}}
     </script>
 
     <title>Ore Comigo — Orações que falam ao coração</title>
@@ -97,6 +102,112 @@
                         radial-gradient(ellipse at 80% 80%, rgba(184,151,78,0.03) 0%, transparent 50%);
         }
 
+        /* Search Overlay */
+        .search-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 250;
+            background: var(--bg-main);
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.25s ease;
+        }
+        .search-header {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-card);
+            background: var(--bg-card);
+        }
+        .search-header input {
+            flex: 1;
+            padding: 14px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--border-card);
+            background: var(--bg-elevated);
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            outline: none;
+        }
+        .search-header input:focus {
+            border-color: var(--accent);
+        }
+        .search-close {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-card);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 20px;
+        }
+        .search-results {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+        .search-result-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .search-result-item:hover {
+            border-color: rgba(108,92,231,0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-elevated);
+        }
+        .search-result-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: rgba(108,92,231,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+        .search-result-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+        .search-result-info {
+            flex: 1;
+        }
+        .search-result-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+        .search-result-category {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            margin-top: 2px;
+        }
+        .search-empty {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-tertiary);
+        }
+        .search-empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.3;
+        }
+
         .sidebar-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); z-index: 90; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; backdrop-filter: blur(8px); }
         .sidebar-overlay.open { opacity: 1; pointer-events: all; }
         .sidebar { position: absolute; left: 0; top: 0; bottom: 0; width: 280px; background: var(--bg-card); z-index: 100; transform: translateX(-100%); transition: transform 0.4s; display: flex; flex-direction: column; border-right: 1px solid var(--border-card); }
@@ -140,8 +251,11 @@
         .header-center { text-align: center; }
         .greeting { font-size: 10px; color: var(--text-tertiary); font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
         .app-title { font-size: 28px; font-weight: 300; color: var(--text-primary); letter-spacing: -1px; font-family: 'Cormorant Garamond', Georgia, serif; line-height: 1.2; }
-        .home-btn { right: 16px; display: none; }
-        .home-btn.visible { display: flex; }
+        .header-actions { display: flex; gap: 6px; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); }
+        .search-btn { position: static; transform: none; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border-card); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: var(--transition); }
+        .search-btn:hover { border-color: rgba(108,92,231,0.25); color: var(--accent); }
+        .search-btn svg { width: 18px; height: 18px; }
+        .home-btn { position: static; transform: none; display: none; }
 
         .streak-bar { margin: 0 16px 12px; display: flex; align-items: center; justify-content: center; gap: 6px; z-index: 1; min-height: 16px; }
         .streak-dot { width: 7px; height: 7px; border-radius: 50%; background: #e5e5e5; transition: transform 0.3s ease, background 0.3s ease; }
@@ -155,6 +269,65 @@
         .verse-main-text { font-size: 17px; font-weight: 500; color: var(--text-primary); line-height: 1.7; font-style: italic; font-family: 'Lora', Georgia, serif; position: relative; z-index: 1; transition: opacity 0.3s ease, transform 0.3s ease, color 0.5s ease; padding-top: 4px; }
         .verse-main-ref { display: block; margin-top: 12px; font-size: 10px; font-weight: 600; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 1.5px; }
         .verse-main-refresh { display: inline-block; margin-top: 12px; font-size: 10px; color: var(--text-tertiary); }
+
+        /* Moment Prayer Card */
+        .moment-card {
+            margin: 0 16px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+        .moment-card:hover {
+            border-color: rgba(108,92,231,0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-elevated);
+        }
+        .moment-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .moment-icon {
+            font-size: 28px;
+        }
+        .moment-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .moment-text {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            font-family: 'Lora', Georgia, serif;
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+        .moment-btn {
+            background: rgba(108,92,231,0.06);
+            border: 1px solid rgba(108,92,231,0.1);
+            border-radius: 100px;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--accent);
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        .moment-btn:hover {
+            background: rgba(108,92,231,0.12);
+        }
+
         .inspirational-phrase { margin: 0 16px; padding: 0 16px 12px; text-align: center; flex-shrink: 0; }
         .inspirational-phrase p { font-size: 12px; color: var(--text-tertiary); line-height: 1.6; }
         .main-content { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 4px 16px 8px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: thin; }
@@ -162,16 +335,13 @@
         .main-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 100px; }
         .dark-mode .main-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); }
 
-        /* Animação suave entre tabs */
         .main-content > * { animation: tabFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
         @keyframes tabFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Home: atalhos */
         .home-shortcuts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 16px 12px; }
         .home-shortcut { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 18px; padding: 16px 14px; cursor: pointer; transition: var(--transition); display: flex; flex-direction: column; align-items: flex-start; gap: 8px; box-shadow: var(--shadow-card); text-align: left; font-family: 'Inter', sans-serif; }
         .home-shortcut:hover { border-color: rgba(108,92,231,0.2); transform: translateY(-2px); box-shadow: var(--shadow-elevated); }
         .home-shortcut-icon { width: 36px; height: 36px; border-radius: 12px; background: rgba(108,92,231,0.06); display: flex; align-items: center; justify-content: center; color: var(--accent); }
-        .dark-mode .home-shortcut-icon { background: rgba(167,139,250,0.08); }
         .home-shortcut-icon svg { width: 18px; height: 18px; }
         .home-shortcut-title { font-size: 13px; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
         .home-shortcut-sub { font-size: 11px; color: var(--text-tertiary); line-height: 1.4; }
@@ -184,19 +354,18 @@
         .home-see-all { display: block; width: calc(100% - 32px); margin: 0 16px 16px; padding: 12px; border-radius: 14px; border: 1px dashed var(--border-card); background: transparent; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: var(--accent); cursor: pointer; transition: var(--transition); }
         .home-see-all:hover { background: rgba(108,92,231,0.04); border-style: solid; }
         .section-subtitle { font-size: 11px; color: var(--text-tertiary); padding: 0 20px 6px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        .section-title { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-tertiary); padding: 4px 4px 4px; }
 
         .prayer-list { display: flex; flex-direction: column; gap: 8px; }
         .prayer-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 16px; padding: 14px 16px; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow-card); width: 100%; min-width: 0; }
         .prayer-card:hover { border-color: rgba(108,92,231,0.2); transform: translateY(-2px); box-shadow: var(--shadow-elevated); }
         .prayer-icon-wrapper { width: 38px; height: 38px; border-radius: 12px; background: rgba(108,92,231,0.06); display: flex; align-items: center; justify-content: center; color: var(--accent); flex-shrink: 0; }
         .prayer-icon-wrapper svg { width: 18px; height: 18px; flex-shrink: 0; }
-        .dark-mode .prayer-icon-wrapper { background: rgba(167,139,250,0.08); }
-        .prayer-name { font-weight: 500; font-size: 14px; color: var(--text-primary); flex: 1 1 auto; min-width: 0; transition: color 0.5s ease; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; }
+        .prayer-name { font-weight: 500; font-size: 14px; color: var(--text-primary); flex: 1 1 auto; min-width: 0; line-height: 1.4; }
         .favorite-btn { background: none; border: none; cursor: pointer; padding: 6px; color: rgba(0,0,0,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: var(--transition); flex-shrink: 0; width: 32px; height: 32px; }
         .dark-mode .favorite-btn { color: rgba(255,255,255,0.15); }
         .favorite-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
         .favorite-btn.active { color: var(--accent-gold); }
-        .section-title { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-tertiary); padding: 4px 4px 4px; }
 
         .bottom-nav { display: flex; align-items: center; justify-content: space-around; padding: 8px 12px; margin: 4px 16px 12px; background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 24px; box-shadow: 0 -1px 0 var(--border-subtle), var(--shadow-card); }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 12px; border: none; background: transparent; cursor: pointer; font-family: 'Inter', sans-serif; color: var(--text-tertiary); border-radius: 16px; min-width: 56px; transition: var(--transition); }
@@ -212,66 +381,27 @@
         .dark-mode .prayer-fullscreen { background: linear-gradient(180deg, #1c1c35 0%, #151528 40%, #0d0d1a 100%); }
         @keyframes scaleIn { from{opacity:0;transform:scale(0.98)} to{opacity:1;transform:scale(1)} }
 
-        /* ===== Gradiente do app que muda conforme o horário ===== */
         body.tod-morning .app-container { background: linear-gradient(180deg, #fef9ef 0%, #faf2e0 50%, #f5ead0 100%); }
         body.tod-afternoon .app-container { background: linear-gradient(180deg, #f8f6f2 0%, #f4ede0 50%, #ebe1cf 100%); }
         body.tod-evening .app-container { background: linear-gradient(180deg, #f0e8e0 0%, #e8dcd0 50%, #d8c8b8 100%); }
         body.dark-mode.tod-morning .app-container { background: linear-gradient(180deg, #1a1530 0%, #0f0f22 50%, #08081a 100%); }
         body.dark-mode.tod-afternoon .app-container { background: linear-gradient(180deg, #15152a 0%, #0d0d1f 50%, #06061a 100%); }
         body.dark-mode.tod-evening .app-container { background: linear-gradient(180deg, #0a0a1f 0%, #050518 50%, #02020f 100%); }
-        body.tod-morning .prayer-fullscreen { background: linear-gradient(180deg, #fff8e8 0%, #faf0d0 50%, #f0e0b8 100%); }
-        body.tod-afternoon .prayer-fullscreen { background: linear-gradient(180deg, #faf9f7 0%, #f0e8d8 50%, #e8d8c0 100%); }
-        body.tod-evening .prayer-fullscreen { background: linear-gradient(180deg, #e8d8c8 0%, #d8c0a8 50%, #b89880 100%); }
-        body.dark-mode.tod-evening .prayer-fullscreen { background: linear-gradient(180deg, #0a0a20 0%, #050518 40%, #000010 100%); }
 
-        /* ===== Stagger fade-in nos cards ===== */
-        @keyframes cardEnter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        .prayer-list .prayer-card { opacity: 0; animation: cardEnter 0.45s ease forwards; }
-        .prayer-list .prayer-card:nth-child(1) { animation-delay: 0.02s; }
-        .prayer-list .prayer-card:nth-child(2) { animation-delay: 0.06s; }
-        .prayer-list .prayer-card:nth-child(3) { animation-delay: 0.10s; }
-        .prayer-list .prayer-card:nth-child(4) { animation-delay: 0.14s; }
-        .prayer-list .prayer-card:nth-child(5) { animation-delay: 0.18s; }
-        .prayer-list .prayer-card:nth-child(6) { animation-delay: 0.22s; }
-        .prayer-list .prayer-card:nth-child(n+7) { animation-delay: 0.26s; }
-
-        /* ===== Pulse no favorito ===== */
-        @keyframes heartPop { 0%{transform:scale(1)} 30%{transform:scale(1.4)} 60%{transform:scale(0.92)} 100%{transform:scale(1)} }
-        .favorite-btn.just-saved svg { animation: heartPop 0.5s ease; transform-origin: center; }
-
-        /* ===== Tempo de leitura ===== */
         .prayer-meta { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
         .prayer-meta svg { width: 11px; height: 11px; }
         .prayer-card-text { display: flex; flex-direction: column; flex: 1 1 auto; min-width: 0; }
         .reading-time-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 100px; background: rgba(108,92,231,0.06); color: var(--accent); font-size: 11px; font-weight: 500; margin-bottom: 16px; }
-        .reading-time-badge svg { width: 11px; height: 11px; }
-
-        /* ===== Modo leitura focada ===== */
         .focus-toggle-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(108,92,231,0.12); background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: var(--transition); margin-right: 6px; }
         .focus-toggle-btn:hover { color: var(--accent); border-color: var(--accent); }
-        .focus-toggle-btn svg { width: 16px; height: 16px; }
-        .dark-mode .focus-toggle-btn { background: rgba(20,20,40,0.6); border-color: rgba(167,139,250,0.12); }
-        .prayer-fullscreen.focus-mode { background: #1a1a28 !important; transition: background 0.6s ease; }
+        .prayer-fullscreen.focus-mode { background: #1a1a28 !important; }
         .prayer-fullscreen.focus-mode .prayer-stories-text { color: #f5f0e6 !important; font-size: 21px !important; line-height: 2.4 !important; }
-        .prayer-fullscreen.focus-mode .prayer-stories-verse { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.06) !important; }
-        .prayer-fullscreen.focus-mode .prayer-stories-verse .verse-content { color: rgba(245,240,230,0.8) !important; }
-        .prayer-fullscreen.focus-mode .prayer-back-btn-stories,
-        .prayer-fullscreen.focus-mode .prayer-share-btn-stories,
-        .prayer-fullscreen.focus-mode .focus-toggle-btn { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); color: rgba(245,240,230,0.7); }
-        .focus-toggle-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
         .prayer-top-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; flex-shrink: 0; }
         .prayer-back-btn-stories { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.08); background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); }
-        .dark-mode .prayer-back-btn-stories { border-color: rgba(255,255,255,0.08); background: rgba(20,20,40,0.6); }
         .prayer-share-btn-stories { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(108,92,231,0.12); background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: var(--transition); }
-        .dark-mode .prayer-share-btn-stories { border-color: rgba(167,139,250,0.12); background: rgba(20,20,40,0.6); }
-        .prayer-share-btn-stories:hover { background: rgba(108,92,231,0.06); border-color: var(--accent); color: var(--accent); }
-        .prayer-share-btn-stories svg { width: 17px; height: 17px; }
         .prayer-stories-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px 36px 50px; text-align: center; overflow-y: auto; }
-        .prayer-stories-content h3 { font-size: 26px; font-weight: 600; color: var(--text-primary); margin-bottom: 26px; font-family: 'Lora', Georgia, serif; }
         .prayer-stories-text { font-size: 19px; line-height: 2.2; color: #2d2d3a; text-align: center; font-family: 'Lora', Georgia, serif; margin-bottom: 32px; max-width: 500px; }
-        .dark-mode .prayer-stories-text { color: #c8c8d8; }
         .prayer-stories-verse { background: rgba(108,92,231,0.04); border-radius: 20px; padding: 20px 26px; font-size: 15px; line-height: 1.8; color: var(--text-primary); text-align: center; border: 1px solid rgba(108,92,231,0.1); max-width: 500px; width: 100%; }
-        .dark-mode .prayer-stories-verse { background: rgba(167,139,250,0.05); border-color: rgba(167,139,250,0.1); }
         .prayer-stories-verse .verse-content { font-style: italic; font-weight: 500; color: var(--text-secondary); font-family: 'Lora', Georgia, serif; font-size: 16px; }
         .prayer-stories-verse .verse-citation { display: block; margin-top: 10px; font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
 
@@ -280,139 +410,55 @@
         .pix-modal-overlay { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; padding: 20px; }
         .pix-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(12px); }
         .pix-modal-card { position: relative; z-index: 1; background: var(--bg-elevated); border-radius: 24px; padding: 28px 24px 24px; text-align: center; max-width: 370px; width: 100%; box-shadow: var(--shadow-modal); border: 1px solid var(--border-card); }
-        .pix-modal-card h3 { font-size: 22px; font-weight: 600; color: var(--text-primary); font-family: 'Lora', Georgia, serif; margin-bottom: 8px; }
-        .pix-subtitle { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6; }
-        .pix-copy-area { background: rgba(0,0,0,0.01); border: 1px dashed rgba(108,92,231,0.25); border-radius: 16px; padding: 20px 16px; margin-bottom: 8px; cursor: pointer; text-align: center; transition: var(--transition); }
-        .pix-copy-area:hover { border-color: var(--accent); background: rgba(108,92,231,0.03); }
-        .pix-copied-msg { font-size: 12px; color: #10b981; font-weight: 500; height: 20px; opacity: 0; transition: opacity 0.3s; margin-bottom: 8px; }
+        .pix-copy-area { background: rgba(0,0,0,0.01); border: 1px dashed rgba(108,92,231,0.25); border-radius: 16px; padding: 20px 16px; margin-bottom: 8px; cursor: pointer; }
+        .pix-copied-msg { font-size: 12px; color: #10b981; font-weight: 500; height: 20px; opacity: 0; transition: opacity 0.3s; }
         .pix-copied-msg.show { opacity: 1; }
-        .pix-verse { background: rgba(108,92,231,0.03); border-radius: 16px; padding: 16px; margin: 12px 0 20px; font-size: 13px; line-height: 1.7; color: var(--text-primary); font-style: italic; border: 1px solid rgba(108,92,231,0.08); }
-        .pix-verse-ref { display: block; margin-top: 8px; font-size: 10px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; font-style: normal; }
-        .pix-close-btn { padding: 10px 28px; border-radius: 100px; border: 1px solid var(--border-card); background: transparent; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; color: var(--text-secondary); transition: var(--transition); }
-        .pix-close-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .pix-close-btn { padding: 10px 28px; border-radius: 100px; border: 1px solid var(--border-card); background: transparent; font-size: 13px; font-weight: 500; cursor: pointer; }
 
         .welcome-modal { position: fixed; inset: 0; z-index: 400; display: flex; align-items: center; justify-content: center; padding: 20px; }
         .welcome-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(16px); }
         .welcome-content { position: relative; z-index: 1; background: var(--bg-elevated); border-radius: 24px; padding: 32px 24px 24px; text-align: center; max-width: 390px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: var(--shadow-modal); border: 1px solid var(--border-card); }
-        .welcome-moment-icon { font-size: 36px; margin-bottom: 8px; opacity: 0.5; animation: float 3s infinite; }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-        .welcome-moment-label { display: inline-block; padding: 5px 16px; background: rgba(108,92,231,0.06); color: var(--accent); font-weight: 600; border-radius: 100px; font-size: 11px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
-        .welcome-content h2 { font-size: 24px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; font-family: 'Lora', Georgia, serif; }
-        .welcome-prayer-card { background: rgba(0,0,0,0.01); border-radius: 16px; padding: 20px; border: 1px solid var(--border-card); margin-bottom: 16px; font-size: 16px; line-height: 1.9; color: #2d2d3a; font-family: 'Lora', Georgia, serif; text-align: left; }
-        .dark-mode .welcome-prayer-card { background: rgba(255,255,255,0.02); color: #c8c8d8; }
-        .welcome-verse { background: rgba(108,92,231,0.03); border-radius: 16px; padding: 16px; border: 1px solid rgba(108,92,231,0.08); margin-bottom: 20px; font-size: 14px; line-height: 1.7; color: var(--text-primary); }
-        .welcome-verse .v-icon { font-size: 16px; margin-bottom: 4px; opacity: 0.4; }
-        .welcome-verse .v-text { font-style: italic; font-weight: 500; color: var(--text-secondary); font-family: 'Lora', Georgia, serif; font-size: 14px; }
-        .welcome-verse .v-ref { display: block; margin-top: 8px; font-size: 10px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
-        .welcome-continue-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 32px; border-radius: 100px; border: none; background: var(--accent); color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: var(--transition); }
-        .welcome-continue-btn:hover { background: var(--accent-soft); }
+        .welcome-continue-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 32px; border-radius: 100px; border: none; background: var(--accent); color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; }
 
         .challenges-container { display: flex; flex-direction: column; gap: 12px; }
         .challenge-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 16px; padding: 18px; cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-card); }
-        .challenge-card:hover { border-color: rgba(108,92,231,0.2); transform: translateY(-2px); box-shadow: var(--shadow-elevated); }
         .challenge-card.active-challenge { border-color: var(--accent); background: rgba(108,92,231,0.03); }
-        .challenge-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-        .challenge-icon { font-size: 24px; opacity: 0.55; color: var(--accent); width: 40px; height: 40px; border-radius: 12px; background: rgba(108,92,231,0.06); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .dark-mode .challenge-icon { background: rgba(167,139,250,0.08); }
-        .challenge-info { flex: 1; }
-        .challenge-name { font-weight: 600; font-size: 14px; color: var(--text-primary); }
-        .challenge-duration { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
-        .challenge-desc { font-size: 12px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.6; }
         .challenge-progress { display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.04); border-radius: 100px; padding: 0; height: 6px; overflow: hidden; }
-        .dark-mode .challenge-progress { background: rgba(255,255,255,0.06); }
         .challenge-progress-bar { height: 100%; border-radius: 100px; background: var(--accent); transition: width 0.6s ease; }
-        .challenge-start-btn { display: inline-block; padding: 10px 20px; border-radius: 100px; border: none; background: var(--accent); color: #fff; font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: var(--transition); }
-        .challenge-start-btn:hover { background: var(--accent-soft); }
+        .challenge-start-btn { display: inline-block; padding: 10px 20px; border-radius: 100px; border: none; background: var(--accent); color: #fff; font-size: 12px; font-weight: 600; cursor: pointer; }
 
         .diary-container { display: flex; flex-direction: column; gap: 12px; }
-        .diary-header-card { background: rgba(108,92,231,0.03); border-radius: 16px; padding: 18px 20px; text-align: center; border: 1px solid rgba(108,92,231,0.08); }
-        .diary-header-card h3 { font-size: 16px; font-weight: 600; color: var(--text-primary); }
-        .diary-subtitle { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
-        .diary-new-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border-radius: 100px; border: none; background: var(--accent); color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: var(--transition); }
-        .diary-new-btn:hover { background: var(--accent-soft); }
+        .diary-header-card { background: rgba(108,92,231,0.03); border-radius: 16px; padding: 18px 20px; text-align: center; }
+        .diary-new-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border-radius: 100px; border: none; background: var(--accent); color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; }
         .diary-editor { background: var(--bg-card); border-radius: 16px; padding: 16px; border: 1px solid var(--border-card); }
-        .diary-textarea { width: 100%; min-height: 160px; padding: 14px; border-radius: 12px; border: 1px solid var(--border-card); background: rgba(0,0,0,0.02); font-family: 'Inter', sans-serif; font-size: 14px; color: var(--text-primary); resize: vertical; line-height: 1.7; outline: none; transition: var(--transition); }
-        .dark-mode .diary-textarea { background: rgba(255,255,255,0.02); }
-        .diary-textarea:focus { border-color: var(--accent); }
-        .diary-actions { display: flex; gap: 8px; margin-top: 12px; }
-        .diary-save-btn { flex: 1; padding: 12px; border-radius: 100px; border: none; background: var(--accent); color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: var(--transition); }
-        .diary-save-btn:hover { background: var(--accent-soft); }
-        .diary-cancel-btn { padding: 12px 20px; border-radius: 100px; border: 1px solid var(--border-card); background: transparent; color: var(--text-secondary); font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: var(--transition); }
-        .diary-cancel-btn:hover { border-color: var(--text-secondary); }
+        .diary-textarea { width: 100%; min-height: 160px; padding: 14px; border-radius: 12px; border: 1px solid var(--border-card); background: rgba(0,0,0,0.02); font-family: 'Inter', sans-serif; font-size: 14px; color: var(--text-primary); resize: vertical; }
+        .diary-save-btn { flex: 1; padding: 12px; border-radius: 100px; border: none; background: var(--accent); color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; }
+        .diary-cancel-btn { padding: 12px 20px; border-radius: 100px; border: 1px solid var(--border-card); background: transparent; color: var(--text-secondary); font-size: 13px; font-weight: 500; cursor: pointer; }
         .diary-entries { display: flex; flex-direction: column; gap: 8px; }
-        .diary-entry { background: var(--bg-card); border-radius: 16px; padding: 16px; border: 1px solid var(--border-card); position: relative; cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-card); padding-right: 40px; }
-        .diary-entry:hover { border-color: rgba(108,92,231,0.2); transform: translateY(-1px); }
-        .diary-entry-date { font-size: 10px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .diary-entry { background: var(--bg-card); border-radius: 16px; padding: 16px; border: 1px solid var(--border-card); position: relative; cursor: pointer; padding-right: 40px; }
+        .diary-entry-date { font-size: 10px; font-weight: 600; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
         .diary-entry-text { font-size: 13px; line-height: 1.7; color: var(--text-primary); white-space: pre-wrap; }
-        .diary-read-more { font-size: 11px; color: var(--accent); font-weight: 500; margin-top: 6px; }
-        .diary-entry-delete { position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; border-radius: 50%; border: none; background: transparent; color: var(--text-tertiary); cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; z-index: 5; transition: var(--transition); }
-        .diary-entry-delete:hover { background: rgba(239,68,68,0.08); color: #ef4444; }
+        .diary-entry-delete { position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; border-radius: 50%; border: none; background: transparent; color: var(--text-tertiary); cursor: pointer; }
         .diary-empty { text-align: center; padding: 40px 20px; color: var(--text-tertiary); }
-        .empty-icon { font-size: 36px; margin-bottom: 12px; opacity: 0.3; }
-        .diary-view-overlay { position: fixed; inset: 0; z-index: 500; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .diary-view-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); }
-        .diary-view-modal { position: relative; z-index: 1; background: var(--bg-elevated); border-radius: 24px; padding: 28px 24px 20px; max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: var(--shadow-modal); border: 1px solid var(--border-card); display: flex; flex-direction: column; }
-        .diary-view-close { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; color: var(--text-tertiary); cursor: pointer; transition: var(--transition); }
-        .diary-view-close:hover { background: rgba(0,0,0,0.04); color: var(--text-primary); }
-        .diary-view-date { font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; text-align: center; }
-        .diary-view-text { font-size: 15px; line-height: 1.9; color: var(--text-primary); white-space: pre-wrap; word-wrap: break-word; text-align: left; margin-bottom: 20px; flex: 1; overflow-y: auto; font-family: 'Lora', Georgia, serif; }
-        .diary-view-btn { display: block; margin: 0 auto; padding: 10px 28px; border-radius: 100px; border: 1px solid var(--border-card); background: transparent; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; color: var(--text-secondary); transition: var(--transition); }
-        .diary-view-btn:hover { border-color: var(--accent); color: var(--accent); }
-        .diary-delete-modal { position: relative; z-index: 1; background: var(--bg-elevated); border-radius: 24px; padding: 28px 24px 24px; max-width: 360px; width: 100%; text-align: center; box-shadow: var(--shadow-modal); border: 1px solid var(--border-card); }
-        .diary-delete-icon { font-size: 36px; margin-bottom: 12px; opacity: 0.3; }
-        .diary-delete-modal h3 { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
-        .diary-delete-modal p { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; }
-        .diary-delete-actions { display: flex; gap: 8px; justify-content: center; }
-        .diary-delete-cancel { padding: 10px 20px; border-radius: 100px; border: 1px solid var(--border-card); background: transparent; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; color: var(--text-secondary); }
-        .diary-delete-confirm { padding: 10px 20px; border-radius: 100px; border: none; background: #ef4444; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; }
 
-        .timer-card { background: var(--bg-card); border-radius: 20px; padding: 32px 24px; text-align: center; border: 1px solid var(--border-card); box-shadow: var(--shadow-card); }
-        .timer-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-tertiary); margin-bottom: 8px; }
-        .timer-display { font-size: 72px; font-weight: 200; color: var(--text-primary); letter-spacing: -4px; margin: 16px 0 24px; font-variant-numeric: tabular-nums; line-height: 1; }
+        .timer-card { background: var(--bg-card); border-radius: 20px; padding: 32px 24px; text-align: center; border: 1px solid var(--border-card); }
+        .timer-display { font-size: 72px; font-weight: 200; color: var(--text-primary); letter-spacing: -4px; margin: 16px 0 24px; font-variant-numeric: tabular-nums; }
         .timer-presets { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-bottom: 24px; }
-        .preset-btn { padding: 8px 14px; border-radius: 100px; border: 1px solid var(--border-card); background: transparent; font-size: 12px; font-weight: 500; cursor: pointer; transition: var(--transition); font-family: 'Inter', sans-serif; color: var(--text-secondary); }
-        .preset-btn:hover { border-color: var(--accent); color: var(--accent); }
-        .preset-btn.active-preset { background: var(--accent); color: #fff; border-color: var(--accent); }
-        .timer-controls { display: flex; gap: 8px; justify-content: center; }
-        .timer-btn { padding: 12px 28px; border-radius: 100px; font-size: 14px; font-weight: 600; cursor: pointer; transition: var(--transition); font-family: 'Inter', sans-serif; }
+        .preset-btn { padding: 8px 14px; border-radius: 100px; border: 1px solid var(--border-card); background: transparent; font-size: 12px; font-weight: 500; cursor: pointer; }
+        .timer-btn { padding: 12px 28px; border-radius: 100px; font-size: 14px; font-weight: 600; cursor: pointer; }
         .timer-btn.start { background: var(--accent); color: #fff; border: none; }
-        .timer-btn.start:hover { background: var(--accent-soft); }
-        .timer-btn.pause { background: rgba(184,151,78,0.15); color: var(--accent-gold); border: none; }
         .timer-btn.reset { background: transparent; color: var(--text-secondary); border: 1px solid var(--border-card); }
-        .timer-btn.reset:hover { border-color: var(--text-secondary); }
 
-        /* Toast system (substitui alert/confirm) */
         .toast-container { position: fixed; top: 24px; left: 50%; transform: translateX(-50%); z-index: 600; display: flex; flex-direction: column; gap: 8px; pointer-events: none; width: calc(100% - 32px); max-width: 380px; }
-        .toast { background: var(--bg-elevated); border: 1px solid var(--border-card); box-shadow: var(--shadow-modal); border-radius: 14px; padding: 12px 16px; font-size: 13px; font-weight: 500; color: var(--text-primary); display: flex; align-items: center; gap: 10px; pointer-events: all; animation: toastIn 0.3s cubic-bezier(0.4,0,0.2,1); }
-        .toast.success { border-color: rgba(16,185,129,0.3); }
-        .toast.error { border-color: rgba(239,68,68,0.3); }
-        .toast.info { border-color: rgba(108,92,231,0.3); }
-        .toast .toast-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
-        .toast.success .toast-icon { background: rgba(16,185,129,0.12); color: #10b981; }
-        .toast.error .toast-icon { background: rgba(239,68,68,0.12); color: #ef4444; }
-        .toast.info .toast-icon { background: rgba(108,92,231,0.12); color: var(--accent); }
-        .toast.fadeout { animation: toastOut 0.25s ease forwards; }
-        @keyframes toastIn { from { opacity: 0; transform: translateY(-12px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        @keyframes toastOut { to { opacity: 0; transform: translateY(-12px) scale(0.96); } }
+        .toast { background: var(--bg-elevated); border: 1px solid var(--border-card); border-radius: 14px; padding: 12px 16px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 10px; pointer-events: all; animation: toastIn 0.3s ease; }
+        @keyframes toastIn { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Confirm modal genérico (substitui window.confirm) */
-        .confirm-overlay { position: fixed; inset: 0; z-index: 700; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.2s ease; }
+        .confirm-overlay { position: fixed; inset: 0; z-index: 700; display: flex; align-items: center; justify-content: center; padding: 20px; }
         .confirm-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); }
-        .confirm-modal { position: relative; z-index: 1; background: var(--bg-elevated); border-radius: 24px; padding: 28px 24px 24px; max-width: 360px; width: 100%; text-align: center; box-shadow: var(--shadow-modal); border: 1px solid var(--border-card); }
-        .confirm-modal h3 { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; font-family: 'Lora', Georgia, serif; }
-        .confirm-modal p { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6; }
+        .confirm-modal { position: relative; z-index: 1; background: var(--bg-elevated); border-radius: 24px; padding: 28px 24px 24px; max-width: 360px; width: 100%; text-align: center; }
         .confirm-actions { display: flex; gap: 8px; justify-content: center; }
-        .confirm-cancel { padding: 10px 20px; border-radius: 100px; border: 1px solid var(--border-card); background: transparent; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; color: var(--text-secondary); }
-        .confirm-ok { padding: 10px 20px; border-radius: 100px; border: none; background: var(--accent); color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; }
-        .confirm-ok.danger { background: #ef4444; }
-
-        @media (min-width: 640px) and (orientation: landscape) { body { padding: 8px; } .app-container { max-width: 640px; height: 90vh; max-height: 560px; } }
-        @media (max-width: 440px) { .app-container { height: 100vh; max-height: 100vh; border-radius: 0; max-width: 100%; } body { padding: 0; } .sidebar { width: 85vw; } }
-        @media (max-width: 360px) { .timer-display { font-size: 60px; letter-spacing: -3px; } .app-title { font-size: 26px; } .verse-main-text { font-size: 16px; } }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-        }
+        .confirm-cancel { padding: 10px 20px; border-radius: 100px; border: 1px solid var(--border-card); background: transparent; font-size: 13px; font-weight: 500; cursor: pointer; }
+        .confirm-ok { padding: 10px 20px; border-radius: 100px; border: none; background: var(--accent); color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -420,76 +466,74 @@
         <div class="bg-pattern"></div>
         <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
         <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
-            <div class="sidebar-support-top"><div class="support-msg">Apoie esta Missão</div><button class="support-donate-btn" onclick="openPixModal()" aria-label="Doar via PIX">Doar via PIX</button></div>
-            <div class="sidebar-header"><h2>Menu</h2><button class="sidebar-close" onclick="closeSidebar()" aria-label="Fechar menu">✕</button></div>
-            <div class="sidebar-search"><input type="search" id="sidebarSearch" placeholder="Buscar oração..." aria-label="Buscar oração" oninput="renderSidebar()"></div>
+            <div class="sidebar-support-top"><div class="support-msg">Apoie esta Missão</div><button class="support-donate-btn" onclick="openPixModal()">Doar via PIX</button></div>
+            <div class="sidebar-header"><h2>Menu</h2><button class="sidebar-close" onclick="closeSidebar()">✕</button></div>
+            <div class="sidebar-search"><input type="search" id="sidebarSearch" placeholder="Buscar oração..." oninput="renderSidebar()"></div>
             <div class="sidebar-scroll" id="sidebarScroll"></div>
             <div class="sidebar-share-bottom">
-                <button class="sidebar-share-btn" onclick="toggleDarkMode()" id="darkModeBtn" aria-label="Alternar modo escuro">🌙 Modo Escuro</button>
-                <button class="sidebar-share-btn" onclick="requestNotificationPermission()" aria-label="Ativar lembrete de oração">🔔 Lembrete de Oração</button>
-                <button class="sidebar-share-btn" onclick="shareApp()" aria-label="Compartilhar app">↗ Compartilhar App</button>
-                <button class="sidebar-share-btn" onclick="installPWA()" id="installBtn" style="display:none;" aria-label="Instalar app">📱 Instalar no celular</button>
+                <button class="sidebar-share-btn" onclick="toggleDarkMode()" id="darkModeBtn">🌙 Modo Escuro</button>
+                <button class="sidebar-share-btn" onclick="openReminderModal()" id="reminderBtn">🔔 Lembrete de Oração</button>
+                <button class="sidebar-share-btn" onclick="shareApp()">↗ Compartilhar App</button>
+                <button class="sidebar-share-btn" onclick="installPWA()" id="installBtn" style="display:none;">📱 Instalar no celular</button>
             </div>
         </aside>
-        <div class="pix-modal-overlay" id="pixModal" style="display:none;" onclick="closePixModal(event)" role="dialog" aria-label="Apoiar via PIX"><div class="pix-modal-backdrop"></div><div class="pix-modal-card"><h3>Apoie esta Missão</h3><p class="pix-subtitle">Este projeto é mantido por corações generosos como o seu. Ajude-nos a continuar esta obra.</p><div class="pix-copy-area" onclick="copyPix()"><div style="font-size:26px;margin-bottom:4px;opacity:0.3;">⌨</div><div style="font-weight:500;font-size:13px;">Toque aqui para copiar a chave PIX</div></div><div class="pix-copied-msg" id="pixCopied">Chave PIX copiada com sucesso</div><div class="pix-verse">"Não cansemos de fazer o bem, pois no tempo próprio colheremos, se não desanimarmos."<span class="pix-verse-ref">Gálatas 6:9</span></div><button class="pix-close-btn" onclick="document.getElementById('pixModal').style.display='none'">Fechar</button></div></div>
-        <div class="welcome-modal" id="welcomeModal" style="display:none;" role="dialog" aria-label="Boas-vindas"><div class="welcome-backdrop" onclick="closeWelcome()"></div><div class="welcome-content" id="welcomeContent"></div></div>
-        <div class="prayer-detail-wrapper" id="prayerDetailWrapper" style="display:none;" onclick="closePrayerFromBackdrop(event)" role="dialog" aria-label="Oração"><div class="prayer-detail-backdrop"></div><div class="prayer-fullscreen" id="prayerDetailContent"></div></div>
-        <canvas id="shareCanvas" width="1080" height="1920" aria-hidden="true"></canvas>
+        <div class="pix-modal-overlay" id="pixModal" style="display:none;" onclick="closePixModal(event)"><div class="pix-modal-backdrop"></div><div class="pix-modal-card"><h3>Apoie esta Missão</h3><p class="pix-subtitle">Ajude-nos a continuar esta obra.</p><div class="pix-copy-area" onclick="copyPix()"><div style="font-size:26px;margin-bottom:4px;opacity:0.3;">⌨</div><div style="font-weight:500;font-size:13px;">Toque aqui para copiar a chave PIX</div></div><div class="pix-copied-msg" id="pixCopied">Chave PIX copiada!</div><button class="pix-close-btn" onclick="document.getElementById('pixModal').style.display='none'">Fechar</button></div></div>
+        <div class="welcome-modal" id="welcomeModal" style="display:none;"><div class="welcome-backdrop" onclick="closeWelcome()"></div><div class="welcome-content" id="welcomeContent"></div></div>
+        <div class="prayer-detail-wrapper" id="prayerDetailWrapper" style="display:none;" onclick="closePrayerFromBackdrop(event)"><div class="prayer-detail-backdrop"></div><div class="prayer-fullscreen" id="prayerDetailContent"></div></div>
+        <canvas id="shareCanvas" width="1080" height="1920"></canvas>
+
+        <div class="search-overlay" id="searchOverlay" style="display: none;">
+            <div class="search-header">
+                <input type="text" id="searchInput" placeholder="Buscar oração..." autocomplete="off">
+                <button class="search-close" onclick="closeSearchOverlay()">✕</button>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
 
         <header class="top-header">
-            <button class="menu-btn" onclick="openSidebar()" aria-label="Abrir menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/></svg></button>
+            <button class="menu-btn" onclick="openSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/></svg></button>
             <div class="header-center"><div class="greeting" id="greetingText">Bom dia</div><h1 class="app-title">Ore Comigo</h1></div>
-            <button class="home-btn" id="homeBtn" onclick="goHome()" aria-label="Voltar para início"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></button>
+            <div class="header-actions">
+                <button class="search-btn" onclick="openSearchOverlay()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+                <button class="home-btn" id="homeBtn" onclick="goHome()" style="display: none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></button>
+            </div>
         </header>
-        <div class="streak-bar" id="streakBar" aria-label="Sequência de dias em oração"><span class="streak-dot" id="sd1"></span><span class="streak-dot" id="sd2"></span><span class="streak-dot" id="sd3"></span><span class="streak-dot" id="sd4"></span><span class="streak-dot" id="sd5"></span><span class="streak-dot" id="sd6"></span><span class="streak-dot" id="sd7"></span><span class="streak-text" id="streakText"></span></div>
-        <div class="verse-card-main" id="verseCardMain" onclick="refreshVerse()" role="button" tabindex="0" aria-label="Receber novo versículo"><div class="verse-main-text" id="verseMainText">"Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco."</div><span class="verse-main-ref" id="verseMainRef">1 Tessalonicenses 5:18</span><div class="verse-main-refresh">Toque para receber uma palavra</div></div>
+        <div class="streak-bar" id="streakBar"><span class="streak-dot" id="sd1"></span><span class="streak-dot" id="sd2"></span><span class="streak-dot" id="sd3"></span><span class="streak-dot" id="sd4"></span><span class="streak-dot" id="sd5"></span><span class="streak-dot" id="sd6"></span><span class="streak-dot" id="sd7"></span><span class="streak-text" id="streakText"></span></div>
+        
+        <div class="verse-card-main" id="verseCardMain" onclick="refreshVerse()" role="button" tabindex="0"><div class="verse-main-text" id="verseMainText">"Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco."</div><span class="verse-main-ref" id="verseMainRef">1 Tessalonicenses 5:18</span><div class="verse-main-refresh">Toque para receber uma palavra</div></div>
+        
+        <div class="moment-card" id="momentCard" onclick="openMomentPrayer()">
+            <div class="moment-header"><span class="moment-icon" id="momentIcon">☀️</span><span class="moment-title" id="momentTitle">Oração da Manhã</span></div>
+            <div class="moment-text" id="momentText">Carregando...</div>
+            <div><span class="moment-btn">Orar agora</span></div>
+        </div>
+        
         <div class="inspirational-phrase"><p>Que a paz de Deus preencha seu coração hoje e sempre.</p></div>
         <main class="main-content" id="mainContent"></main>
-        <nav class="bottom-nav" id="bottomNav" aria-label="Navegação principal">
-            <button class="nav-item" data-tab="challenges" onclick="switchTab('challenges')" aria-label="Desafios"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="nav-item-label">Desafios</span></button>
-            <button class="nav-item" data-tab="diary" onclick="switchTab('diary')" aria-label="Diário"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg><span class="nav-item-label">Diário</span></button>
-            <button class="nav-item" data-tab="favorites" onclick="switchTab('favorites')" aria-label="Favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg><span class="nav-item-label">Favoritos</span></button>
-            <button class="nav-item" data-tab="timer" onclick="switchTab('timer')" aria-label="Meditar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="nav-item-label">Meditar</span></button>
+        <nav class="bottom-nav" id="bottomNav">
+            <button class="nav-item" data-tab="challenges" onclick="switchTab('challenges')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span class="nav-item-label">Desafios</span></button>
+            <button class="nav-item" data-tab="diary" onclick="switchTab('diary')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg><span class="nav-item-label">Diário</span></button>
+            <button class="nav-item" data-tab="favorites" onclick="switchTab('favorites')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg><span class="nav-item-label">Favoritos</span></button>
+            <button class="nav-item" data-tab="timer" onclick="switchTab('timer')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="nav-item-label">Meditar</span></button>
         </nav>
     </div>
-    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+    <div class="toast-container" id="toastContainer"></div>
 
     <script>
-        // ===== Polyfill: roundRect (Safari < 16, navegadores antigos) =====
-        if (!CanvasRenderingContext2D.prototype.roundRect) {
-            CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
-                if (typeof r === 'number') r = [r, r, r, r];
-                else if (r.length === 1) r = [r[0], r[0], r[0], r[0]];
-                this.beginPath();
-                this.moveTo(x + r[0], y);
-                this.lineTo(x + w - r[1], y);
-                this.quadraticCurveTo(x + w, y, x + w, y + r[1]);
-                this.lineTo(x + w, y + h - r[2]);
-                this.quadraticCurveTo(x + w, y + h, x + w - r[2], y + h);
-                this.lineTo(x + r[3], y + h);
-                this.quadraticCurveTo(x, y + h, x, y + h - r[3]);
-                this.lineTo(x, y + r[0]);
-                this.quadraticCurveTo(x, y, x + r[0], y);
-                this.closePath();
-                return this;
-            };
-        }
-
-        // ===== Toast / Confirm system (substitui alert/confirm) =====
+        function escapeHtml(t) { const d=document.createElement('div'); d.textContent=t==null?'':String(t); return d.innerHTML; }
         function toast(message, type = 'info', duration = 2800) {
             const c = document.getElementById('toastContainer');
             const el = document.createElement('div');
             el.className = 'toast ' + type;
-            const icon = type === 'success' ? '✓' : type === 'error' ? '!' : 'i';
-            el.innerHTML = `<span class="toast-icon">${icon}</span><span>${message}</span>`;
+            el.innerHTML = `<span class="toast-icon">${type==='success'?'✓':type==='error'?'!':'i'}</span><span>${message}</span>`;
             c.appendChild(el);
-            setTimeout(() => { el.classList.add('fadeout'); setTimeout(() => el.remove(), 250); }, duration);
+            setTimeout(() => { el.remove(); }, duration);
         }
         function confirmDialog({ title, message, confirmText = 'Confirmar', cancelText = 'Cancelar', danger = false }) {
             return new Promise(resolve => {
                 const ov = document.createElement('div');
                 ov.className = 'confirm-overlay';
-                ov.innerHTML = `<div class="confirm-backdrop"></div><div class="confirm-modal" role="alertdialog"><h3>${title}</h3><p>${message}</p><div class="confirm-actions"><button class="confirm-cancel">${cancelText}</button><button class="confirm-ok ${danger ? 'danger' : ''}">${confirmText}</button></div></div>`;
+                ov.innerHTML = `<div class="confirm-backdrop"></div><div class="confirm-modal"><h3>${title}</h3><p>${message}</p><div class="confirm-actions"><button class="confirm-cancel">${cancelText}</button><button class="confirm-ok">${confirmText}</button></div></div>`;
                 document.body.appendChild(ov);
                 const close = (v) => { ov.remove(); resolve(v); };
                 ov.querySelector('.confirm-cancel').onclick = () => close(false);
@@ -501,27 +545,22 @@
         const categories = [
             { id: 'direcao_proposito', name: 'Direção e Propósito' },
             { id: 'forca_coragem', name: 'Força e Coragem' },
-            { id: 'paz_interior', name: 'Paz Interior' }
+            { id: 'paz_interior', name: 'Paz Interior' },
+            { id: 'gratidao_louvor', name: 'Gratidão e Louvor' }
         ];
 
-        // ===== Ícones únicos por categoria (SVG inline) =====
         const categoryIcons = {
-            direcao_proposito: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>',
-            forca_coragem: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3L12 16.8l-5.5 2.7 1-6.3L3 8.9 9 8z"/></svg>',
-            paz_interior: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="22"/><path d="M12 12 L4.5 19.5"/><path d="M12 12 L19.5 19.5"/></svg>',
-            _default: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'
+            direcao_proposito: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>',
+            forca_coragem: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3L12 16.8l-5.5 2.7 1-6.3L3 8.9 9 8z"/></svg>',
+            paz_interior: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="22"/><path d="M12 12 L4.5 19.5"/><path d="M12 12 L19.5 19.5"/></svg>',
+            gratidao_louvor: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.5 6.5L21 9l-5 4.5 1.5 7L12 16.5 6.5 20.5 8 13.5 3 9l6.5-0.5L12 2z"/></svg>',
+            _default: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'
         };
         function categoryIcon(catId) { return categoryIcons[catId] || categoryIcons._default; }
 
-        // ===== Tempo estimado de leitura =====
-        function readingTime(text) {
-            const words = (text || '').trim().split(/\s+/).length;
-            const min = Math.max(1, Math.round(words / 130)); // ritmo de oração: ~130 wpm
-            return min + ' min';
-        }
-        const clockSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+        function readingTime(text) { const words = (text || '').trim().split(/\s+/).length; return Math.max(1, Math.round(words / 130)) + ' min'; }
+        const clockSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
 
-        // ===== Aplicar gradiente conforme momento do dia =====
         function applyTimeOfDayClass() {
             const h = new Date().getHours();
             const tod = h>=5&&h<12 ? 'morning' : h>=12&&h<18 ? 'afternoon' : 'evening';
@@ -530,6 +569,7 @@
         }
 
         const prayers = [
+            // Direção e Propósito (1-10)
             { id: 1, name: "Mostra o Caminho", category: "direcao_proposito", text: "Senhor, às vezes eu me sinto meio perdido, sem saber se estou no caminho certo. São muitas dúvidas, muitas escolhas e eu não quero errar. Por isso eu Te peço: me dá direção. Mostra o caminho que vem de Ti e me ajuda a reconhecer Tua voz no meio de tantas opiniões. Eu só quero viver aquilo que o Senhor preparou pra mim.", verse: "Confia no Senhor de todo o teu coração e Ele endireitará os teus caminhos.", verseRef: "Provérbios 3:5-6" },
             { id: 2, name: "Guia meus Passos", category: "direcao_proposito", text: "Deus, eu tenho pensado muito sobre o futuro, tentando entender pra onde ir e o que fazer. Mas quanto mais eu penso sozinho, mais confuso eu fico. Então hoje eu entrego isso a Ti. Me guia com clareza, mesmo que seja passo a passo. Eu não preciso ver tudo, só preciso saber que o Senhor está me conduzindo.", verse: "O Senhor te guiará continuamente.", verseRef: "Isaías 58:11" },
             { id: 3, name: "Ouvir Tua Voz", category: "direcao_proposito", text: "Senhor, eu não quero viver sem direção, tomando decisões no impulso ou na dúvida. Eu quero ouvir Tua voz. Me ensina a perceber quando o Senhor está me guiando. Fecha as portas que não são pra mim, mesmo que eu não entenda. E abre aquelas que vêm de Ti, no tempo certo.", verse: "As tuas orelhas ouvirão atrás de ti uma palavra dizendo: este é o caminho, andai por ele.", verseRef: "Isaías 30:21" },
@@ -540,39 +580,40 @@
             { id: 8, name: "O Caminho Certo", category: "direcao_proposito", text: "Deus, eu não quero apenas seguir qualquer caminho, eu quero seguir o caminho certo. Mesmo que seja mais difícil, mais demorado ou menos confortável. Me dá força pra escolher o que vem de Ti. Que eu não me distraia com atalhos que parecem bons, mas me afastam do propósito.", verse: "Há caminho que ao homem parece direito, mas o fim dele são os caminhos da morte.", verseRef: "Provérbios 14:12" },
             { id: 9, name: "Esperar com Confiança", category: "direcao_proposito", text: "Senhor, quando eu não souber o que fazer, me ensina a esperar. Nem sempre a resposta vem na hora, e isso me deixa inquieto. Mas eu quero confiar no Teu tempo. Trabalha em mim enquanto eu espero. Me dá paz no processo e direção no momento certo.", verse: "Espere no Senhor. Seja forte! Coragem! Espere no Senhor.", verseRef: "Salmos 27:14" },
             { id: 10, name: "Entrego Meus Planos", category: "direcao_proposito", text: "Deus, eu entrego nas Tuas mãos meus planos, sonhos e decisões. Tudo aquilo que eu pensei e tudo aquilo que ainda nem sei. Toma a frente da minha vida e me conduz pelo melhor caminho. Eu confio que o Senhor sabe exatamente onde eu preciso chegar. E isso já me traz paz.", verse: "Consagre ao Senhor tudo o que você faz, e os seus planos serão bem-sucedidos.", verseRef: "Provérbios 16:3" },
-            { id: 11, name: "Força para Continuar", category: "forca_coragem", text: "Senhor, às vezes o caminho pesa mais do que eu esperava, e dá vontade de parar no meio. O medo tenta falar mais alto, mas eu escolho lembrar que o Senhor está comigo. Me dá coragem pra continuar, mesmo quando eu não enxergar o final. Fortalece meu coração e firma meus passos. Eu não quero recuar, eu quero confiar.", verse: "Seja forte e corajoso. Não temas, nem te espantes, porque o Senhor, teu Deus, é contigo por onde quer que andares.", verseRef: "Josué 1:9" },
-            { id: 12, name: "Coragem para Seguir", category: "forca_coragem", text: "Deus, tem dias que eu me sinto pequeno diante de tudo que preciso enfrentar. A insegurança vem, as dúvidas aparecem, mas eu não quero viver preso nisso. Me ajuda a levantar com coragem, mesmo com medo. Me lembra que a Tua presença é maior que qualquer desafio. Eu sei que não estou sozinho, e isso já é suficiente pra seguir.", verse: "Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus.", verseRef: "Isaías 41:10" },
-            { id: 13, name: "Força no Desânimo", category: "forca_coragem", text: "Senhor, eu sei que preciso seguir, mas tem dias que o desânimo quase me vence. Parece que minhas forças acabam no meio do caminho. Por isso eu Te peço: renova o que está fraco dentro de mim. Me levanta por dentro, me dá ânimo de novo. Eu não quero desistir agora. Segura na minha mão e me ajuda a continuar, mesmo devagar.", verse: "Mas os que esperam no Senhor renovam as suas forças. Voam alto como águias.", verseRef: "Isaías 40:31" },
-            { id: 14, name: "Confiança no Futuro", category: "forca_coragem", text: "Deus, às vezes eu olho pra frente e sinto medo do que pode acontecer. O futuro parece incerto e isso me trava. Mas hoje eu escolho confiar em Ti. Me dá coragem pra dar o próximo passo, mesmo sem garantias. Tira esse peso da insegurança e coloca paz no meu coração. Eu sei que o Senhor já está lá na frente cuidando de tudo.", verse: "O Senhor é quem irá adiante de você. Ele estará com você. Não o deixará, nem o abandonará.", verseRef: "Deuteronômio 31:8" },
-            { id: 15, name: "Força nas Batalhas Internas", category: "forca_coragem", text: "Senhor, eu tenho enfrentado batalhas que ninguém vê. Lutas internas, pensamentos difíceis, momentos silenciosos que cansam minha alma. Mas eu não quero me entregar a isso. Me fortalece por dentro, onde ninguém vê. Me dá coragem pra vencer um dia de cada vez. Eu sei que, contigo, eu consigo ir além do que imagino.", verse: "Tudo posso naquele que me fortalece.", verseRef: "Filipenses 4:13" },
-            { id: 16, name: "Força nos Dias Ruins", category: "forca_coragem", text: "Deus, quando tudo parece dar errado, é difícil manter a cabeça firme. Eu me sinto perdido às vezes, sem direção. Mas eu sei que o Senhor não me abandona. Me dá força pra continuar mesmo nos dias ruins. Me ajuda a não parar no meio do processo. Eu confio que tudo isso ainda vai fazer sentido.", verse: "Sabemos que todas as coisas cooperam para o bem daqueles que amam a Deus.", verseRef: "Romanos 8:28" },
-            { id: 17, name: "Força para Não Desistir", category: "forca_coragem", text: "Senhor, tem momentos que eu penso em desistir, em largar tudo e simplesmente parar. O cansaço bate forte e a vontade de recuar vem junto. Mas lá no fundo eu sei que o Senhor me chamou pra continuar. Então me dá força mais uma vez. Só mais um passo, só mais um dia. Eu sei que não estou sozinho nisso.", verse: "Não nos cansemos de fazer o bem, pois no tempo próprio colheremos, se não desanimarmos.", verseRef: "Gálatas 6:9" },
-            { id: 18, name: "Força na Fraqueza", category: "forca_coragem", text: "Deus, eu nem sempre me sinto forte como deveria. Às vezes eu me vejo cheio de falhas, inseguro, sem confiança. Mas eu sei que a minha força não vem de mim, vem de Ti. Me ajuda a lembrar disso todos os dias. Que mesmo na minha fraqueza, o Senhor se mostra forte. E isso já é tudo que eu preciso.", verse: "A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza.", verseRef: "2 Coríntios 12:9" },
+            // Força e Coragem (11-20)
+            { id: 11, name: "Força para Continuar", category: "forca_coragem", text: "Senhor, às vezes o caminho pesa mais do que eu esperava, e dá vontade de parar no meio. O medo tenta falar mais alto, mas eu escolho lembrar que o Senhor está comigo. Me dá coragem pra continuar, mesmo quando eu não enxergar o final. Fortalece meu coração e firma meus passos. Eu não quero recuar, eu quero confiar.", verse: "Seja forte e corajoso. Não temas, porque o Senhor, teu Deus, é contigo.", verseRef: "Josué 1:9" },
+            { id: 12, name: "Coragem para Seguir", category: "forca_coragem", text: "Deus, tem dias que eu me sinto pequeno diante de tudo que preciso enfrentar. A insegurança vem, as dúvidas aparecem, mas eu não quero viver preso nisso. Me ajuda a levantar com coragem, mesmo com medo. Me lembra que a Tua presença é maior que qualquer desafio. Eu sei que não estou sozinho.", verse: "Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus.", verseRef: "Isaías 41:10" },
+            { id: 13, name: "Força no Desânimo", category: "forca_coragem", text: "Senhor, eu sei que preciso seguir, mas tem dias que o desânimo quase me vence. Parece que minhas forças acabam no meio do caminho. Por isso eu Te peço: renova o que está fraco dentro de mim. Me levanta por dentro, me dá ânimo de novo. Eu não quero desistir agora.", verse: "Mas os que esperam no Senhor renovam as suas forças. Voam alto como águias.", verseRef: "Isaías 40:31" },
+            { id: 14, name: "Confiança no Futuro", category: "forca_coragem", text: "Deus, às vezes eu olho pra frente e sinto medo do que pode acontecer. O futuro parece incerto e isso me trava. Mas hoje eu escolho confiar em Ti. Me dá coragem pra dar o próximo passo, mesmo sem garantias. Tira esse peso da insegurança e coloca paz no meu coração.", verse: "O Senhor é quem irá adiante de você. Ele não o deixará, nem o abandonará.", verseRef: "Deuteronômio 31:8" },
+            { id: 15, name: "Força nas Batalhas Internas", category: "forca_coragem", text: "Senhor, eu tenho enfrentado batalhas que ninguém vê. Lutas internas, pensamentos difíceis, momentos silenciosos que cansam minha alma. Mas eu não quero me entregar a isso. Me fortalece por dentro, onde ninguém vê. Me dá coragem pra vencer um dia de cada vez.", verse: "Tudo posso naquele que me fortalece.", verseRef: "Filipenses 4:13" },
+            { id: 16, name: "Força nos Dias Ruins", category: "forca_coragem", text: "Deus, quando tudo parece dar errado, é difícil manter a cabeça firme. Eu me sinto perdido às vezes, sem direção. Mas eu sei que o Senhor não me abandona. Me dá força pra continuar mesmo nos dias ruins. Me ajuda a não parar no meio do processo.", verse: "Todas as coisas cooperam para o bem daqueles que amam a Deus.", verseRef: "Romanos 8:28" },
+            { id: 17, name: "Força para Não Desistir", category: "forca_coragem", text: "Senhor, tem momentos que eu penso em desistir, em largar tudo e simplesmente parar. O cansaço bate forte e a vontade de recuar vem junto. Mas lá no fundo eu sei que o Senhor me chamou pra continuar. Então me dá força mais uma vez. Só mais um passo, só mais um dia.", verse: "Não nos cansemos de fazer o bem, pois no tempo próprio colheremos, se não desanimarmos.", verseRef: "Gálatas 6:9" },
+            { id: 18, name: "Força na Fraqueza", category: "forca_coragem", text: "Deus, eu nem sempre me sinto forte como deveria. Às vezes eu me vejo cheio de falhas, inseguro, sem confiança. Mas eu sei que a minha força não vem de mim, vem de Ti. Me ajuda a lembrar disso todos os dias. Que mesmo na minha fraqueza, o Senhor se mostra forte.", verse: "A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza.", verseRef: "2 Coríntios 12:9" },
             { id: 19, name: "Fé em Vez de Medo", category: "forca_coragem", text: "Senhor, quando as dificuldades aumentam, minha primeira reação é ter medo. Mas eu não quero viver assim. Me ensina a reagir com fé, mesmo quando tudo parece contrário. Me dá ousadia pra continuar acreditando. Eu sei que o Senhor é maior que qualquer problema que eu enfrento hoje.", verse: "O Senhor é a minha luz e a minha salvação; de quem terei medo?", verseRef: "Salmos 27:1" },
             { id: 20, name: "Coragem para Avançar", category: "forca_coragem", text: "Deus, eu cheguei até aqui, mas sei que ainda tenho muito pela frente. E às vezes isso assusta. Mas eu não quero parar por medo. Me dá coragem pra continuar avançando. Que eu não olhe pra trás com dúvida, mas pra frente com fé. Eu confio que o Senhor está guiando cada passo meu.", verse: "Entrega o teu caminho ao Senhor; confia nele, e o mais Ele fará.", verseRef: "Salmos 37:5" },
-            { id: 21, name: "Paz em Meio à Agitação", category: "paz_interior", text: "Senhor, minha mente não para. Meus pensamentos se atropelam e meu coração fica cansado. Eu tento resolver tudo sozinho, mas só me sinto mais perdido. Por isso hoje eu entrego tudo nas Tuas mãos. Acalma o que está agitado dentro de mim, traz silêncio pra minha alma e me ensina a descansar em Ti. Eu só preciso da Tua paz agora.", verse: "Deixo-vos a paz, a minha paz vos dou. Não se turbe o vosso coração, nem se atemorize.", verseRef: "João 14:27" },
-            { id: 22, name: "Confiança e Leveza", category: "paz_interior", text: "Deus, eu confesso que estou ansioso, preocupado com coisas que nem sei se vão acontecer. É difícil desligar a mente, é difícil confiar às vezes. Mas eu quero aprender. Leva de mim esse peso que eu não preciso carregar. Me ajuda a viver um dia de cada vez, com leveza. Que a Tua paz ocupe o lugar da minha preocupação.", verse: "Não andeis ansiosos por coisa alguma. Em tudo, pela oração e súplica, apresentem seus pedidos a Deus.", verseRef: "Filipenses 4:6-7" },
-            { id: 23, name: "Acalma Minha Mente", category: "paz_interior", text: "Senhor, tem dias que minha mente não desacelera. Eu tento descansar, mas os pensamentos continuam vindo sem parar. Isso me cansa por dentro. Por isso eu Te peço: acalma o que está agitado em mim. Traz leveza pra minha alma e silêncio pra minha mente. Eu não quero carregar tudo sozinho. Hoje eu escolho confiar e descansar em Ti.", verse: "A paz de Deus, que excede todo o entendimento, guardará os vossos corações e os vossos pensamentos em Cristo Jesus.", verseRef: "Filipenses 4:7" },
-            { id: 24, name: "Viver o Agora", category: "paz_interior", text: "Deus, às vezes eu fico preso em pensamentos que me deixam ansioso, criando cenários que nem aconteceram. Isso tira minha paz e me esgota. Me ajuda a viver o agora, sem medo do amanhã. Tira esse peso do meu peito e me ensina a confiar de verdade. Que a Tua presença me acalme por dentro e me dê tranquilidade pra seguir.", verse: "Portanto, não se preocupem com o amanhã, pois o amanhã trará as suas próprias preocupações.", verseRef: "Mateus 6:34" },
-            { id: 25, name: "Descanso da Alma", category: "paz_interior", text: "Senhor, eu sinto que preciso de um descanso que não é só físico. É algo mais profundo, aqui dentro. Minha alma está cansada de tanta preocupação. Por isso eu venho até Ti, do jeito que estou. Me recebe, me acalma e me renova. Que eu encontre em Ti um lugar seguro, onde tudo desacelera e a paz volta a existir.", verse: "Vinde a mim, todos os que estais cansados e sobrecarregados, e eu vos aliviarei.", verseRef: "Mateus 11:28" },
-            { id: 26, name: "Clareza e Calma", category: "paz_interior", text: "Deus, quando tudo fica confuso dentro de mim, eu perco a direção e me sinto perdido. Os pensamentos se misturam e eu não sei o que fazer. Por isso eu Te peço: organiza meu interior. Traz clareza, traz calma, traz equilíbrio. Que eu não seja guiado pela ansiedade, mas pela paz que vem de Ti. Eu preciso disso agora.", verse: "Porque Deus não é Deus de confusão, mas sim de paz.", verseRef: "1 Coríntios 14:33" },
-            { id: 27, name: "Soltar o Controle", category: "paz_interior", text: "Senhor, eu tenho tentado resolver tudo sozinho, controlar tudo, entender tudo, e isso só tem me deixado mais cansado. Hoje eu solto esse peso. Eu entrego nas Tuas mãos aquilo que eu não consigo resolver. Me ensina a confiar mais e me preocupar menos. Que a Tua paz ocupe o lugar dessa inquietação que insiste em ficar.", verse: "Lancem sobre Ele toda a sua ansiedade, porque Ele tem cuidado de vocês.", verseRef: "1 Pedro 5:7" },
+            // Paz Interior (21-30)
+            { id: 21, name: "Paz em Meio à Agitação", category: "paz_interior", text: "Senhor, minha mente não para. Meus pensamentos se atropelam e meu coração fica cansado. Eu tento resolver tudo sozinho, mas só me sinto mais perdido. Por isso hoje eu entrego tudo nas Tuas mãos. Acalma o que está agitado dentro de mim, traz silêncio pra minha alma e me ensina a descansar em Ti.", verse: "Deixo-vos a paz, a minha paz vos dou. Não se turbe o vosso coração.", verseRef: "João 14:27" },
+            { id: 22, name: "Confiança e Leveza", category: "paz_interior", text: "Deus, eu confesso que estou ansioso, preocupado com coisas que nem sei se vão acontecer. É difícil desligar a mente, é difícil confiar às vezes. Mas eu quero aprender. Leva de mim esse peso que eu não preciso carregar. Me ajuda a viver um dia de cada vez, com leveza.", verse: "Não andeis ansiosos por coisa alguma. Em tudo, pela oração, apresentem seus pedidos a Deus.", verseRef: "Filipenses 4:6-7" },
+            { id: 23, name: "Acalma Minha Mente", category: "paz_interior", text: "Senhor, tem dias que minha mente não desacelera. Eu tento descansar, mas os pensamentos continuam vindo sem parar. Isso me cansa por dentro. Por isso eu Te peço: acalma o que está agitado em mim. Traz leveza pra minha alma e silêncio pra minha mente. Eu não quero carregar tudo sozinho.", verse: "A paz de Deus, que excede todo o entendimento, guardará os vossos corações.", verseRef: "Filipenses 4:7" },
+            { id: 24, name: "Viver o Agora", category: "paz_interior", text: "Deus, às vezes eu fico preso em pensamentos que me deixam ansioso, criando cenários que nem aconteceram. Isso tira minha paz e me esgota. Me ajuda a viver o agora, sem medo do amanhã. Tira esse peso do meu peito e me ensina a confiar de verdade.", verse: "Não se preocupem com o amanhã, pois o amanhã trará as suas próprias preocupações.", verseRef: "Mateus 6:34" },
+            { id: 25, name: "Descanso da Alma", category: "paz_interior", text: "Senhor, eu sinto que preciso de um descanso que não é só físico. É algo mais profundo, aqui dentro. Minha alma está cansada de tanta preocupação. Por isso eu venho até Ti, do jeito que estou. Me recebe, me acalma e me renova. Que eu encontre em Ti um lugar seguro, onde tudo desacelera.", verse: "Vinde a mim, todos os que estais cansados e sobrecarregados, e eu vos aliviarei.", verseRef: "Mateus 11:28" },
+            { id: 26, name: "Clareza e Calma", category: "paz_interior", text: "Deus, quando tudo fica confuso dentro de mim, eu perco a direção e me sinto perdido. Os pensamentos se misturam e eu não sei o que fazer. Por isso eu Te peço: organiza meu interior. Traz clareza, traz calma, traz equilíbrio. Que eu não seja guiado pela ansiedade, mas pela paz que vem de Ti.", verse: "Porque Deus não é Deus de confusão, mas sim de paz.", verseRef: "1 Coríntios 14:33" },
+            { id: 27, name: "Soltar o Controle", category: "paz_interior", text: "Senhor, eu tenho tentado resolver tudo sozinho, controlar tudo, entender tudo, e isso só tem me deixado mais cansado. Hoje eu solto esse peso. Eu entrego nas Tuas mãos aquilo que eu não consigo resolver. Me ensina a confiar mais e me preocupar menos.", verse: "Lancem sobre Ele toda a sua ansiedade, porque Ele tem cuidado de vocês.", verseRef: "1 Pedro 5:7" },
             { id: 28, name: "Inquietação", category: "paz_interior", text: "Deus, tem uma inquietação aqui dentro que eu nem sei explicar direito. Só sei que não me faz bem. Por isso eu Te peço: entra nesse lugar e traz Tua paz. Acalma meu coração, desacelera meus pensamentos e me ajuda a respirar mais leve. Eu quero sentir Tua presença me tranquilizando por dentro, agora.", verse: "Em paz me deito e logo adormeço, pois só Tu, Senhor, me fazes viver em segurança.", verseRef: "Salmos 4:8" },
             { id: 29, name: "Paz Antes de Dormir", category: "paz_interior", text: "Senhor, quando o dia termina, eu ainda carrego um monte de preocupações comigo. Parece que eu nunca consigo desligar totalmente. Mas hoje eu quero fazer diferente. Eu entrego tudo nas Tuas mãos antes de descansar. Cuida do que eu não posso controlar. Que minha noite seja leve e meu coração esteja em paz.", verse: "Entrega o teu caminho ao Senhor; confia nele, e ele tudo fará.", verseRef: "Salmos 37:5" },
-            { id: 30, name: "Confiar e Descansar", category: "paz_interior", text: "Deus, eu sei que muita coisa foge do meu controle, e talvez seja isso que mais me inquieta. Mas eu não quero viver tentando controlar tudo. Me ajuda a confiar mais em Ti. Que a Tua paz me acompanhe em cada momento do meu dia. Mesmo no meio das incertezas, eu escolho descansar sabendo que o Senhor está cuidando de tudo.", verse: "Tu conservarás em perfeita paz aquele cujo propósito está firme, porque em Ti confia.", verseRef: "Isaías 26:3" }
+            { id: 30, name: "Confiar e Descansar", category: "paz_interior", text: "Deus, eu sei que muita coisa foge do meu controle, e talvez seja isso que mais me inquieta. Mas eu não quero viver tentando controlar tudo. Me ajuda a confiar mais em Ti. Que a Tua paz me acompanhe em cada momento do meu dia. Mesmo no meio das incertezas, eu escolho descansar sabendo que o Senhor está cuidando de tudo.", verse: "Tu conservarás em perfeita paz aquele cujo propósito está firme, porque em Ti confia.", verseRef: "Isaías 26:3" },
+            // Nova Categoria: Gratidão e Louvor (31-40)
+            { id: 31, name: "Gratidão pelo Dia que Começa", category: "gratidao_louvor", text: "Senhor, antes mesmo de abrir os olhos, meu coração já quer Te agradecer. Mais um dia que o Senhor me dá, mais uma chance de recomeçar, mais uma página em branco pra escrever com fé. Obrigado pelo fôlego de vida, pelo teto, pela comida, pelas pessoas que colocou ao meu redor. Ajuda-me a enxergar Tua bondade em cada detalhe hoje.", verse: "Rendei graças ao Senhor, porque ele é bom; porque a sua misericórdia dura para sempre.", verseRef: "Salmos 118:1" },
+            { id: 32, name: "Louvar em Meio à Tempestade", category: "gratidao_louvor", text: "Deus, nem sempre é fácil Te louvar quando as coisas vão mal. Tem dias que a tristeza quer calar minha voz e a dor tenta roubar minha fé. Mas eu não vou esperar o problema passar pra Te agradecer. Eu escolho Te louvar agora, no meio da luta, porque o Senhor continua sendo bom, mesmo quando a vida não parece boa. Fortalece meu coração pra que minha gratidão seja maior que minha dor.", verse: "Louvarei ao Senhor em todo o tempo; o seu louvor estará continuamente na minha boca.", verseRef: "Salmos 34:1" },
+            { id: 33, name: "Agradecer Sempre", category: "gratidao_louvor", text: "Senhor, às vezes eu me acostumo com as coisas boas e esqueço de agradecer. O dia vira rotina, e a gratidão vai ficando pequena. Me ensina a ter um coração grato não só quando as coisas vão bem, mas todos os dias. Que eu acorde agradecendo e durma louvando. Porque cada dia que o Senhor me dá já é motivo pra Te dizer obrigado.", verse: "Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco.", verseRef: "1 Tessalonicenses 5:18" },
+            { id: 34, name: "Louvor na Simplicidade", category: "gratidao_louvor", text: "Deus, nem sempre eu tenho grandes motivos ou grandes vitórias pra anunciar. Às vezes a vida é simples, calma, sem grandes emoções. Mas mesmo assim eu quero Te louvar. Pelo café quente, pelo sol que nasce, pela saúde, pela paz que nem sempre percebo. Me ensina a enxergar Tua bondade nas coisas pequenas. Porque no final, são elas que sustentam os meus dias.", verse: "Melhor é um dia nos teus átrios do que mil noutros lugares.", verseRef: "Salmos 84:10" },
+            { id: 35, name: "Gratidão Mesmo sem Entender", category: "gratidao_louvor", text: "Senhor, tem coisas que eu não entendo. Situações difíceis, respostas que demoram, silêncios que doem. Mas mesmo sem entender, eu quero Te agradecer. Porque a minha gratidão não depende das circunstâncias, depende de quem o Senhor é. E o Senhor é bom, sempre. Me ajuda a confiar mais do que reclamar, e a louvar mais do que questionar.", verse: "Ainda assim eu me alegro no Senhor, exulto no Deus da minha salvação.", verseRef: "Habacuque 3:18" },
+            { id: 36, name: "Coração Grato no Fim do Dia", category: "gratidao_louvor", text: "Deus, ao final deste dia, eu quero parar um minuto e Te agradecer. Pelo que deu certo, mas também pelo que não deu — porque sei que o Senhor me protegeu até daquilo que eu nem percebi. Obrigado pelo descanso que vem, pela noite que chega, e pela certeza de que amanhã o Senhor já está lá. Meu coração é grato, Pai. Muito grato.", verse: "Ao pôr do sol, declaro: graças te dou, Senhor, pela tua fidelidade.", verseRef: "Salmos 92:2" },
+            { id: 37, name: "Louvar com a Vida", category: "gratidao_louvor", text: "Senhor, não quero Te louvar só com palavras. Quero Te louvar com a minha vida, com as minhas escolhas, com o jeito que trato as pessoas. Que o meu dia a dia seja um louvor vivo pra Ti. Que as pessoas vejam em mim um reflexo da Tua bondade. Me ajuda a viver de um jeito que Te honre, mesmo quando ninguém estiver olhando.", verse: "Assim brilhe a vossa luz diante dos homens, para que vejam as vossas boas obras e glorifiquem a vosso Pai.", verseRef: "Mateus 5:16" },
+            { id: 38, name: "Gratidão nos Pequenos Detalhes", category: "gratidao_louvor", text: "Deus, às vezes eu passo o dia inteiro e nem percebo as pequenas coisas boas que acontecem. Um sorriso, uma mensagem, uma porta que se abre, um problema que não veio. Me ajuda a parar, a perceber, a agradecer. Que a gratidão não seja só um sentimento, mas um hábito. Que eu aprenda a Te louvar também pelos detalhes que parecem pequenos, mas que fazem toda a diferença.", verse: "Alegrai-vos sempre, orai sem cessar, em tudo dai graças.", verseRef: "1 Tessalonicenses 5:16-18" },
+            { id: 39, name: "Louvor no Silêncio", category: "gratidao_louvor", text: "Senhor, nem sempre eu tenho palavras bonitas. Às vezes o que cabe dentro de mim nem cabe numa oração. Mas ainda assim eu quero Te louvar. Mesmo no silêncio, mesmo sem saber o que dizer, meu coração Te adora. Aceita o meu louvor simples, sincero, ainda que imperfeito. Porque o Senhor merece toda a minha gratidão, mesmo quando eu não sei expressar.", verse: "Cantai ao Senhor um cântico novo, cantai ao Senhor, todas as terras.", verseRef: "Salmos 96:1" },
+            { id: 40, name: "Gratidão por Mais Um Dia", category: "gratidao_louvor", text: "Deus, eu não sei o que o dia de hoje vai trazer. Não sei se vão ser alegrias ou desafios, risos ou lágrimas. Mas independente do que vier, eu quero começar agradecendo. Obrigado pela chance de viver mais um dia. Obrigado por cada pessoa que o Senhor coloca no meu caminho. Obrigado porque o Senhor já está comigo antes mesmo de eu começar. Eu confio em Ti. E sou grato.", verse: "Este é o dia que o Senhor fez; regozijemo-nos e alegremo-nos nele.", verseRef: "Salmos 118:24" }
         ];
-
-        const challenges = [
-            { id: 'direcao7', name: '7 Dias de Direção', icon: '○', duration: 7, category: 'direcao_proposito', desc: 'Encontre clareza para o seu caminho.' },
-            { id: 'forca7', name: '7 Dias de Força', icon: '◆', duration: 7, category: 'forca_coragem', desc: 'Encontre forças para os desafios diários.' },
-            { id: 'paz5', name: '5 Dias de Paz', icon: '◇', duration: 5, category: 'paz_interior', desc: 'Encontre serenidade em meio às tempestades.' }
-        ];
-
-        const welcomePrayers = {
-            morning: { icon: "☀", label: "Oração da Manhã", title: "Bom dia", text: "Senhor, neste novo amanhecer que me concedeste, elevo meu coração a Ti em profunda gratidão. Obrigado por mais um dia de vida e oportunidade. Entrego em Tuas mãos generosas todos os meus planos e projetos. Guia meus passos em cada decisão. Em nome de Jesus, Amém.", verse: "As misericórdias do Senhor se renovam a cada manhã.", verseRef: "Lamentações 3:22-23" },
-            afternoon: { icon: "◐", label: "Oração da Tarde", title: "Boa tarde", text: "Senhor, na pausa desta tarde que Tu me dás, venho a Ti para renovar completamente minhas forças. Se o cansaço já bateu forte, restaura minhas energias. Se a ansiedade apareceu, acalma meu coração. Em nome de Jesus, Amém.", verse: "Vinde a mim, todos os que estais cansados.", verseRef: "Mateus 11:28" },
-            evening: { icon: "☽", label: "Oração da Noite", title: "Boa noite", text: "Pai Celestial, ao final deste dia, entrego-Te tudo o que vivi. Obrigado por Tua presença constante. Perdoa-me pelas falhas. Guarda meu sono com Teus anjos esta noite. Em nome de Jesus, Amém.", verse: "Em paz me deito e logo adormeço.", verseRef: "Salmos 4:8" }
-        };
 
         const dailyVerses = [
             { text: "Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco.", ref: "1 Tessalonicenses 5:18" },
@@ -580,7 +621,30 @@
             { text: "Tudo posso naquele que me fortalece.", ref: "Filipenses 4:13" },
             { text: "Seja forte e corajoso. O Senhor estará com você.", ref: "Josué 1:9" },
             { text: "Não temas, porque eu sou contigo.", ref: "Isaías 41:10" },
-            { text: "O Senhor é o meu pastor, nada me faltará.", ref: "Salmos 23:1" }
+            { text: "O Senhor é o meu pastor, nada me faltará.", ref: "Salmos 23:1" },
+            { text: "Rendei graças ao Senhor, porque ele é bom; porque a sua misericórdia dura para sempre.", ref: "Salmos 118:1" },
+            { text: "O choro pode durar uma noite, mas a alegria vem pela manhã.", ref: "Salmos 30:5" },
+            { text: "Espera no Senhor, anima-te, e ele fortalecerá o teu coração.", ref: "Salmos 27:14" },
+            { text: "E conhecereis a verdade, e a verdade vos libertará.", ref: "João 8:32" },
+            { text: "Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia.", ref: "Salmos 46:1" },
+            { text: "Lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós.", ref: "1 Pedro 5:7" },
+            { text: "O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha.", ref: "1 Coríntios 13:4" },
+            { text: "Buscai ao Senhor enquanto se pode achar, invocai-o enquanto está perto.", ref: "Isaías 55:6" },
+            { text: "Alegrai-vos sempre, orai sem cessar, em tudo dai graças.", ref: "1 Tessalonicenses 5:16-18" },
+            { text: "O Senhor é a minha luz e a minha salvação; a quem temerei?", ref: "Salmos 27:1" }
+        ];
+
+        const welcomePrayers = {
+            morning: { icon: "☀️", label: "Oração da Manhã", title: "Bom dia", text: "Senhor, neste novo amanhecer que me concedeste, elevo meu coração a Ti em profunda gratidão. Obrigado por mais um dia de vida e oportunidade. Entrego em Tuas mãos todos os meus planos e projetos. Guia meus passos em cada decisão. Em nome de Jesus, Amém.", verse: "As misericórdias do Senhor se renovam a cada manhã.", verseRef: "Lamentações 3:22-23" },
+            afternoon: { icon: "◐", label: "Oração da Tarde", title: "Boa tarde", text: "Senhor, na pausa desta tarde que Tu me dás, venho a Ti para renovar minhas forças. Se o cansaço bateu, restaura minhas energias. Se a ansiedade apareceu, acalma meu coração. Se houve acertos, agradeço. Se houveram erros, me perdoa. Que nesta segunda parte do dia eu possa viver com mais calma, mais fé e mais presença. Em nome de Jesus, Amém.", verse: "Vinde a mim, todos os que estais cansados, e eu vos aliviarei.", verseRef: "Mateus 11:28" },
+            evening: { icon: "🌙", label: "Oração da Noite", title: "Boa noite", text: "Pai Celestial, ao final deste dia, entrego-Te tudo o que vivi. Obrigado por Tua presença constante. Perdoa-me pelas falhas, pelas palavras que não deveria ter dito, pelo que deixei de fazer. Guarda meu sono com Teus anjos esta noite. Que eu descanse em paz, sabendo que o Senhor vigia por mim. Em nome de Jesus, Amém.", verse: "Em paz me deito e logo adormeço, pois só Tu, Senhor, me fazes viver em segurança.", verseRef: "Salmos 4:8" }
+        };
+
+        const challenges = [
+            { id: 'direcao7', name: '7 Dias de Direção', icon: '○', duration: 7, category: 'direcao_proposito', desc: 'Encontre clareza para o seu caminho.' },
+            { id: 'forca7', name: '7 Dias de Força', icon: '◆', duration: 7, category: 'forca_coragem', desc: 'Encontre forças para os desafios diários.' },
+            { id: 'paz5', name: '5 Dias de Paz', icon: '◇', duration: 5, category: 'paz_interior', desc: 'Encontre serenidade em meio às tempestades.' },
+            { id: 'gratidao7', name: '7 Dias de Gratidão', icon: '★', duration: 7, category: 'gratidao_louvor', desc: 'Aprenda a agradecer todos os dias.' }
         ];
 
         let favorites = JSON.parse(localStorage.getItem('prayerFavorites') || '[]');
@@ -597,7 +661,6 @@
         let darkMode = localStorage.getItem('darkMode') === 'true';
         let deferredInstallPrompt = null;
 
-        // ===== Streak (agora conta ao abrir o app, não só ao abrir oração) =====
         function updateStreak() {
             const today = new Date().toDateString();
             let sd = JSON.parse(localStorage.getItem('prayerStreak') || '{"dates":[],"count":0}');
@@ -613,22 +676,54 @@
             const t=document.getElementById('streakText'); if(t) t.textContent = c>=7 ? '🔥 '+c+' dias!' : c+' dia'+(c>1?'s':'');
         }
 
-        // ===== Notificações (recorrência segura, sem timeout gigante) =====
-        function requestNotificationPermission() {
+        function getReminderHour() { const v = parseInt(localStorage.getItem('notifHour')||'20',10); return isNaN(v)?20:Math.max(0,Math.min(23,v)); }
+        function getReminderMin()  { const v = parseInt(localStorage.getItem('notifMin')||'0',10);  return isNaN(v)?0:Math.max(0,Math.min(59,v)); }
+        async function openReminderModal() {
+            closeSidebar();
+            const enabled = localStorage.getItem('notifEnabled') === 'true';
+            const hh = String(getReminderHour()).padStart(2,'0');
+            const mm = String(getReminderMin()).padStart(2,'0');
+            const ov = document.createElement('div');
+            ov.className = 'confirm-overlay';
+            ov.innerHTML = `<div class="confirm-backdrop"></div><div class="confirm-modal" style="text-align:left;"><h3 style="text-align:center;">🔔 Lembrete de Oração</h3><p style="text-align:center;">Escolha um horário para receber um convite diário à oração.</p><label style="display:block;font-size:12px;color:var(--text-tertiary);margin:6px 0 6px;text-align:center;">Horário</label><input type="time" id="reminderTimeInput" value="${hh}:${mm}" style="width:100%;padding:12px;border-radius:14px;border:1px solid var(--border-card);background:var(--bg-elevated);color:var(--text-primary);font-size:16px;font-family:inherit;text-align:center;outline:none;"><p style="font-size:11px;color:var(--text-tertiary);margin-top:12px;text-align:center;line-height:1.5;">⚠️ Para funcionar em segundo plano, instale o app no celular.</p><div class="confirm-actions" style="margin-top:18px;">${enabled?'<button class="confirm-cancel" id="reminderDisable">Desativar</button>':'<button class="confirm-cancel" id="reminderClose">Cancelar</button>'}<button class="confirm-ok" id="reminderSave">${enabled?'Salvar':'Ativar'}</button></div></div>`;
+            document.body.appendChild(ov);
+            const close = () => ov.remove();
+            ov.querySelector('.confirm-backdrop').onclick = close;
+            const closeBtn = ov.querySelector('#reminderClose'); if(closeBtn) closeBtn.onclick = close;
+            const disableBtn = ov.querySelector('#reminderDisable');
+            if (disableBtn) disableBtn.onclick = () => { localStorage.removeItem('notifEnabled'); toast('Lembrete desativado.', 'info'); close(); };
+            ov.querySelector('#reminderSave').onclick = async () => {
+                const v = ov.querySelector('#reminderTimeInput').value || '20:00';
+                const [h,m] = v.split(':').map(n=>parseInt(n,10));
+                localStorage.setItem('notifHour', String(h));
+                localStorage.setItem('notifMin', String(m));
+                close();
+                await requestNotificationPermission();
+            };
+        }
+        async function requestNotificationPermission() {
             if (!('Notification' in window)) { toast('Seu navegador não suporta notificações.', 'error'); return; }
-            if (Notification.permission === 'granted') { localStorage.setItem('notifEnabled','true'); scheduleNotification(); toast('Lembrete diário ativado às 20h 🙏', 'success'); }
-            else if (Notification.permission === 'denied') { toast('Notificações bloqueadas no navegador.', 'error'); }
-            else { Notification.requestPermission().then(p => { if(p==='granted'){ localStorage.setItem('notifEnabled','true'); scheduleNotification(); toast('Lembrete diário ativado às 20h 🙏', 'success'); } else { toast('Permissão não concedida.', 'error'); } }); }
+            const enable = () => {
+                localStorage.setItem('notifEnabled','true');
+                scheduleNotification();
+                const hh=String(getReminderHour()).padStart(2,'0'), mm=String(getReminderMin()).padStart(2,'0');
+                toast(`Lembrete ativado às ${hh}:${mm} 🙏`, 'success');
+            };
+            if (Notification.permission === 'granted') return enable();
+            if (Notification.permission === 'denied') return toast('Notificações bloqueadas.', 'error');
+            const p = await Notification.requestPermission();
+            if (p === 'granted') enable(); else toast('Permissão não concedida.', 'error');
         }
         function scheduleNotification() {
             if (localStorage.getItem('notifEnabled') !== 'true') return;
+            const targetH = getReminderHour(), targetM = getReminderMin();
             const n = new Date();
-            const t = new Date(n.getFullYear(), n.getMonth(), n.getDate(), 20, 0, 0);
+            const t = new Date(n.getFullYear(), n.getMonth(), n.getDate(), targetH, targetM, 0);
             if (n > t) t.setDate(t.getDate()+1);
-            const delay = Math.min(t.getTime() - n.getTime(), 6 * 60 * 60 * 1000); // checa no máx a cada 6h
+            const delay = Math.min(t.getTime() - n.getTime(), 6 * 60 * 60 * 1000);
             setTimeout(() => {
                 const now = new Date();
-                if (now.getHours() === 20 && now.getMinutes() < 5 && Notification.permission === 'granted') {
+                if (now.getHours() === targetH && Math.abs(now.getMinutes() - targetM) < 5 && Notification.permission === 'granted') {
                     const lastShown = localStorage.getItem('notifLastShown');
                     if (lastShown !== now.toDateString()) {
                         new Notification('Ore Comigo', { body: '🙏 Momento de oração. Que tal falar com Deus agora?' });
@@ -639,10 +734,62 @@
             }, delay);
         }
 
-        function applyDarkMode() { if(darkMode){document.body.classList.add('dark-mode');document.getElementById('darkModeBtn').textContent='Modo Claro';document.querySelector('meta[name=theme-color]').setAttribute('content','#0d0d1a');}else{document.body.classList.remove('dark-mode');document.getElementById('darkModeBtn').textContent='Modo Escuro';document.querySelector('meta[name=theme-color]').setAttribute('content','#6c5ce7');} }
+        (function registerInlineSW(){
+            if (!('serviceWorker' in navigator)) return;
+            try { if (window.self !== window.top) return; } catch(e){ return; }
+            if (location.protocol === 'file:' || location.hostname === 'localhost') return;
+            const swCode = `const CACHE='ore-comigo-v2';const URL_TO_CACHE=self.registration.scope;self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.add(URL_TO_CACHE)).catch(()=>{}));self.skipWaiting();});self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;const url=new URL(e.request.url);if(url.origin!==location.origin)return;e.respondWith(fetch(e.request).then(res=>{if(res&&res.status===200&&res.type==='basic'){const copy=res.clone();caches.open(CACHE).then(c=>c.put(e.request,copy)).catch(()=>{});}return res;}).catch(()=>caches.match(e.request).then(r=>r||caches.match(URL_TO_CACHE)));});`;
+            try { const blob = new Blob([swCode], { type: 'text/javascript' }); navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{}); } catch(e) {}
+        })();
+
+        function applyDarkMode() { if(darkMode){document.body.classList.add('dark-mode');document.getElementById('darkModeBtn').textContent='Modo Claro';}else{document.body.classList.remove('dark-mode');document.getElementById('darkModeBtn').textContent='Modo Escuro';} }
         function toggleDarkMode() { darkMode=!darkMode; localStorage.setItem('darkMode',darkMode); applyDarkMode(); }
         function getMomentOfDay() { const h=new Date().getHours(); return h>=5&&h<12?'morning':h>=12&&h<18?'afternoon':'evening'; }
-        function showWelcomeIfFirstTime() { const m=getMomentOfDay(); if(localStorage.getItem('welcomeLastMoment')===m)return; const p=welcomePrayers[m]; document.getElementById('welcomeContent').innerHTML=`<div class="welcome-moment-icon">${p.icon}</div><span class="welcome-moment-label">${p.label}</span><h2>${p.title}</h2><div class="welcome-prayer-card">${p.text}</div><div class="welcome-verse"><div class="v-icon">⌖</div><div class="v-text">"${p.verse}"</div><span class="v-ref">${p.verseRef}</span></div><button class="welcome-continue-btn" onclick="closeWelcome()">Amém · Continuar</button>`; document.getElementById('welcomeModal').style.display='flex'; document.body.style.overflow='hidden'; }
+        
+        function updateMomentPrayer() {
+            const moment = getMomentOfDay();
+            const prayer = welcomePrayers[moment];
+            document.getElementById('momentIcon').textContent = prayer.icon;
+            document.getElementById('momentTitle').textContent = prayer.label;
+            const shortText = prayer.text.length > 120 ? prayer.text.substring(0, 120) + '...' : prayer.text;
+            document.getElementById('momentText').textContent = shortText;
+            window.currentMomentPrayer = prayer;
+        }
+        
+        function openMomentPrayer() {
+            if (window.currentMomentPrayer) {
+                const p = window.currentMomentPrayer;
+                const fullText = p.text;
+                const focusIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.4 5.4 0 01-7.54-7.54c-.44-.06-.9-.1-1.36-.1z"/></svg>';
+                document.getElementById('prayerDetailContent').classList.remove('focus-mode');
+                document.getElementById('prayerDetailContent').innerHTML = `
+                    <div class="prayer-top-bar"><button class="prayer-back-btn-stories" onclick="closePrayer()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button><div><button class="focus-toggle-btn" id="focusToggleBtn" onclick="toggleFocusMode()">${focusIcon}</button></div></div>
+                    <div class="prayer-stories-content"><div class="reading-time-badge">${clockSvg} ${Math.ceil(fullText.split(' ').length / 130)} min</div>
+                    <div class="prayer-stories-text">${escapeHtml(fullText)}</div>
+                    <div class="prayer-stories-verse"><div class="verse-content">"${escapeHtml(p.verse)}"</div><span class="verse-citation">${escapeHtml(p.verseRef)}</span></div></div>`;
+                document.getElementById('prayerDetailWrapper').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function toggleFocusMode() {
+            const c = document.getElementById('prayerDetailContent');
+            const b = document.getElementById('focusToggleBtn');
+            const on = c.classList.toggle('focus-mode');
+            if (b) b.classList.toggle('active', on);
+        }
+        
+        function closePrayer() { document.getElementById('prayerDetailWrapper').style.display='none'; document.body.style.overflow=''; selectedPrayer=null; }
+        function closePrayerFromBackdrop(e) { if(e.target===document.getElementById('prayerDetailWrapper')||e.target.classList.contains('prayer-detail-backdrop'))closePrayer(); }
+
+        function showWelcomeIfFirstTime() { 
+            const m=getMomentOfDay(); 
+            if(localStorage.getItem('welcomeLastMoment')===m) return; 
+            const p=welcomePrayers[m]; 
+            document.getElementById('welcomeContent').innerHTML=`<div class="welcome-moment-icon">${escapeHtml(p.icon)}</div><span class="welcome-moment-label">${escapeHtml(p.label)}</span><h2>${escapeHtml(p.title)}</h2><div class="welcome-prayer-card">${escapeHtml(p.text)}</div><div class="welcome-verse"><div class="v-icon">⌖</div><div class="v-text">"${escapeHtml(p.verse)}"</div><span class="v-ref">${escapeHtml(p.verseRef)}</span></div><button class="welcome-continue-btn" onclick="closeWelcome()">Amém · Continuar</button>`; 
+            document.getElementById('welcomeModal').style.display='flex'; 
+            document.body.style.overflow='hidden'; 
+        }
         function closeWelcome() { document.getElementById('welcomeModal').style.display='none'; document.body.style.overflow=''; localStorage.setItem('welcomeLastMoment',getMomentOfDay()); }
         function updateGreeting() { document.getElementById('greetingText').textContent=new Date().getHours()<12?'Bom dia':new Date().getHours()<18?'Boa tarde':'Boa noite'; }
         function refreshVerse() { const te=document.getElementById('verseMainText'),re=document.getElementById('verseMainRef'); const cur=te.textContent.replace(/[""]/g,''); let nv; do{nv=dailyVerses[Math.floor(Math.random()*dailyVerses.length)];}while(nv.text===cur&&dailyVerses.length>1); te.style.opacity='0';te.style.transform='translateY(-8px)';re.style.opacity='0'; setTimeout(()=>{te.textContent=`"${nv.text}"`;re.textContent=nv.ref;te.style.opacity='1';te.style.transform='translateY(0)';re.style.opacity='1';},250); }
@@ -650,16 +797,17 @@
         function closeSidebar() { document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');sidebarOpen=false; }
         function getStreakCount() { const sd=JSON.parse(localStorage.getItem('prayerStreak')||'{"dates":[],"count":0}'); return sd.count||0; }
         function goToTab(t) { closeSidebar(); activeCategory=null; switchTab(t); }
+        
         function renderSidebar() {
             const scroll = document.getElementById('sidebarScroll');
             const q = (document.getElementById('sidebarSearch')?.value || '').trim().toLowerCase();
             if (q.length >= 2) {
                 const matches = prayers.filter(p => p.name.toLowerCase().includes(q) || (p.text||'').toLowerCase().includes(q));
                 let h = `<div class="sidebar-section-label">Resultados (${matches.length})</div><div class="sidebar-chips">`;
-                if (!matches.length) h += `<div class="sidebar-search-empty">Nenhuma oração encontrada para "${escapeHtml(q)}"</div>`;
+                if (!matches.length) h += `<div class="sidebar-search-empty">Nenhuma oração encontrada</div>`;
                 else matches.slice(0, 30).forEach(p => {
                     const cat = categories.find(c => c.id === p.category);
-                    h += `<button class="sidebar-chip" onclick="closeSidebar();openPrayer(${p.id})"><span class="sidebar-chip-name">${p.name}</span><span class="sidebar-chip-count">${cat?cat.name.split(' ')[0]:''}</span></button>`;
+                    h += `<button class="sidebar-chip" onclick="closeSidebar();openPrayer(${p.id})"><span class="sidebar-chip-name">${escapeHtml(p.name)}</span><span class="sidebar-chip-count">${cat?escapeHtml(cat.name.split(' ')[0]):''}</span></button>`;
                 });
                 h += '</div>';
                 scroll.innerHTML = h;
@@ -668,44 +816,34 @@
             const totalFav = favorites.length;
             const totalDiary = diaryEntries.length;
             const streak = getStreakCount();
-            let h = '';
-            h += `<div class="sidebar-section-label">Navegar</div><div class="sidebar-chips">`;
+            let h = '<div class="sidebar-section-label">Navegar</div><div class="sidebar-chips">';
             h += `<button class="sidebar-chip ${currentTab==='home'?'active':''}" onclick="closeSidebar();goHome()"><span class="sidebar-chip-name">🏠 Início</span></button>`;
             h += `<button class="sidebar-chip ${currentTab==='favorites'?'active':''}" onclick="goToTab('favorites')"><span class="sidebar-chip-name">♡ Favoritas</span><span class="sidebar-chip-count">${totalFav}</span></button>`;
             h += `<button class="sidebar-chip ${currentTab==='diary'?'active':''}" onclick="goToTab('diary')"><span class="sidebar-chip-name">✎ Diário</span><span class="sidebar-chip-count">${totalDiary}</span></button>`;
             h += `<button class="sidebar-chip ${currentTab==='timer'?'active':''}" onclick="goToTab('timer')"><span class="sidebar-chip-name">◐ Meditar</span></button>`;
             h += `<button class="sidebar-chip ${currentTab==='challenges'?'active':''}" onclick="goToTab('challenges')"><span class="sidebar-chip-name">⏳ Desafios</span></button>`;
-            h += `</div>`;
-            h += `<div class="sidebar-section-label">Categorias</div><div class="sidebar-chips">`;
+            h += '</div><div class="sidebar-section-label">Categorias</div><div class="sidebar-chips">';
             categories.forEach(cat => {
                 const count = prayers.filter(p=>p.category===cat.id).length;
-                h += `<button class="sidebar-chip ${activeCategory===cat.id?'active':''}" onclick="selectCategory('${cat.id}')"><span class="sidebar-chip-name">${cat.name}</span><span class="sidebar-chip-count">${count}</span></button>`;
+                h += `<button class="sidebar-chip ${activeCategory===cat.id?'active':''}" onclick="selectCategory('${cat.id}')"><span class="sidebar-chip-name">${escapeHtml(cat.name)}</span><span class="sidebar-chip-count">${count}</span></button>`;
             });
-            h += `</div>`;
-            h += `<div class="sidebar-section-label">Sua jornada</div>`;
+            h += '</div><div class="sidebar-section-label">Sua jornada</div>';
             h += `<div class="sidebar-streak"><div class="sidebar-streak-icon">🔥</div><div class="sidebar-streak-text"><div class="sidebar-streak-count">${streak} ${streak===1?'dia':'dias'} em oração</div><div class="sidebar-streak-sub">${streak>=7?'Constância de fé!':'Continue firme'}</div></div></div>`;
             scroll.innerHTML = h;
         }
+        
         function selectCategory(catId) { activeCategory=catId; closeSidebar(); currentTab='prayers'; updateUI(); renderUI(); }
         function openPixModal() { closeSidebar(); document.getElementById('pixModal').style.display='flex'; }
         function closePixModal(e) { if(e.target===document.getElementById('pixModal')||e.target.classList.contains('pix-modal-backdrop'))document.getElementById('pixModal').style.display='none'; }
         function copyPix() { navigator.clipboard.writeText('65173337000146').then(()=>{const c=document.getElementById('pixCopied');c.classList.add('show');setTimeout(()=>c.classList.remove('show'),2000); toast('Chave PIX copiada 💛', 'success');}).catch(()=>toast('Não foi possível copiar.', 'error')); }
-        function shareApp() { if(navigator.share){navigator.share({title:'Ore Comigo',text:'App de orações.',url:window.location.href}).catch(()=>{});}else{ navigator.clipboard.writeText(window.location.href).then(()=>toast('Link copiado para compartilhar 💜', 'success')).catch(()=>toast('Compartilhe: '+window.location.href,'info',5000)); } }
+        function shareApp() { if(navigator.share){navigator.share({title:'Ore Comigo',text:'App de orações.',url:window.location.href}).catch(()=>{});}else{ navigator.clipboard.writeText(window.location.href).then(()=>toast('Link copiado!', 'success')).catch(()=>toast('Compartilhe: '+window.location.href,'info',5000)); } }
         function switchTab(tab) { currentTab=tab; selectedPrayer=null; if(tab==='home')activeCategory=null; updateUI(); renderUI(); }
         function goHome() { currentTab='home'; activeCategory=null; updateUI(); renderUI(); }
-        function updateUI() { const hb=document.getElementById('homeBtn'),vs=document.getElementById('verseCardMain'),ps=document.querySelector('.inspirational-phrase'); if(currentTab==='home'){hb.classList.remove('visible');vs.style.display='block';ps.style.display='block';}else{hb.classList.add('visible');vs.style.display='none';ps.style.display='none';} updateBottomNav(); }
+        function updateUI() { const hb=document.getElementById('homeBtn'),vs=document.getElementById('verseCardMain'),ps=document.querySelector('.inspirational-phrase'),mc=document.getElementById('momentCard'); if(currentTab==='home'){hb.classList.remove('visible');hb.style.display='none';vs.style.display='block';ps.style.display='block';if(mc) mc.style.display='block';}else{hb.classList.add('visible');hb.style.display='flex';vs.style.display='none';ps.style.display='none';if(mc) mc.style.display='none';} updateBottomNav(); }
         function updateBottomNav() { document.querySelectorAll('.nav-item').forEach(b=>{b.classList.remove('active');if(b.dataset.tab===currentTab)b.classList.add('active');}); }
 
-        // ===== PWA install =====
         window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredInstallPrompt = e; const ib = document.getElementById('installBtn'); if(ib) ib.style.display = 'flex'; });
-        function installPWA() {
-            if (!deferredInstallPrompt) {
-                toast('No iPhone: toque em Compartilhar → Adicionar à Tela de Início', 'info', 5000);
-                return;
-            }
-            deferredInstallPrompt.prompt();
-            deferredInstallPrompt.userChoice.then(c => { if(c.outcome==='accepted') toast('App instalado! 🙏', 'success'); deferredInstallPrompt = null; document.getElementById('installBtn').style.display='none'; });
-        }
+        function installPWA() { if (!deferredInstallPrompt) { toast('No iPhone: Compartilhar → Adicionar à Tela de Início', 'info', 5000); return; } deferredInstallPrompt.prompt(); deferredInstallPrompt.userChoice.then(c => { if(c.outcome==='accepted') toast('App instalado! 🙏', 'success'); deferredInstallPrompt = null; document.getElementById('installBtn').style.display='none'; }); }
 
         function shareAsImage(id) {
             const p=prayers.find(x=>x.id===id); if(!p)return;
@@ -736,42 +874,28 @@
             ctx.fillStyle=is?'#c9a96e':'#b8974e';ctx.font='italic 500 40px "Lora",Georgia,serif';const vsy=cy+vpt+40;vl.forEach((l,i)=>{ctx.fillText(l,w/2,vsy+(i*vlh));});
             const ry=cy+vpt+48+(vl.length*vlh);ctx.fillStyle=is?'#a78bfa':'#6c5ce7';ctx.font='600 28px "Inter",sans-serif';ctx.fillText(p.verseRef,w/2,ry);
             ctx.fillStyle=is?'rgba(255,255,255,0.18)':'rgba(0,0,0,0.16)';ctx.font='400 28px "Inter",sans-serif';ctx.fillText('Compartilhado via Ore Comigo',w/2,h-100);
-            c.toBlob(b=>{
-                const f=new File([b],'oracao.png',{type:'image/png'});
-                if(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({title:p.name,files:[f]}).catch(()=>{const a=document.createElement('a');a.download='oracao.png';a.href=URL.createObjectURL(b);a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);});}
-                else{const a=document.createElement('a');a.download='oracao.png';a.href=URL.createObjectURL(b);a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000); toast('Imagem baixada 💜', 'success');}
-            },'image/png');
+            c.toBlob(b=>{ const a=document.createElement('a'); a.download='oracao.png'; a.href=URL.createObjectURL(b); a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); toast('Imagem baixada 💜', 'success'); },'image/png');
         }
 
         function openPrayer(id) {
             selectedPrayer=id; const p=prayers.find(x=>x.id===selectedPrayer); if(!p)return;
-            const focusIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.4 5.4 0 01-7.54-7.54c-.44-.06-.9-.1-1.36-.1z"/></svg>';
+            const focusIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.4 5.4 0 01-7.54-7.54c-.44-.06-.9-.1-1.36-.1z"/></svg>';
             const rt = readingTime(p.text);
             document.getElementById('prayerDetailContent').classList.remove('focus-mode');
-            document.getElementById('prayerDetailContent').innerHTML=`<div class="prayer-top-bar"><button class="prayer-back-btn-stories" onclick="closePrayer()" aria-label="Voltar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button><div style="display:flex;align-items:center;gap:6px;"><button class="focus-toggle-btn" id="focusToggleBtn" onclick="toggleFocusMode()" title="Modo leitura focada" aria-label="Alternar modo leitura focada">${focusIcon}</button><button class="prayer-share-btn-stories" onclick="shareAsImage(${p.id})" title="Compartilhar" aria-label="Compartilhar como imagem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><line x1="9" y1="12" x2="15.5" y2="5.5"/><line x1="9" y1="12" x2="15.5" y2="18.5"/></svg></button></div></div><div class="prayer-stories-content"><div class="reading-time-badge">${clockSvg}${rt} de oração</div><div class="prayer-stories-text">${p.text}</div><div class="prayer-stories-verse"><div class="verse-content">"${p.verse}"</div><span class="verse-citation">${p.verseRef}</span></div></div>`;
+            document.getElementById('prayerDetailContent').innerHTML=`<div class="prayer-top-bar"><button class="prayer-back-btn-stories" onclick="closePrayer()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button><div style="display:flex;align-items:center;gap:6px;"><button class="focus-toggle-btn" id="focusToggleBtn" onclick="toggleFocusMode()">${focusIcon}</button><button class="prayer-share-btn-stories" onclick="shareAsImage(${p.id})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><line x1="9" y1="12" x2="15.5" y2="5.5"/><line x1="9" y1="12" x2="15.5" y2="18.5"/></svg></button></div></div><div class="prayer-stories-content"><div class="reading-time-badge">${clockSvg}${rt}</div><div class="prayer-stories-text">${escapeHtml(p.text)}</div><div class="prayer-stories-verse"><div class="verse-content">"${escapeHtml(p.verse)}"</div><span class="verse-citation">${escapeHtml(p.verseRef)}</span></div></div>`;
             document.getElementById('prayerDetailWrapper').style.display='flex'; document.body.style.overflow='hidden';
         }
-        function toggleFocusMode() {
-            const c = document.getElementById('prayerDetailContent');
-            const b = document.getElementById('focusToggleBtn');
-            const on = c.classList.toggle('focus-mode');
-            if (b) b.classList.toggle('active', on);
-        }
-        function closePrayer() { document.getElementById('prayerDetailWrapper').style.display='none'; document.body.style.overflow=''; selectedPrayer=null; }
-        function closePrayerFromBackdrop(e) { if(e.target===document.getElementById('prayerDetailWrapper')||e.target.classList.contains('prayer-detail-backdrop'))closePrayer(); }
+
         function getChallengeProgress(id) { if(!activeChallenge||activeChallenge!==id||!challengeStartDate)return 0; const diff=Math.floor((new Date()-new Date(challengeStartDate))/86400000); const ch=challenges.find(c=>c.id===id); return ch?Math.min(diff+1,ch.duration):0; }
         async function startChallenge(id) {
-            if(activeChallenge) {
-                const ok = await confirmDialog({title:'Trocar de desafio?', message:'Você já está em um desafio. Deseja abandoná-lo e começar este novo?', confirmText:'Sim, trocar', danger:true});
-                if(!ok) return;
-            }
+            if(activeChallenge) { const ok = await confirmDialog({title:'Trocar de desafio?', message:'Deseja abandonar e começar este novo?', confirmText:'Sim, trocar', danger:true}); if(!ok) return; }
             activeChallenge=id; challengeStartDate=new Date().toISOString();
             localStorage.setItem('activeChallenge',JSON.stringify(activeChallenge));
             localStorage.setItem('challengeStartDate',challengeStartDate);
             renderUI(); toast('Desafio iniciado! 🙏', 'success');
         }
         async function abandonChallenge() {
-            const ok = await confirmDialog({title:'Abandonar desafio?', message:'Seu progresso atual será perdido.', confirmText:'Sim, abandonar', danger:true});
+            const ok = await confirmDialog({title:'Abandonar desafio?', message:'Progresso será perdido.', confirmText:'Sim, abandonar', danger:true});
             if(!ok) return;
             activeChallenge=null; challengeStartDate=null;
             localStorage.removeItem('activeChallenge'); localStorage.removeItem('challengeStartDate');
@@ -779,73 +903,34 @@
         }
         function getTodayChallengePrayer() { if(!activeChallenge||!challengeStartDate)return null; const ch=challenges.find(c=>c.id===activeChallenge); if(!ch)return null; const dayIndex=Math.floor((new Date()-new Date(challengeStartDate))/86400000); if(dayIndex>=ch.duration)return null; const catPrayers=prayers.filter(p=>p.category===ch.category); return catPrayers.length?catPrayers[dayIndex%catPrayers.length]:null; }
 
-        function getSuggestedCategories() {
-            // Rotação simples baseada no dia do ano para variar a cada dia
-            const day = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
-            const shuffled = [...categories].sort((a,b) => ((a.id.charCodeAt(0)+day) % 7) - ((b.id.charCodeAt(0)+day) % 7));
-            return shuffled.slice(0, 3);
-        }
+        function getSuggestedCategories() { const day = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000); const shuffled = [...categories].sort((a,b) => ((a.id.charCodeAt(0)+day) % 7) - ((b.id.charCodeAt(0)+day) % 7)); return shuffled.slice(0, 3); }
+        
         function renderHome() {
             const mc = document.getElementById('mainContent');
             mc.style.display = 'flex';
             const totalFav = favorites.length;
             const todayCh = getTodayChallengePrayer();
             const suggested = getSuggestedCategories();
-            mc.innerHTML = `
-              <div class="section-title">Para você hoje</div>
-              <div class="home-shortcuts">
-                <button class="home-shortcut" onclick="switchTab('favorites')">
-                  <div class="home-shortcut-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-                  <div class="home-shortcut-title">Favoritas</div>
-                  <div class="home-shortcut-sub">${totalFav} ${totalFav===1?'oração salva':'orações salvas'}</div>
-                </button>
-                <button class="home-shortcut" onclick="switchTab('diary')">
-                  <div class="home-shortcut-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></div>
-                  <div class="home-shortcut-title">Diário</div>
-                  <div class="home-shortcut-sub">${diaryEntries.length} ${diaryEntries.length===1?'anotação':'anotações'}</div>
-                </button>
-                <button class="home-shortcut" onclick="${todayCh ? `openPrayer(${todayCh.id})` : `switchTab('challenges')`}">
-                  <div class="home-shortcut-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-                  <div class="home-shortcut-title">${todayCh ? 'Oração de hoje' : 'Desafios'}</div>
-                  <div class="home-shortcut-sub">${todayCh ? todayCh.name : 'Comece um plano de fé'}</div>
-                </button>
-                <button class="home-shortcut" onclick="switchTab('timer')">
-                  <div class="home-shortcut-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-                  <div class="home-shortcut-title">Meditar</div>
-                  <div class="home-shortcut-sub">Silêncio com Deus</div>
-                </button>
-              </div>
-              <div class="section-subtitle">Categorias sugeridas</div>
-              <div class="home-cats">
-                ${suggested.map(cat => {
-                  const count = prayers.filter(p=>p.category===cat.id).length;
-                  return `<button class="home-cat-card" onclick="selectCategory('${cat.id}')"><div><div class="home-cat-name">${cat.name}</div><div class="home-cat-count">${count} ${count===1?'oração':'orações'}</div></div><span class="home-cat-arrow">›</span></button>`;
-                }).join('')}
-              </div>
-              <button class="home-see-all" onclick="openSidebar()">Ver todas as ${categories.length} categorias →</button>
-            `;
+            mc.innerHTML = `<div class="section-title">Para você hoje</div><div class="home-shortcuts"><button class="home-shortcut" onclick="switchTab('favorites')"><div class="home-shortcut-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><div class="home-shortcut-title">Favoritas</div><div class="home-shortcut-sub">${totalFav} ${totalFav===1?'oração salva':'orações salvas'}</div></button><button class="home-shortcut" onclick="switchTab('diary')"><div class="home-shortcut-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></div><div class="home-shortcut-title">Diário</div><div class="home-shortcut-sub">${diaryEntries.length} ${diaryEntries.length===1?'anotação':'anotações'}</div></button><button class="home-shortcut" onclick="${todayCh ? `openPrayer(${todayCh.id})` : `switchTab('challenges')`}"><div class="home-shortcut-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="home-shortcut-title">${todayCh ? 'Oração de hoje' : 'Desafios'}</div><div class="home-shortcut-sub">${todayCh ? escapeHtml(todayCh.name) : 'Comece um plano de fé'}</div></button><button class="home-shortcut" onclick="switchTab('timer')"><div class="home-shortcut-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="home-shortcut-title">Meditar</div><div class="home-shortcut-sub">Silêncio com Deus</div></button></div><div class="section-subtitle">Categorias sugeridas</div><div class="home-cats">${suggested.map(cat => { const count = prayers.filter(p=>p.category===cat.id).length; return `<button class="home-cat-card" onclick="selectCategory('${cat.id}')"><div><div class="home-cat-name">${escapeHtml(cat.name)}</div><div class="home-cat-count">${count} ${count===1?'oração':'orações'}</div></div><span class="home-cat-arrow">›</span></button>`; }).join('')}</div><button class="home-see-all" onclick="openSidebar()">Ver todas as ${categories.length} categorias →</button>`;
         }
 
         function renderUI() {
             const mc=document.getElementById('mainContent');
             if(currentTab==='home'){ renderHome(); return; }
             mc.style.display='flex';
-            if(currentTab==='prayers'){ const f=activeCategory?prayers.filter(p=>p.category===activeCategory):prayers; const cat=activeCategory?categories.find(c=>c.id===activeCategory):null; let h=`<div class="section-title">${cat?cat.name:'Orações'}</div><div class="prayer-list">`; f.forEach((p,i)=>{const fav=favorites.includes(p.id);h+=`<div class="prayer-card" onclick="openPrayer(${p.id})" role="button" tabindex="0"><div class="prayer-icon-wrapper">${categoryIcon(p.category)}</div><div class="prayer-card-text"><div class="prayer-name">${p.name}</div><div class="prayer-meta">${clockSvg}<span>${readingTime(p.text)}</span></div></div><button class="favorite-btn ${fav?'active':''}" data-fav-id="${p.id}" onclick="event.stopPropagation();toggleFavorite(${p.id})" aria-label="${fav?'Remover dos favoritos':'Adicionar aos favoritos'}"><svg viewBox="0 0 24 24" fill="${fav?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button></div>`;}); h+='</div>';mc.innerHTML=h; }
-            else if(currentTab==='favorites'){ const favs=prayers.filter(p=>favorites.includes(p.id)); if(!favs.length){mc.innerHTML='<div class="section-title">Favoritas</div><div style="text-align:center;padding:50px 20px;color:var(--text-tertiary);"><p style="font-size:40px;margin-bottom:10px;opacity:0.2;">♡</p><p style="font-weight:500;">Nenhuma favorita ainda</p><p style="font-size:12px;margin-top:6px;">Toque no ♡ ao lado de uma oração para salvá-la aqui.</p></div>';} else{let h='<div class="section-title">Favoritas</div><div class="prayer-list">';favs.forEach(p=>h+=`<div class="prayer-card" onclick="openPrayer(${p.id})" role="button" tabindex="0"><div class="prayer-icon-wrapper">${categoryIcon(p.category)}</div><div class="prayer-card-text"><div class="prayer-name">${p.name}</div><div class="prayer-meta">${clockSvg}<span>${readingTime(p.text)}</span></div></div><button class="favorite-btn active" data-fav-id="${p.id}" onclick="event.stopPropagation();toggleFavorite(${p.id});renderUI()" aria-label="Remover dos favoritos"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button></div>`);h+='</div>';mc.innerHTML=h;} }
-            else if(currentTab==='challenges'){ let h=`<div class="challenges-container"><div class="diary-header-card"><h3>Desafios de Oração</h3><p class="diary-subtitle">Fortaleça sua fé com planos temáticos.</p></div>`; if(activeChallenge){ const ch=challenges.find(c=>c.id===activeChallenge); const prog=getChallengeProgress(activeChallenge); const today=getTodayChallengePrayer(); if(ch)h+=`<div class="challenge-card active-challenge"><div class="challenge-card-header"><span class="challenge-icon">${ch.icon}</span><div class="challenge-info"><div class="challenge-name">${ch.name}</div><div class="challenge-duration">Em andamento</div></div></div><div class="challenge-progress"><div class="challenge-progress-bar" style="width:${(prog/ch.duration)*100}%"></div></div><p style="font-size:11px;color:var(--text-tertiary);margin-top:6px;">Dia ${prog} de ${ch.duration}</p>${today?`<button class="challenge-start-btn" onclick="openPrayer(${today.id})" style="width:100%;margin-top:8px;">Oração de hoje</button>`:'<p style="color:#10b981;font-size:12px;font-weight:500;margin-top:8px;">✓ Desafio concluído!</p>'}<button class="diary-cancel-btn" onclick="abandonChallenge()" style="width:100%;margin-top:8px;">Abandonar</button></div>`; } challenges.forEach(ch=>{if(activeChallenge===ch.id)return; h+=`<div class="challenge-card" onclick="startChallenge('${ch.id}')"><div class="challenge-card-header"><span class="challenge-icon">${ch.icon}</span><div class="challenge-info"><div class="challenge-name">${ch.name}</div><div class="challenge-duration">${ch.duration} dias</div></div></div><p class="challenge-desc">${ch.desc}</p><button class="challenge-start-btn">Começar</button></div>`;}); h+=`</div>`;mc.innerHTML=h; }
-            else if(currentTab==='diary'){ let h=`<div class="diary-container"><div class="diary-header-card"><h3>Diário de Oração</h3><p class="diary-subtitle">Registre seus pedidos, agradecimentos e reflexões.</p></div><button class="diary-new-btn" onclick="showDiaryEditor()">＋ Nova anotação</button>`; if(!diaryEntries.length)h+=`<div class="diary-empty"><div class="empty-icon">⌖</div><p>Nenhuma anotação ainda</p><p style="font-size:12px;margin-top:6px;">Toque em "Nova anotação" para começar.</p></div>`; else{ h+=`<div class="diary-entries">`; [...diaryEntries].reverse().forEach((e,i)=>{ const d=new Date(e.date); const f=d.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}); const prev=e.text.length>150?e.text.substring(0,150)+'...':e.text; const ri=diaryEntries.length-1-i; h+=`<div class="diary-entry" onclick="viewDiaryEntry(${ri})"><div class="diary-entry-date">${f}</div><div class="diary-entry-text">${escapeHtml(prev)}</div>${e.text.length>150?'<div class="diary-read-more">Ler mais</div>':''}<button class="diary-entry-delete" onclick="event.stopPropagation();showDeleteConfirm(${ri})" aria-label="Excluir anotação">✕</button></div>`; }); h+=`</div>`; } h+=`</div>`;mc.innerHTML=h; }
-            else if(currentTab==='timer'){ const m=Math.floor(timerSeconds/60),s=timerSeconds%60; mc.innerHTML=`<div class="timer-card"><div class="timer-label">Meditação Silenciosa</div><div class="timer-display" aria-live="polite">${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}</div><div class="timer-presets">${[1,5,10,15,20].map(min=>`<button class="preset-btn ${timerSeconds===min*60&&!timerRunning?'active-preset':''}" onclick="setTimer(${min*60})">${min} min</button>`).join('')}</div><div class="timer-controls">${!timerRunning?`<button class="timer-btn start" onclick="startTimer()">Iniciar</button>`:`<button class="timer-btn pause" onclick="pauseTimer()">Pausar</button>`}<button class="timer-btn reset" onclick="resetTimer()">Reiniciar</button></div></div>`; }
+            if(currentTab==='prayers'){ const f=activeCategory?prayers.filter(p=>p.category===activeCategory):prayers; const cat=activeCategory?categories.find(c=>c.id===activeCategory):null; let h=`<div class="section-title">${cat?escapeHtml(cat.name):'Orações'}</div><div class="prayer-list">`; f.forEach(p=>{const fav=favorites.includes(p.id);h+=`<div class="prayer-card" onclick="openPrayer(${p.id})"><div class="prayer-icon-wrapper">${categoryIcon(p.category)}</div><div class="prayer-card-text"><div class="prayer-name">${escapeHtml(p.name)}</div><div class="prayer-meta">${clockSvg}<span>${readingTime(p.text)}</span></div></div><button class="favorite-btn ${fav?'active':''}" data-fav-id="${p.id}" onclick="event.stopPropagation();toggleFavorite(${p.id})"><svg viewBox="0 0 24 24" fill="${fav?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button></div>`;}); h+='</div>';mc.innerHTML=h; }
+            else if(currentTab==='favorites'){ const favs=prayers.filter(p=>favorites.includes(p.id)); if(!favs.length){mc.innerHTML='<div class="section-title">Favoritas</div><div style="text-align:center;padding:50px 20px;color:var(--text-tertiary);"><p style="font-size:40px;margin-bottom:10px;opacity:0.2;">♡</p><p style="font-weight:500;">Nenhuma favorita ainda</p><p style="font-size:12px;margin-top:6px;">Toque no ♡ ao lado de uma oração para salvá-la aqui.</p></div>';} else{let h='<div class="section-title">Favoritas</div><div class="prayer-list">';favs.forEach(p=>{h+=`<div class="prayer-card" onclick="openPrayer(${p.id})"><div class="prayer-icon-wrapper">${categoryIcon(p.category)}</div><div class="prayer-card-text"><div class="prayer-name">${escapeHtml(p.name)}</div><div class="prayer-meta">${clockSvg}<span>${readingTime(p.text)}</span></div></div><button class="favorite-btn active" data-fav-id="${p.id}" onclick="event.stopPropagation();toggleFavorite(${p.id});renderUI()"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button></div>`;}); h+='</div>';mc.innerHTML=h;} }
+            else if(currentTab==='challenges'){ let h='<div class="challenges-container"><div class="diary-header-card"><h3>Desafios de Oração</h3><p class="diary-subtitle">Fortaleça sua fé com planos temáticos.</p></div>'; if(activeChallenge){ const ch=challenges.find(c=>c.id===activeChallenge); const prog=getChallengeProgress(activeChallenge); const today=getTodayChallengePrayer(); if(ch)h+=`<div class="challenge-card active-challenge"><div class="challenge-card-header"><span class="challenge-icon">${escapeHtml(ch.icon)}</span><div class="challenge-info"><div class="challenge-name">${escapeHtml(ch.name)}</div><div class="challenge-duration">Em andamento</div></div></div><div class="challenge-progress"><div class="challenge-progress-bar" style="width:${(prog/ch.duration)*100}%"></div></div><p style="font-size:11px;margin-top:6px;">Dia ${prog} de ${ch.duration}</p>${today?`<button class="challenge-start-btn" onclick="openPrayer(${today.id})" style="width:100%;margin-top:8px;">Oração de hoje</button>`:'<p style="color:#10b981;font-size:12px;font-weight:500;margin-top:8px;">✓ Desafio concluído!</p>'}<button class="diary-cancel-btn" onclick="abandonChallenge()" style="width:100%;margin-top:8px;">Abandonar</button></div>`; } challenges.forEach(ch=>{if(activeChallenge===ch.id)return; h+=`<div class="challenge-card" onclick="startChallenge('${ch.id}')"><div class="challenge-card-header"><span class="challenge-icon">${escapeHtml(ch.icon)}</span><div class="challenge-info"><div class="challenge-name">${escapeHtml(ch.name)}</div><div class="challenge-duration">${ch.duration} dias</div></div></div><p class="challenge-desc">${escapeHtml(ch.desc)}</p><button class="challenge-start-btn">Começar</button></div>`;}); h+='</div>';mc.innerHTML=h; }
+            else if(currentTab==='diary'){ let h='<div class="diary-container"><div class="diary-header-card"><h3>Diário de Oração</h3><p class="diary-subtitle">Registre seus pedidos, agradecimentos e reflexões.</p></div><button class="diary-new-btn" onclick="showDiaryEditor()">＋ Nova anotação</button>'; if(!diaryEntries.length)h+='<div class="diary-empty"><div class="empty-icon">⌖</div><p>Nenhuma anotação ainda</p><p style="font-size:12px;margin-top:6px;">Toque em "Nova anotação" para começar.</p></div>'; else{ h+='<div class="diary-entries">'; [...diaryEntries].reverse().forEach((e,i)=>{ const d=new Date(e.date); const f=d.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}); const prev=e.text.length>150?e.text.substring(0,150)+'...':e.text; const ri=diaryEntries.length-1-i; h+=`<div class="diary-entry" onclick="viewDiaryEntry(${ri})"><div class="diary-entry-date">${f}</div><div class="diary-entry-text">${escapeHtml(prev)}</div>${e.text.length>150?'<div class="diary-read-more">Ler mais</div>':''}<button class="diary-entry-delete" onclick="event.stopPropagation();showDeleteConfirm(${ri})">✕</button></div>`; }); h+='</div>'; } h+='</div>';mc.innerHTML=h; }
+            else if(currentTab==='timer'){ const m=Math.floor(timerSeconds/60),s=timerSeconds%60; mc.innerHTML=`<div class="timer-card"><div class="timer-label">Meditação Silenciosa</div><div class="timer-display">${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}</div><div class="timer-presets">${[1,5,10,15,20].map(min=>`<button class="preset-btn ${timerSeconds===min*60&&!timerRunning?'active-preset':''}" onclick="setTimer(${min*60})">${min} min</button>`).join('')}</div><div class="timer-controls">${!timerRunning?`<button class="timer-btn start" onclick="startTimer()">Iniciar</button>`:`<button class="timer-btn pause" onclick="pauseTimer()">Pausar</button>`}<button class="timer-btn reset" onclick="resetTimer()">Reiniciar</button></div></div>`; }
         }
 
-        function showDiaryEditor() { document.getElementById('mainContent').innerHTML=`<div class="diary-container"><div class="diary-header-card"><h3>Nova Anotação</h3></div><div class="diary-editor"><textarea class="diary-textarea" id="diaryTextarea" placeholder="Escreva aqui seu pedido, agradecimento ou reflexão..." aria-label="Texto da anotação"></textarea><div class="diary-actions"><button class="diary-cancel-btn" onclick="switchTab('diary')">Cancelar</button><button class="diary-save-btn" onclick="saveDiaryEntry()">Salvar</button></div></div></div>`; setTimeout(()=>document.getElementById('diaryTextarea').focus(),300); }
+        function showDiaryEditor() { document.getElementById('mainContent').innerHTML='<div class="diary-container"><div class="diary-header-card"><h3>Nova Anotação</h3></div><div class="diary-editor"><textarea class="diary-textarea" id="diaryTextarea" placeholder="Escreva aqui seu pedido, agradecimento ou reflexão..."></textarea><div class="diary-actions"><button class="diary-cancel-btn" onclick="switchTab(\'diary\')">Cancelar</button><button class="diary-save-btn" onclick="saveDiaryEntry()">Salvar</button></div></div></div>'; setTimeout(()=>document.getElementById('diaryTextarea').focus(),300); }
         function saveDiaryEntry() { const t=document.getElementById('diaryTextarea').value.trim(); if(!t){toast('Escreva algo antes de salvar.', 'error');return;} diaryEntries.push({text:t,date:new Date().toISOString()}); localStorage.setItem('prayerDiary',JSON.stringify(diaryEntries)); switchTab('diary'); toast('Anotação salva 💜', 'success'); }
-        function viewDiaryEntry(i) { const e=diaryEntries[i],d=new Date(e.date); const f=d.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}); const ov=document.createElement('div');ov.className='diary-view-overlay'; ov.innerHTML=`<div class="diary-view-backdrop" onclick="this.parentElement.remove()"></div><div class="diary-view-modal"><button class="diary-view-close" onclick="this.closest('.diary-view-overlay').remove()" aria-label="Fechar">✕</button><div class="diary-view-date">${f}</div><div class="diary-view-text">${escapeHtml(e.text)}</div><button class="diary-view-btn" onclick="this.closest('.diary-view-overlay').remove()">Fechar</button></div>`; document.body.appendChild(ov); }
-        async function showDeleteConfirm(i) {
-            const ok = await confirmDialog({title:'Excluir anotação?', message:'Esta ação não pode ser desfeita.', confirmText:'Sim, excluir', danger:true});
-            if(ok) deleteDiaryEntry(i);
-        }
+        function viewDiaryEntry(i) { const e=diaryEntries[i],d=new Date(e.date); const f=d.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}); const ov=document.createElement('div');ov.className='diary-view-overlay'; ov.innerHTML=`<div class="diary-view-backdrop" onclick="this.parentElement.remove()"></div><div class="diary-view-modal"><button class="diary-view-close" onclick="this.closest('.diary-view-overlay').remove()">✕</button><div class="diary-view-date">${f}</div><div class="diary-view-text">${escapeHtml(e.text)}</div><button class="diary-view-btn" onclick="this.closest('.diary-view-overlay').remove()">Fechar</button></div>`; document.body.appendChild(ov); }
+        async function showDeleteConfirm(i) { const ok = await confirmDialog({title:'Excluir anotação?', message:'Esta ação não pode ser desfeita.', confirmText:'Sim, excluir', danger:true}); if(ok) deleteDiaryEntry(i); }
         function deleteDiaryEntry(i) { diaryEntries.splice(i,1); localStorage.setItem('prayerDiary',JSON.stringify(diaryEntries)); renderUI(); toast('Anotação excluída.', 'info'); }
-        function escapeHtml(t) { const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+        
         function toggleFavorite(id) {
             const adding = !favorites.includes(id);
             favorites = adding ? [...favorites, id] : favorites.filter(f=>f!==id);
@@ -855,24 +940,37 @@
                 btn.classList.toggle('active', adding);
                 const svg = btn.querySelector('svg');
                 if (svg) svg.setAttribute('fill', adding ? 'currentColor' : 'none');
-                btn.classList.remove('just-saved'); void btn.offsetWidth; btn.classList.add('just-saved');
+                btn.classList.add('just-saved');
                 setTimeout(()=>btn.classList.remove('just-saved'), 600);
             }
             if (currentTab==='favorites') renderUI();
             if (adding && navigator.vibrate) navigator.vibrate(15);
         }
+        
         function setTimer(s) { pauseTimer(); timerSeconds=s; renderUI(); }
         function startTimer() { if(timerSeconds<=0){ toast('Escolha um tempo primeiro.', 'info'); return; } timerRunning=true; const st=Date.now(),init=timerSeconds; timerInterval=setInterval(()=>{timerSeconds=Math.max(0,init-Math.floor((Date.now()-st)/1000));if(timerSeconds<=0){pauseTimer();toast('Meditação concluída 🕊️', 'success', 4000);}renderUI();},200);renderUI(); }
         function pauseTimer() { timerRunning=false;clearInterval(timerInterval);renderUI(); }
         function resetTimer() { pauseTimer();timerSeconds=0;renderUI(); }
 
-        // Suporte a Enter/Space no card de versículo
+        function openSearchOverlay() { document.getElementById('searchOverlay').style.display='flex'; document.getElementById('searchInput').focus(); document.getElementById('searchInput').value=''; document.getElementById('searchResults').innerHTML=''; document.body.style.overflow='hidden'; }
+        function closeSearchOverlay() { document.getElementById('searchOverlay').style.display='none'; document.body.style.overflow=''; }
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const resultsDiv = document.getElementById('searchResults');
+            if (query.length < 2) { resultsDiv.innerHTML = '<div class="search-empty"><div class="search-empty-icon">🔍</div><div>Digite pelo menos 2 caracteres</div></div>'; return; }
+            const matches = prayers.filter(p => p.name.toLowerCase().includes(query) || (p.text || '').toLowerCase().includes(query));
+            if (matches.length === 0) { resultsDiv.innerHTML = `<div class="search-empty"><div class="search-empty-icon">📖</div><div>Nenhuma oração encontrada para "${escapeHtml(query)}"</div></div>`; return; }
+            let html = '';
+            matches.forEach(p => { const cat = categories.find(c => c.id === p.category); html += `<div class="search-result-item" onclick="closeSearchOverlay(); openPrayer(${p.id})"><div class="search-result-icon">${categoryIcon(p.category)}</div><div class="search-result-info"><div class="search-result-name">${escapeHtml(p.name)}</div><div class="search-result-category">${cat ? escapeHtml(cat.name) : ''}</div></div></div>`; });
+            resultsDiv.innerHTML = html;
+        }
+
+        document.getElementById('searchInput').addEventListener('input', performSearch);
         document.getElementById('verseCardMain').addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); refreshVerse(); }});
+        document.addEventListener('keydown',e=>{if(e.key==='Escape'){ if(document.getElementById('welcomeModal').style.display==='flex')closeWelcome(); else if(document.getElementById('pixModal').style.display==='flex')document.getElementById('pixModal').style.display='none'; else if(selectedPrayer)closePrayer(); else if(sidebarOpen)closeSidebar(); else if(document.querySelector('.diary-view-overlay'))document.querySelector('.diary-view-overlay').remove(); else if(document.querySelector('.confirm-overlay'))document.querySelector('.confirm-overlay').remove(); else if(document.getElementById('searchOverlay').style.display==='flex')closeSearchOverlay(); else goHome(); }});
 
-        document.addEventListener('keydown',e=>{if(e.key==='Escape'){ if(document.getElementById('welcomeModal').style.display==='flex')closeWelcome(); else if(document.getElementById('pixModal').style.display==='flex')document.getElementById('pixModal').style.display='none'; else if(selectedPrayer)closePrayer(); else if(sidebarOpen)closeSidebar(); else if(document.querySelector('.diary-view-overlay'))document.querySelector('.diary-view-overlay').remove(); else if(document.querySelector('.confirm-overlay'))document.querySelector('.confirm-overlay').remove(); else goHome(); }});
-
-        applyTimeOfDayClass(); applyDarkMode(); updateGreeting(); updateUI(); renderUI(); updateStreak(); showWelcomeIfFirstTime();
-        setInterval(applyTimeOfDayClass, 5*60*1000); // re-aplica a cada 5min
+        applyTimeOfDayClass(); applyDarkMode(); updateGreeting(); updateUI(); renderUI(); updateStreak(); showWelcomeIfFirstTime(); updateMomentPrayer();
+        setInterval(() => { applyTimeOfDayClass(); updateMomentPrayer(); }, 5*60*1000);
         if (localStorage.getItem('notifEnabled') === 'true') scheduleNotification();
     </script>
 </body>
