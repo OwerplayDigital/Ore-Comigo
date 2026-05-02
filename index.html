@@ -172,7 +172,7 @@
         .sidebar-share-btn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--border-card); background: transparent; font-size: 12px; font-weight: 500; cursor: pointer; transition: var(--transition); font-family: 'Inter', sans-serif; color: var(--text-secondary); }
         .sidebar-share-btn:hover { border-color: rgba(108,92,231,0.2); color: var(--accent); }
 
-        .top-header { padding: 20px 16px 8px; display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; z-index: 1; }
+        .top-header { padding: 18px 16px 6px; display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; z-index: 1; }
         .menu-btn, .home-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border-card); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); z-index: 10; transition: var(--transition); }
         .menu-btn:hover, .home-btn:hover { border-color: rgba(108,92,231,0.25); color: var(--accent); }
         .menu-btn { left: 16px; }
@@ -192,86 +192,100 @@
         .streak-dot.filled { background: var(--accent-gold); box-shadow: 0 0 6px rgba(184,151,78,0.35); transform: scale(1.15); }
         .streak-text { font-size: 10px; color: var(--text-tertiary); font-weight: 500; margin-left: 4px; }
 
-        .verse-card-main { margin: 0 16px 12px; padding: 24px 24px 20px; background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 20px; text-align: center; flex-shrink: 0; cursor: pointer; transition: var(--transition); position: relative; overflow: hidden; box-shadow: var(--shadow-card); }
-        .verse-card-main:hover { border-color: rgba(108,92,231,0.2); transform: translateY(-2px); box-shadow: var(--shadow-elevated); }
-        .verse-card-main::before { content: '"'; position: absolute; top: 12px; left: 20px; font-size: 80px; line-height: 1; color: var(--accent); opacity: 0.06; font-family: 'Cormorant Garamond', Georgia, serif; }
-        .verse-main-text { font-size: 17px; font-weight: 500; color: var(--text-primary); line-height: 1.7; font-style: italic; font-family: 'Lora', Georgia, serif; position: relative; z-index: 1; transition: opacity 0.3s ease, transform 0.3s ease, color 0.5s ease; padding-top: 4px; }
-        .verse-main-ref { display: block; margin-top: 12px; font-size: 10px; font-weight: 600; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 1.5px; }
-        .verse-main-refresh { display: inline-block; margin-top: 12px; font-size: 10px; color: var(--text-tertiary); }
+        .verse-card-main { margin: 0 16px 10px; padding: 20px 22px 16px; background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 22px; text-align: center; flex-shrink: 0; cursor: pointer; transition: var(--transition); position: relative; overflow: hidden; box-shadow: var(--shadow-card); }
+        .verse-card-main:hover { border-color: rgba(108,92,231,0.25); transform: translateY(-2px); box-shadow: var(--shadow-elevated); }
+        .verse-card-main::before { content: '"'; position: absolute; top: 8px; left: 18px; font-size: 72px; line-height: 1; color: var(--accent); opacity: 0.05; font-family: 'Cormorant Garamond', Georgia, serif; }
+        .verse-main-text { font-size: 15px; font-weight: 400; color: var(--text-primary); line-height: 1.75; font-style: italic; font-family: 'Lora', Georgia, serif; position: relative; z-index: 1; transition: opacity 0.4s ease, transform 0.4s ease, color 0.5s ease; padding-top: 2px; }
+        .verse-main-ref { display: block; margin-top: 10px; font-size: 9px; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2px; }
+        .verse-main-refresh { display: inline-block; margin-top: 10px; font-size: 10px; color: var(--text-tertiary); opacity: 0.7; }
 
         .moment-card {
-            margin: 0 16px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-card);
-            border-radius: 20px;
-            padding: 20px;
+            margin: 0 16px 10px;
+            background: linear-gradient(135deg, rgba(108,92,231,0.04) 0%, rgba(184,151,78,0.03) 100%);
+            border: 1px solid rgba(108,92,231,0.1);
+            border-radius: 18px;
+            padding: 16px 18px;
             cursor: pointer;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-card);
         }
         .moment-card:hover { border-color: rgba(108,92,231,0.2); transform: translateY(-2px); box-shadow: var(--shadow-elevated); }
-        .moment-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-        .moment-icon { font-size: 28px; }
-        .moment-title { font-size: 12px; font-weight: 600; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2px; }
-        .moment-text { font-size: 14px; line-height: 1.7; color: var(--text-primary); font-family: 'Lora', Georgia, serif; font-style: italic; margin-bottom: 12px; }
-        .moment-btn { background: rgba(108,92,231,0.06); border: 1px solid rgba(108,92,231,0.1); border-radius: 100px; padding: 8px 16px; font-size: 12px; font-weight: 500; color: var(--accent); cursor: pointer; transition: var(--transition); display: inline-block; }
-        .moment-btn:hover { background: rgba(108,92,231,0.12); }
+        .moment-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .moment-icon { font-size: 22px; }
+        .moment-title { font-size: 10px; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2.5px; }
+        .moment-text { font-size: 13px; line-height: 1.65; color: var(--text-secondary); font-family: 'Lora', Georgia, serif; font-style: italic; margin-bottom: 10px; }
+        .moment-btn { background: rgba(108,92,231,0.08); border: none; border-radius: 100px; padding: 7px 14px; font-size: 11px; font-weight: 600; color: var(--accent); cursor: pointer; transition: var(--transition); display: inline-block; letter-spacing: 0.2px; }
+        .moment-btn:hover { background: rgba(108,92,231,0.15); }
 
-        .inspirational-phrase { margin: 0 16px; padding: 0 16px 12px; text-align: center; flex-shrink: 0; }
-        .inspirational-phrase p { font-size: 12px; color: var(--text-tertiary); line-height: 1.6; }
+        .inspirational-phrase { margin: 0 16px; padding: 0 8px 10px; text-align: center; flex-shrink: 0; }
+        .inspirational-phrase p { font-size: 11px; color: var(--text-tertiary); line-height: 1.6; font-style: italic; }
         .main-content { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 4px 16px 8px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: thin; }
         .main-content::-webkit-scrollbar { width: 4px; }
         .main-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 100px; }
         .dark-mode .main-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); }
 
-        .main-content > * { animation: tabFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
-        @keyframes tabFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .main-content > * { animation: tabFadeIn 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        @keyframes tabFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        .home-shortcuts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 16px 12px; }
-        .home-shortcut { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 18px; padding: 16px 14px; cursor: pointer; transition: var(--transition); display: flex; flex-direction: column; align-items: flex-start; gap: 8px; box-shadow: var(--shadow-card); text-align: left; font-family: 'Inter', sans-serif; }
-        .home-shortcut:hover { border-color: rgba(108,92,231,0.2); transform: translateY(-2px); box-shadow: var(--shadow-elevated); }
-        .home-shortcut-icon { width: 36px; height: 36px; border-radius: 12px; background: rgba(108,92,231,0.06); display: flex; align-items: center; justify-content: center; color: var(--accent); }
-        .home-shortcut-icon svg { width: 18px; height: 18px; }
+        .home-shortcuts {
+            display: flex; flex-direction: row; gap: 10px;
+            padding: 0 16px 14px;
+            overflow-x: auto; scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        }
+        .home-shortcuts::-webkit-scrollbar { display: none; }
+        .home-shortcut {
+            background: var(--bg-card); border: 1px solid var(--border-card);
+            border-radius: 18px; padding: 16px 14px; cursor: pointer;
+            transition: var(--transition); display: flex; flex-direction: column;
+            align-items: flex-start; gap: 8px; box-shadow: var(--shadow-card);
+            text-align: left; font-family: 'Inter', sans-serif;
+            min-width: 128px; flex-shrink: 0; scroll-snap-align: start;
+        }
+        .home-shortcut:hover { border-color: rgba(108,92,231,0.25); transform: translateY(-2px); box-shadow: var(--shadow-elevated); }
+        .home-shortcut-icon { width: 34px; height: 34px; border-radius: 11px; background: rgba(108,92,231,0.07); display: flex; align-items: center; justify-content: center; color: var(--accent); }
+        .home-shortcut-icon svg { width: 16px; height: 16px; }
         .home-shortcut-title { font-size: 13px; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
-        .home-shortcut-sub { font-size: 11px; color: var(--text-tertiary); line-height: 1.4; }
-        .home-cats { display: flex; flex-direction: column; gap: 8px; padding: 0 16px 12px; }
-        .home-cat-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 16px; padding: 14px 16px; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow-card); font-family: 'Inter', sans-serif; text-align: left; width: 100%; }
-        .home-cat-card:hover { border-color: rgba(108,92,231,0.2); transform: translateY(-1px); }
+        .home-shortcut-sub { font-size: 10px; color: var(--text-tertiary); line-height: 1.4; }
+        .home-cats { display: flex; flex-direction: column; gap: 6px; padding: 0 16px 12px; }
+        .home-cat-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 14px; padding: 13px 16px; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: space-between; font-family: 'Inter', sans-serif; text-align: left; width: 100%; }
+        .home-cat-card:hover { border-color: rgba(108,92,231,0.2); transform: translateX(3px); background: rgba(108,92,231,0.02); }
         .home-cat-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
         .home-cat-count { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
-        .home-cat-arrow { color: var(--accent); font-size: 18px; opacity: 0.5; }
-        .home-see-all { display: block; width: calc(100% - 32px); margin: 0 16px 16px; padding: 12px; border-radius: 14px; border: 1px dashed var(--border-card); background: transparent; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: var(--accent); cursor: pointer; transition: var(--transition); }
+        .home-cat-arrow { color: var(--accent); font-size: 20px; opacity: 0.4; }
+        .home-see-all { display: block; width: calc(100% - 32px); margin: 0 16px 16px; padding: 11px; border-radius: 12px; border: 1px dashed rgba(108,92,231,0.2); background: transparent; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: var(--accent); cursor: pointer; transition: var(--transition); letter-spacing: 0.2px; }
         .home-see-all:hover { background: rgba(108,92,231,0.04); border-style: solid; }
-        .section-subtitle { font-size: 11px; color: var(--text-tertiary); padding: 0 20px 6px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-        .section-title { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-tertiary); padding: 4px 4px 4px; }
+        .section-subtitle { font-size: 10px; color: var(--text-tertiary); padding: 0 20px 6px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+        .section-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; color: var(--text-tertiary); padding: 4px 4px 6px; opacity: 0.8; }
 
-        .prayer-list { display: flex; flex-direction: column; gap: 8px; }
+        .prayer-list { display: flex; flex-direction: column; gap: 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--border-card); background: var(--bg-card); }
         .prayer-card {
             background: var(--bg-card);
-            border: 1px solid var(--border-card);
-            border-radius: 16px;
-            padding: 14px 16px;
+            border: none;
+            border-bottom: 1px solid var(--border-card);
+            border-radius: 0;
+            padding: 15px 16px;
             cursor: pointer;
-            transition: var(--transition);
+            transition: background 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 12px;
-            box-shadow: var(--shadow-card);
+            gap: 14px;
             width: 100%;
             min-width: 0;
-            min-height: auto;
-            height: auto;
         }
-        .prayer-card:hover { border-color: rgba(108,92,231,0.2); transform: translateY(-2px); box-shadow: var(--shadow-elevated); }
+        .prayer-card:last-child { border-bottom: none; }
+        .prayer-card:first-child { border-radius: 18px 18px 0 0; }
+        .prayer-card:last-child { border-radius: 0 0 18px 18px; }
+        .prayer-card:only-child { border-radius: 18px; }
+        .prayer-card:hover { background: rgba(108,92,231,0.03); }
         .prayer-icon-wrapper {
-            width: 38px; height: 38px; border-radius: 12px;
-            background: rgba(108,92,231,0.06);
+            width: 36px; height: 36px; border-radius: 10px;
+            background: rgba(108,92,231,0.07);
             display: flex; align-items: center; justify-content: center;
             color: var(--accent); flex-shrink: 0;
         }
-        .prayer-icon-wrapper svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .prayer-icon-wrapper svg { width: 16px; height: 16px; flex-shrink: 0; }
         .prayer-card-text {
             display: flex;
             flex-direction: column;
@@ -280,9 +294,9 @@
         }
         .prayer-name {
             font-weight: 500;
-            font-size: 14px;
+            font-size: 15px;
             color: var(--text-primary);
-            line-height: 1.4;
+            line-height: 1.45;
             white-space: normal;
             overflow-wrap: break-word;
             word-break: break-word;
@@ -311,23 +325,23 @@
 
         .bottom-nav {
             display: flex; align-items: center; justify-content: space-around;
-            padding: 8px 12px; margin: 4px 16px 12px;
+            padding: 6px 8px; margin: 6px 16px 14px;
             background: var(--bg-card); border: 1px solid var(--border-card);
-            border-radius: 24px;
-            box-shadow: 0 -1px 0 var(--border-subtle), var(--shadow-card);
+            border-radius: 26px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
             flex-shrink: 0;
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center;
-            gap: 3px; padding: 8px 12px; border: none;
+            gap: 3px; padding: 9px 14px; border: none;
             background: transparent; cursor: pointer;
             font-family: 'Inter', sans-serif; color: var(--text-tertiary);
-            border-radius: 16px; min-width: 56px; transition: var(--transition);
+            border-radius: 18px; min-width: 52px; transition: var(--transition);
         }
         .nav-item svg { width: 20px; height: 20px; }
         .nav-item:hover { color: var(--text-secondary); }
-        .nav-item.active { color: var(--accent); background: rgba(108,92,231,0.06); transform: translateY(-1px); }
-        .nav-item-label { font-size: 10px; font-weight: 500; }
+        .nav-item.active { color: var(--accent); background: rgba(108,92,231,0.08); }
+        .nav-item-label { font-size: 9px; font-weight: 600; letter-spacing: 0.3px; }
 
         .prayer-detail-wrapper { position: fixed; inset: 0; z-index: 200; display: flex; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from{opacity:0} to{opacity:1} }
@@ -338,6 +352,7 @@
             background: linear-gradient(180deg, #faf9f7 0%, #f8f6f2 40%, #ece7df 100%);
             transition: background 0.6s ease;
         }
+        .dark-mode .prayer-stories-text { color: #d8d4ec; }
         .dark-mode .prayer-fullscreen { background: linear-gradient(180deg, #1c1c35 0%, #151528 40%, #0d0d1a 100%); }
         @keyframes scaleIn { from{opacity:0;transform:scale(0.98)} to{opacity:1;transform:scale(1)} }
 
@@ -381,23 +396,24 @@
         }
         .prayer-stories-content {
             flex: 1; display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            padding: 16px 36px 50px; text-align: center; overflow-y: auto;
+            align-items: center; justify-content: flex-start;
+            padding: 24px 32px 50px; text-align: left; overflow-y: auto;
         }
         .prayer-stories-text {
-            font-size: 19px; line-height: 2.2; color: #2d2d3a;
-            text-align: center; font-family: 'Lora', Georgia, serif;
-            margin-bottom: 32px; max-width: 500px;
+            font-size: 18px; line-height: 2.1; color: #2d2d3a;
+            text-align: left; font-family: 'Lora', Georgia, serif;
+            margin-bottom: 32px; max-width: 500px; width: 100%;
         }
         .prayer-stories-verse {
-            background: rgba(108,92,231,0.04); border-radius: 20px;
-            padding: 20px 26px; font-size: 15px; line-height: 1.8;
-            color: var(--text-primary); text-align: center;
+            background: rgba(108,92,231,0.04); border-radius: 16px;
+            padding: 18px 22px; font-size: 15px; line-height: 1.8;
+            color: var(--text-primary); text-align: left;
             border: 1px solid rgba(108,92,231,0.1);
             max-width: 500px; width: 100%;
+            border-left: 3px solid var(--accent);
         }
-        .prayer-stories-verse .verse-content { font-style: italic; font-weight: 500; color: var(--text-secondary); font-family: 'Lora', Georgia, serif; font-size: 16px; }
-        .prayer-stories-verse .verse-citation { display: block; margin-top: 10px; font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+        .prayer-stories-verse .verse-content { font-style: italic; font-weight: 400; color: var(--text-secondary); font-family: 'Lora', Georgia, serif; font-size: 15px; }
+        .prayer-stories-verse .verse-citation { display: block; margin-top: 10px; font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; }
 
         #shareCanvas { position: fixed; top: -9999px; left: -9999px; }
 
