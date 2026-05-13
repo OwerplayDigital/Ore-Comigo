@@ -60,7 +60,21 @@ navigator.serviceWorker.register('./sw.js');
       --text3:        #718096; --radius:       14px;    --radius-sm:    8px;
       --shadow:       0 2px 12px rgba(0,0,0,.08); --shadow-lg: 0 8px 32px rgba(0,0,0,.12);
     }
-    [data-theme="dark"] { --bg:#0F172A; --surface:#1E293B; --surface2:#253047; --border:#334155; --text:#F1F5F9; --text2:#94A3B8; --text3:#64748B; --accent-light:#1E3A5F; --shadow:0 2px 12px rgba(0,0,0,.3); }
+    [data-theme="dark"] { 
+      --bg:#0F172A; 
+      --surface:#1E293B; 
+      --surface2:#253047; 
+      --border:#334155; 
+      --text:#F1F5F9; 
+      --text2:#94A3B8; 
+      --text3:#64748B; 
+      --accent-light:#1E3A5F; 
+      --shadow:0 2px 12px rgba(0,0,0,.3);
+      
+      /* CORREÇÕES PARA O MODO ESCURO - TOPBAR E BOTTOM NAV */
+      --topbar-bg: rgba(15, 23, 42, 0.85);
+      --bottom-nav-bg: rgba(15, 23, 42, 0.88);
+    }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{background:#000;color-scheme:light}
     body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
@@ -93,7 +107,25 @@ navigator.serviceWorker.register('./sw.js');
     .sidebar-panel::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:2px}
     [data-theme="dark"] .sidebar-panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1)}
 
-    .topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.78);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;height:62px;gap:12px;backdrop-filter:blur(16px) saturate(170%);-webkit-backdrop-filter:blur(16px) saturate(170%)}
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background: rgba(255,255,255,.78);
+      border-bottom:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      padding:0 16px;
+      height:62px;
+      gap:12px;
+      backdrop-filter:blur(16px) saturate(170%);
+      -webkit-backdrop-filter:blur(16px) saturate(170%);
+      transition: background 0.2s ease;
+    }
+    [data-theme="dark"] .topbar {
+      background: var(--topbar-bg);
+      border-bottom-color: rgba(255,255,255,0.08);
+    }
     .topbar.hidden{display:none}
     .topbar-menu{background:none;border:none;color:var(--text2);cursor:pointer;padding:6px;border-radius:8px;display:flex;align-items:center;flex-shrink:0}
     .topbar-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
@@ -102,7 +134,24 @@ navigator.serviceWorker.register('./sw.js');
     .topbar-slogan{font-size:0.55rem;font-weight:500;color:var(--text3);letter-spacing:2.5px;text-transform:uppercase;margin-top:5px}
     .main-wrap{flex:1;display:flex;flex-direction:column;width:100%;overflow:hidden}
     #mainContent{flex:1;overflow-y:auto;padding:16px 16px 100px;-webkit-overflow-scrolling:touch}
-    .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.82);border-top:1px solid var(--border);display:flex;padding-bottom:env(safe-area-inset-bottom,0);backdrop-filter:blur(18px) saturate(170%);-webkit-backdrop-filter:blur(18px) saturate(170%)}
+    .bottom-nav{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      z-index:100;
+      background: rgba(255,255,255,.82);
+      border-top:1px solid var(--border);
+      display:flex;
+      padding-bottom:env(safe-area-inset-bottom,0);
+      backdrop-filter:blur(18px) saturate(170%);
+      -webkit-backdrop-filter:blur(18px) saturate(170%);
+      transition: background 0.2s ease;
+    }
+    [data-theme="dark"] .bottom-nav {
+      background: var(--bottom-nav-bg);
+      border-top-color: rgba(255,255,255,0.08);
+    }
     .bottom-nav.hidden{display:none}
     .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 4px;background:none;border:none;cursor:pointer;color:var(--text3);font-family:inherit;font-size:.6rem;font-weight:600;transition:color .15s}
     .nav-btn.active{color:var(--accent)}.nav-btn i{transition:transform .15s}.nav-btn.active i{transform:scale(1.15)}
