@@ -24,8 +24,8 @@ navigator.serviceWorker.register('./sw.js');
   <style>
     .lucro-eye {
   position: absolute;
-  top: 6px;
-  right: 6px;
+  top: 8px;
+  right: 8px;
   background: transparent;
   border: none;
   color: #fff;
@@ -34,8 +34,8 @@ navigator.serviceWorker.register('./sw.js');
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   padding: 0;
   border-radius: 50%;
   z-index: 50;
@@ -126,12 +126,12 @@ navigator.serviceWorker.register('./sw.js');
     .stat-value{font-size:1.5rem;font-weight:800;color:var(--text)}.stat-value.green{color:var(--success)}.stat-value.red{color:var(--danger)}.stat-value.orange{color:var(--warning)}
     .lucro-card {
   background: linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%);
-  border-radius: 20px;
-  padding: 14px 16px;
+  border-radius: 18px;
+  padding: 14px 18px;
   color: #fff;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   cursor: default;
-  box-shadow: 0 6px 22px rgba(2,136,209,.24);
+  box-shadow: 0 6px 24px rgba(2,136,209,.25);
   transition: transform .12s;
   position: relative;
   overflow: hidden;
@@ -140,20 +140,20 @@ navigator.serviceWorker.register('./sw.js');
 .lucro-card::before {
   content: '';
   position: absolute;
-  top: -30px;
-  right: -30px;
-  width: 90px;
-  height: 90px;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   background: rgba(255,255,255,.08);
 }
    .lucro-label {
-  font-size: .72rem;
+  font-size: .78rem;
   font-weight: 700;
   opacity: .9;
   margin-bottom: 3px;
   letter-spacing: 0.5px;
-}.lucro-value{font-size:1.5rem;font-weight:800;transition:opacity .2s ease;line-height:1.15;}
+}.lucro-value{font-size:1.65rem;font-weight:800;transition:opacity .2s ease;}
 .lucro-value.oculto {
   opacity: .85;
   letter-spacing: .18em;
@@ -587,7 +587,7 @@ navigator.serviceWorker.register('./sw.js');
 .finance-growth strong{font-size:.86rem;font-weight:900;line-height:1.05;}
 .finance-growth.positive strong{color:var(--success);}
 .finance-growth.negative strong{color:var(--danger);}
-.finance-chart-wrap{position:relative;height:200px;margin-top:6px;}
+.finance-chart-wrap{position:relative;height:170px;margin-top:2px;}
 .splash-screen{
   position:fixed;
   inset:0;
@@ -1014,34 +1014,52 @@ function renderFinancas(mc){
   icons();
   renderChart();
 }
+
+// ========== FUNÇÃO RENDERCHART ORIGINAL MODIFICADA ==========
+// Barras mais finas (barPercentage: 0.65) e labels apenas com mês (jan, fev, mar...)
 function renderChart(){setTimeout(function(){
   var ctx=document.getElementById('finChart');if(!ctx||!window.Chart)return;
   if(chartInst){try{chartInst.destroy();}catch(e){}chartInst=null;}
-  var pontos=[];
+  var labels=[],ents=[],sais=[],lucs=[];
+  var mesesAbreviados = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   for(var i=5;i>=0;i--){
     var ms=monthStr(-i);
-    var d=new Date();d.setDate(1);d.setMonth(d.getMonth()-i);
-    var lbl=d.toLocaleDateString('pt-BR',{month:'short'}).replace('.','');
-    lbl=lbl.charAt(0).toUpperCase()+lbl.slice(1);
+    var d=new Date();
+    d.setDate(1);
+    d.setMonth(d.getMonth()-i);
+    var lbl = mesesAbreviados[d.getMonth()];
     var e=sumTrans('entrada',ms),s=sumTrans('saida',ms);
-    pontos.push({label:lbl,entrada:e,saida:s,lucro:e-s});
+    labels.push(lbl);
+    ents.push(e);
+    sais.push(s);
+    lucs.push(e-s);
   }
-  var labels=pontos.map(function(p){return p.label;});
-  var ents=pontos.map(function(p){return p.entrada;});
-  var sais=pontos.map(function(p){return p.saida;});
-  var lucs=pontos.map(function(p){return p.lucro;});
-  var gridColor=darkMode?'rgba(255,255,255,.06)':'rgba(0,0,0,.045)';
+  var gridColor=darkMode?'rgba(255,255,255,.07)':'rgba(0,0,0,.06)';
   var textColor=darkMode?'#94A3B8':'#718096';
-  var c2d=ctx.getContext('2d');
-  function grad(color1,color2){var g=c2d.createLinearGradient(0,0,0,200);g.addColorStop(0,color1);g.addColorStop(1,color2);return g;}
-  var gEnt=grad('rgba(2,136,209,.45)','rgba(2,136,209,0)');
-  var gSai=grad('rgba(239,83,80,.35)','rgba(239,83,80,0)');
-  var gLuc=grad('rgba(67,160,71,.45)','rgba(67,160,71,0)');
-  chartInst=new Chart(ctx,{type:'line',data:{labels:labels,datasets:[
-    {label:'Entradas',data:ents,borderColor:'#0288D1',backgroundColor:gEnt,fill:true,tension:.45,cubicInterpolationMode:'monotone',pointBackgroundColor:'#fff',pointBorderColor:'#0288D1',pointBorderWidth:2,pointRadius:0,pointHoverRadius:6,pointHoverBorderWidth:2.5,borderWidth:2.5},
-    {label:'Saídas',data:sais,borderColor:'#EF5350',backgroundColor:gSai,fill:true,tension:.45,cubicInterpolationMode:'monotone',pointBackgroundColor:'#fff',pointBorderColor:'#EF5350',pointBorderWidth:2,pointRadius:0,pointHoverRadius:6,pointHoverBorderWidth:2.5,borderWidth:2.5,borderDash:[]},
-    {label:'Lucro',data:lucs,borderColor:'#43A047',backgroundColor:gLuc,fill:true,tension:.45,cubicInterpolationMode:'monotone',pointBackgroundColor:'#fff',pointBorderColor:'#43A047',pointBorderWidth:2,pointRadius:0,pointHoverRadius:6,pointHoverBorderWidth:2.5,borderWidth:3}
-  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},layout:{padding:{top:8,right:8,left:0,bottom:0}},animation:{duration:700,easing:'easeOutQuart'},plugins:{legend:{position:'bottom',align:'center',labels:{color:textColor,font:{size:10,weight:'700',family:'Plus Jakarta Sans'},boxWidth:8,boxHeight:8,usePointStyle:true,pointStyle:'circle',padding:14}},tooltip:{displayColors:true,backgroundColor:darkMode?'rgba(30,41,59,.96)':'rgba(255,255,255,.98)',titleColor:darkMode?'#F1F5F9':'#1A202C',bodyColor:darkMode?'#CBD5E1':'#4A5568',titleFont:{size:11,weight:'800',family:'Plus Jakarta Sans'},bodyFont:{size:11,weight:'600',family:'Plus Jakarta Sans'},borderColor:darkMode?'rgba(51,65,85,.6)':'rgba(226,232,240,.8)',borderWidth:1,padding:12,cornerRadius:12,boxPadding:6,usePointStyle:true,callbacks:{label:function(ctx){return' '+ctx.dataset.label+': R$ '+fmt(ctx.parsed.y||0);}}}},scales:{x:{grid:{display:false},border:{display:false},ticks:{color:textColor,font:{size:10,weight:'700',family:'Plus Jakarta Sans'},maxRotation:0,autoSkip:false,padding:6}},y:{beginAtZero:true,grid:{color:gridColor,drawBorder:false,lineWidth:1},border:{display:false},ticks:{color:textColor,font:{size:9,weight:'600',family:'Plus Jakarta Sans'},maxTicksLimit:4,padding:8,callback:function(v){if(Math.abs(v)>=1000)return'R$'+(v/1000).toFixed(v%1000===0?0:1)+'k';return'R$'+v;}}}}}});
+  chartInst=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:labels,
+      datasets:[
+        {label:'Entradas',data:ents,backgroundColor:'#0288D1',borderRadius:5,borderSkipped:false},
+        {label:'Saídas',data:sais,backgroundColor:'#EF5350',borderRadius:5,borderSkipped:false},
+        {label:'Lucro',data:lucs,backgroundColor:'#43A047',borderRadius:5,borderSkipped:false}
+      ]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{
+        legend:{labels:{color:textColor,font:{size:10},boxWidth:10}}
+      },
+      scales:{
+        x:{grid:{color:gridColor},ticks:{color:textColor,font:{size:9}}},
+        y:{grid:{color:gridColor},ticks:{color:textColor,font:{size:9},callback:function(v){return'R$'+v;}}}
+      },
+      barPercentage:0.65,
+      categoryPercentage:0.8
+    }
+  });
 },80);}
 
 function showModal(id,title,body,actions){closeModal(id);var el=document.createElement('div');el.className='modal-overlay';el.id='mo_'+id;el.innerHTML='<div class="modal"><div class="modal-handle"></div><div class="modal-title">'+title+'</div>'+body+'<div class="modal-actions">'+actions+'</div></div>';document.body.appendChild(el);el.addEventListener('click',function(e){if(e.target===el)closeModal(id);});icons();return el;}
